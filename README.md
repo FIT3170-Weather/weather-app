@@ -14,3 +14,4 @@ There is a machine learning component to this web app, which predicts the weathe
 - [Nicholas Yew](nyew0001@student.monash.edu) (33642478)
 - [Lim Zhi Cheng](zlim0052@student.monash.edu) (33204128)
 - [Mohamed Ammar Ahamed Siraj](amoh0157@student.monash.edu) (33187762)
+- [Nicholas Lee](nlee0060@student.monash.edu) (32840594)
