@@ -14,6 +14,9 @@ export default {
 			// CliMate custom themes
 			{
 			  climate_light: {
+				"*": {
+					color: "#171717"	// Default font colour
+				},
 				"primary": "#793ef9",
 				"primary-focus": "#570df8",
 				"primary-content": "#ffffff",
@@ -26,12 +29,12 @@ export default {
 				"accent-focus": "#2aa79b",
 				"accent-content": "#ffffff",
 
-				"neutral": "#2a2e37",
+				"neutral": "#E5E5E5",
 				"neutral-focus": "#16181d",
 				"neutral-content": "#ffffff",
 
-				"base-100": "#ffffff",
-				"base-200": "#2a2e37",
+				"base-100": "#D0E5EE",
+				"base-200": "#f8fafc",
 				"base-300": "#16181d",
 				"base-content": "#ebecf0",
 
@@ -43,6 +46,9 @@ export default {
 			},
 			{
 				climate_dark: {
+					"*": {
+						color: "#f1f5f9"	// Default font colour
+					},
 				  "primary": "#793ef9",
 				  "primary-focus": "#570df8",
 				  "primary-content": "#ffffff",
@@ -55,7 +61,7 @@ export default {
 				  "accent-focus": "#2aa79b",
 				  "accent-content": "#ffffff",
 
-				  "neutral": "#2a2e37",
+				  "neutral": "#373553",
 				  "neutral-focus": "#16181d",
 				  "neutral-content": "#ffffff",
 				  
