@@ -45,12 +45,15 @@
         align-items: center;
         justify-content: center;
         flex-shrink: 0;
+        position: relative;
+        user-select: none;
     }
 
     .rectangle h3 {
         margin: 0; /* Remove default margin */
         font-size: 14px; /* Adjust font size */
         white-space: nowrap; /* Prevent wrapping */
+        align-self: flex-start;
     }
     .rectangle img {
         width: 80px;
@@ -58,29 +61,25 @@
         margin-bottom: 10px;
     }
 
-
-    .rectangle toolbar{
-        position: absolute;
-        cursor: pointer;
-    }
-
     .toolbar {
-        position: relative;
         display: flex;
         align-items: center;
-        justify-content: center;
+        justify-content: right;
         width: 20px;
         height: 20px;
         border-radius: 50%;
-        background-color: rgb(3, 61, 112);
         cursor: pointer;
         transition: background-color 0.2s ease-in-out;
+        align-self: flex-end; /* Modified */
+        position: absolute; /* Added */
+        top: 1.5px; /* Adjust as needed */
+        right: 5px; /* Adjust as needed */
     }
 
     .dropdown {
         position: absolute;
-        top: calc(100% + 5px); /* Modified */
-        right: 5px; /* Modified */
+        top: 100%;
+        right: 0; /* Modified */
         background-color: #fff;
         border: 1px solid #ccc;
         border-radius: 5px;
@@ -99,11 +98,9 @@
     {#each locations as location}
         <div class="rectangle">
             <h3>{location.title}</h3>
-            <toolbar>
-                <div class="toolbar">⋮
-                    <button on:click={toggleDropdown}></button>
-                </div>
-            </toolbar>
+            <div class="toolbar">⋮
+                <button on:click={toggleDropdown}></button>
+            </div>
             <img src={location.image} alt={location.title} />
             <p>{location.number}</p>
             <div class="dropdown {dropdownVisible && 'active'}">
