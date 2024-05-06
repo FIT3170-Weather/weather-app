@@ -14,7 +14,7 @@
 		<!-- TODO: Main location here -->
 		<div class="row-span-2 col-span-2 border h-full w-full grow">Main Location</div>
 		<!-- TODO: Graphs here -->
-		<div class="row-span-2 col-span-2 border h-full w-full grow">
+		<div class="row-span-2 col-span-2">
 			<GraphCard/>
 		</div>
 		<!-- TODO: Other locations here (bottom row of locations) -->
