@@ -1,9 +1,9 @@
 
 <!-- the purple container -->
-<div class="border border-white card bg-gradient-to-b from-indigo-500 to-indigo-400 shadow-xl">
-    <div class="card-bozdy items-center space-y-10 p-5"> 
+<div class="border border-white card bg-base-content bg-opacity-10 shadow-xl">
+    <div class="items-center space-y-8 p-5"> 
         <!-- the container for the temperatue graph -->
-        <div class = " bg-indigo-950 rounded-3xl px-5 py-2 flex items-center">
+        <div class = " bg-neutral rounded-3xl px-5 py-2 flex items-center">
             <div class= "flex-1 h-[21vh] w-[25vw]">
                 <!-- title -->
                 <div class=" text-start text-white">    
@@ -24,7 +24,7 @@
             </div>
         </div>
         <!-- the container for the rainfall graph -->
-        <div class =" bg-indigo-950 rounded-3xl px-5 py-2 flex items-center">
+        <div class =" bg-neutral rounded-3xl px-5 py-2 flex items-center">
             <div class= "flex-1 h-[21vh] w-[25vw]">
                 <!-- title -->
                 <div class="text-start text-white">

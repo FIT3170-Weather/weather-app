@@ -1,5 +1,6 @@
 <script>
 	export let data; //$page.data - contains API responses
+	import GraphCard from "./GraphCard.svelte";
 </script>
 
 <svelte:head>
@@ -14,7 +15,9 @@
 		<!-- TODO: Main location here -->
 		<div class="row-span-2 col-span-2 border h-full w-full grow">Main Location</div>
 		<!-- TODO: Graphs here -->
-		<div class="row-span-2 col-span-2 border h-full w-full grow">Graphs</div>
+		<div class="row-span-2 col-span-2 border h-full w-full grow">
+			<GraphCard/>
+		</div>
 		<!-- TODO: Other locations here (bottom row of locations) -->
 		<div class="row-span-1 col-span-4 border h-full w-full grow">Other Locations</div>
 	</div>
