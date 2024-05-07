@@ -15,7 +15,7 @@
                         </svg>                        
                     </h2>
                     <!-- Line below title -->
-                    <div class="bg-white h-0.5 mx-auto"></div> 
+                    <div class=" bg-error-content h-0.5 mx-auto"></div> 
                 </div>
                 <!-- The temperature graph -->
                 <div class= "h-[90%] w-full py-5">
@@ -36,7 +36,7 @@
                         </svg>                        
                     </h2>
                     <!-- Line below title -->
-                    <div class="bg-white h-0.5 mx-auto"></div> 
+                    <div class=" bg-error-content h-0.5 mx-auto"></div> 
                 </div>
                 <!-- The rainfall graph -->
                 <div class= "h-[90%] w-full py-5">
@@ -56,11 +56,10 @@ import Chart from 'chart.js/auto';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 
 Chart.register(ChartDataLabels);
-
 // setting the colour of the graph
 let redColour = "#ff4500"
-let whiteColour = "#FFFFFF"
-let xTickColour = '#E5E5E54C'
+let whiteColour = '#FFFFFF'         // NEED TO CHANGE
+let xTickColour = '#E5E5E54C'       // NEED TO CHANGE
 // @ts-ignore
 let redGradient = function(context) {
         const chart = context.chart;
