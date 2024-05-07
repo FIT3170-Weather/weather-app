@@ -14,6 +14,8 @@ export default {
 			// CliMate custom themes
 			{
 			  climate_light: {
+				// eslint-disable-next-line @typescript-eslint/no-var-requires
+				...require("daisyui/src/theming/themes")["light"],
 				"*": {
 					color: "#171717"	// Default font colour
 				},
@@ -41,7 +43,8 @@ export default {
 				"info": "#66c6ff",
 				"success": "#87d039",
 				"warning": "#e2d562",
-				"error": "#ff6f6f"
+				"error": "#ff6f6f",
+				"error-content": "#171717"
 			  },
 			},
 			{
@@ -73,7 +76,8 @@ export default {
 				  "info": "#66c6ff",
 				  "success": "#87d039",
 				  "warning": "#e2d562",
-				  "error": "#ff6f6f"
+				  "error": "#ff6f6f",
+				  "error-content":  "#f1f5f9"
 				},
 			  },
 		  ],
