@@ -7,6 +7,7 @@
 
 <div class="app">
 	<Header></Header>
+	<SideNav></SideNav>
 	
 	<main>
 		<slot></slot> <!-- page.svelte content goes here-->

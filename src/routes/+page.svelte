@@ -1,8 +1,5 @@
 <script>
-	import SideNav from "./components/SideNav.svelte";
 </script>
-
-<SideNav/>
 
 <svelte:head>
 	<title>CliMate</title>
