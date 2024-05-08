@@ -6,10 +6,11 @@
         { title: 'Rectangle 2', image:  rain, number: 2 },
         { title: 'Rectangle 3', image: rain, number: 3 },
     ];
-
+    var index = locations.length
     function addRectangle() {
+        index += 1
         const newRectangle = {
-            title: 'New Rectangle',
+            title: 'Rectangle ' + index,
             image: rain,
             number: locations.length + 1
         };
@@ -35,11 +36,11 @@
 
     .rectangle {
         width: 126px;
-        height: 140px;
+        height: 164px;
         margin: 10px;
         padding: 10px;
         border: 3px solid #050505;
-        background-color: rgb(3, 61, 112);
+        background-image: linear-gradient(to bottom, #6354BD, #2C124D);
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -47,6 +48,7 @@
         flex-shrink: 0;
         position: relative;
         user-select: none;
+        border-radius: 14px;
     }
 
     .rectangle h3 {
@@ -54,6 +56,8 @@
         font-size: 14px; /* Adjust font size */
         white-space: nowrap; /* Prevent wrapping */
         align-self: flex-start;
+        position: absolute;
+        top: 1.5px;
     }
     .rectangle img {
         width: 80px;
