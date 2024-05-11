@@ -50,14 +50,49 @@
 
 <!-- creating both graph -->
 <script>
+// @ts-nocheck
+
+
 import {onMount} from 'svelte';
 import Chart from 'chart.js/auto';
 // @ts-ignore
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 
+
+import { themeStore } from './stroreTheme';
+$: updateChartColors(), $themeStore; // React to theme changes
+
+// @ts-ignore
+function updateChartColors() {
+    const themeColors = {
+        climate_light: {
+            yAxisLine: '#1717174c', // Light theme y-axis line color
+            textColor: '#171717', // Light theme text colour in the graph
+        },
+        climate_dark: {
+            yAxisLine: '#E5E5E54C', // Dark theme y-axis line color
+            textColor: '#f1f5f9', // Dark theme text colour in the graph
+        }
+    };
+    // @ts-ignore
+    if (myTempChart) {
+        myTempChart.options.plugins.datalabels.color = themeColors[$themeStore].textColor;
+        myTempChart.options.scales.x.ticks.color = themeColors[$themeStore].textColor;
+        myTempChart.options.scales.y.grid.color = themeColors[$themeStore].yAxisLine;
+        myTempChart.update();
+    }
+    if (myPerciChart) {
+        myPerciChart.options.plugins.datalabels.color = themeColors[$themeStore].textColor;
+        myPerciChart.options.scales.x.ticks.color = themeColors[$themeStore].textColor;
+        myPerciChart.options.scales.y.grid.color = themeColors[$themeStore].yAxisLine;
+        myPerciChart.update();
+    }
+}
+
+
+
 Chart.register(ChartDataLabels);
 // setting the colour of the graph
-let whiteColour = '#A3A3A3'         // NEED TO CHANGE based on the theme
 let xTickColour = '#E5E5E54C'       // NEED TO CHANGE based on the theme
 // @ts-ignore
 let redGradient = function(context) {
@@ -65,7 +100,7 @@ let redGradient = function(context) {
         const {ctx, chartArea} = chart;
 
         if (!chartArea) {
-            return whiteColour;
+            return;
         }
         const gradient = ctx.createLinearGradient(0, chartArea.bottom, 0, chartArea.top);
         gradient.addColorStop(0, '#FF776F'); // Start color with some transparency
@@ -80,7 +115,7 @@ let blueGradient = function(context) {
     const {ctx, chartArea} = chart;
 
     if (!chartArea) {
-        return whiteColour;
+        return;
     }
     const gradient = ctx.createLinearGradient(0, chartArea.bottom, 0, chartArea.top);
     gradient.addColorStop(0, '#2AA1FA'); // Start color with some transparency
@@ -94,6 +129,10 @@ let blueGradient = function(context) {
 let chartAvgTemperature = [24,25,28,30,30,29,28,31,27,29,30,28];
 let chartDays = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
 let ctx;
+/**
+ * @type {Chart<"bar", number[], string>}
+ */
+let myTempChart;
 // @ts-ignore
 let temperatureChart;
 
@@ -101,7 +140,7 @@ onMount(async () => {
         // @ts-ignore
         ctx = temperatureChart.getContext('2d');
         // @ts-ignore
-            var myChart = new Chart(ctx, {
+        myTempChart = new Chart(ctx, {
                 type: 'bar',
                 data: {
                         labels: chartDays,                  // x-axis data
@@ -120,7 +159,6 @@ onMount(async () => {
                         datalabels: {
                             anchor: 'end',
                             align: 'end',
-                            color: whiteColour,
                             font: {
                                 weight: 'bold',
                                 size: 10
@@ -176,7 +214,6 @@ onMount(async () => {
                                 font: {
                                     size: 10
                                 },
-                                color: whiteColour
                             }, 
                             grid: {
                                 display: false,
@@ -186,7 +223,7 @@ onMount(async () => {
                     
                 }
         });
-
+        updateChartColors();
     });
 
 
@@ -194,6 +231,10 @@ onMount(async () => {
 // percipitation graph
 let chartAvgPercipitation = [10, 50, 30, 20, 20, 30,25,30,40,50,40,30];
 let ctxPercipitation;
+/**
+ * @type {Chart<"bar", number[], string>}
+ */
+let myPerciChart;
 // @ts-ignore
 let percipitationChart;
 
@@ -201,7 +242,7 @@ onMount(async () => {
         // @ts-ignore
         ctxPercipitation = percipitationChart.getContext('2d');
         // @ts-ignore
-            var myChart = new Chart(ctxPercipitation, {
+            myPerciChart = new Chart(ctxPercipitation, {
                 type: 'bar',
                 data: {
                         labels: chartDays,
@@ -220,7 +261,6 @@ onMount(async () => {
                         datalabels: {
                             anchor: 'end',
                             align: 'end',
-                            color: whiteColour,
                             font: {
                                 weight: 'bold',
                                 size: 10
@@ -277,7 +317,6 @@ onMount(async () => {
                                 font: {
                                     size: 10
                                 },
-                                color: whiteColour
 
                             }, 
                             grid: {
@@ -288,6 +327,7 @@ onMount(async () => {
                     },
                 }
         });
+        updateChartColors()
     });
 
 

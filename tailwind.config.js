@@ -14,8 +14,6 @@ export default {
 			// CliMate custom themes
 			{
 			  climate_light: {
-				// eslint-disable-next-line @typescript-eslint/no-var-requires
-				...require("daisyui/src/theming/themes")["light"],
 				"*": {
 					color: "#171717"	// Default font colour
 				},
