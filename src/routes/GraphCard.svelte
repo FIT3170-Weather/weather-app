@@ -57,16 +57,15 @@ import ChartDataLabels from 'chartjs-plugin-datalabels';
 
 Chart.register(ChartDataLabels);
 // setting the colour of the graph
-let redColour = "#ff4500"
-let whiteColour = '#FFFFFF'         // NEED TO CHANGE
-let xTickColour = '#E5E5E54C'       // NEED TO CHANGE
+let whiteColour = '#A3A3A3'         // NEED TO CHANGE based on the theme
+let xTickColour = '#E5E5E54C'       // NEED TO CHANGE based on the theme
 // @ts-ignore
 let redGradient = function(context) {
         const chart = context.chart;
         const {ctx, chartArea} = chart;
 
         if (!chartArea) {
-            return redColour;
+            return whiteColour;
         }
         const gradient = ctx.createLinearGradient(0, chartArea.bottom, 0, chartArea.top);
         gradient.addColorStop(0, '#FF776F'); // Start color with some transparency
@@ -81,7 +80,7 @@ let blueGradient = function(context) {
     const {ctx, chartArea} = chart;
 
     if (!chartArea) {
-        return redColour;
+        return whiteColour;
     }
     const gradient = ctx.createLinearGradient(0, chartArea.bottom, 0, chartArea.top);
     gradient.addColorStop(0, '#2AA1FA'); // Start color with some transparency
