@@ -38,7 +38,7 @@
         </a>
       </button>
       <dialog bind:this={modal} class="modal">
-        <div class="modal-box bg-base-200">
+        <div class="modal-box modal-custom bg-base-100" >
           <form method="dialog">
             <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
           </form>
@@ -54,6 +54,7 @@
       </dialog>
     </div>
   </div>
+  
 
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
@@ -99,10 +100,11 @@
     }
 
     .modal {
-        background: rgba(0, 0, 0, 0.8);
+        background: rgba(0, 0, 0, 0.7);
         display: flex;
         justify-content: center;
         align-items: center;
+        margin: 0;
     }
 
     .modal-box {
@@ -130,7 +132,7 @@
         color: white;
         margin: 5px; 
         text-align: center;
-        font-weight: 1;
+        font-weight: 5;
         line-height: 16px;
     }
 
