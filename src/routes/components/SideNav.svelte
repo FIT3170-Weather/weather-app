@@ -4,6 +4,11 @@
     function openModal() {
       modal.showModal();
     }
+
+    function closeModal(){
+        modal.close();
+    }
+    
   </script>
   
   <div class="navbar sidenav-custom bg-base-200">
@@ -43,7 +48,7 @@
             <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
           </form>
           <h3 class="sign-in">Sign In</h3>
-          <button class="google-icon">
+          <button class="google-icon" on:click={closeModal}>
             <a href="/">
                 <!--Will turn this button to refer to google email login page. (placeholder for now)-->
                 <img src="../../src/lib/images/google.png" alt="google" class="google" />
@@ -136,7 +141,7 @@
         line-height: 16px;
     }
 
-    .google-icon{
+    .google-icon {
         width: 122px;
         height: 40px;
         margin: 5px;
