@@ -18,7 +18,7 @@
 		<!-- TODO: Other locations here (bottom row of locations) -->
 		<div class="row-span-1 col-span-4 border h-full w-full grow">Other Locations</div>
 	</div>
-	{#each data.props as item}
+	<!-- {#each data.props as item}
 		{#if item.location.location_name == "Petaling Jaya"}
 			<div>
 			<h3>{item.location.location_name}</h3>
@@ -26,7 +26,7 @@
 			<p>{item.summary_forecast}</p>
 			</div>
 		{/if}
-	{/each}
+	{/each} -->
 </section>
 
 <style>
