@@ -59,7 +59,7 @@ import Chart from 'chart.js/auto';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 
 
-import { themeStore } from './stroreTheme';
+import { themeStore } from '../stroreTheme';
 $: updateChartColors(), $themeStore; // React to theme changes
 
 // @ts-ignore
@@ -219,14 +219,11 @@ onMount(async () => {
                                 display: false,
                             }
                         }
-                    },
-                    
+                    }, 
                 }
         });
         updateChartColors();
     });
-
-
 
 // percipitation graph
 let chartAvgPercipitation = [10, 50, 30, 20, 20, 30,25,30,40,50,40,30];
@@ -329,7 +326,4 @@ onMount(async () => {
         });
         updateChartColors()
     });
-
-
-
 </script>

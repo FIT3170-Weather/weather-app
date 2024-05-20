@@ -1,6 +1,5 @@
 <script>
-	export let data; //$page.data - contains API responses
-	import GraphCard from "./GraphCard.svelte";
+	import GraphCard from "./components/GraphCard.svelte";
 </script>
 
 <svelte:head>
