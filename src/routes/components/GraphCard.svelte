@@ -1,9 +1,9 @@
 
 <!-- the purple container -->
-<div class="border border-white card bg-base-content bg-opacity-10 shadow-xl">
-    <div class="items-center space-y-8 p-5"> 
+<div class="border border-white card bg-base-content bg-opacity-10 shadow-xl h-full w-full">
+    <div class="flex flex-col space-y-4 items-center p-5 h-full w-full"> 
         <!-- the container for the temperatue graph -->
-        <div class = " bg-neutral rounded-3xl px-5 py-2 flex items-center">
+        <div class = " bg-neutral rounded-3xl px-5 py-2 flex items-center h-1/2 w-full">
             <div class= "flex-1 h-[21vh] w-[25vw]">
                 <!-- title -->
                 <div class=" text-start text-white">    
@@ -18,13 +18,13 @@
                     <div class=" bg-error-content h-0.5 mx-auto"></div> 
                 </div>
                 <!-- The temperature graph -->
-                <div class= "h-[90%] w-full py-5">
+                <div class= "h-[90%] w-full py-5">  
                     <canvas bind:this={temperatureChart} id="myTemperatureChart" ></canvas>
                 </div>
             </div>
         </div>
         <!-- the container for the rainfall graph -->
-        <div class =" bg-neutral rounded-3xl px-5 py-2 flex items-center">
+        <div class =" bg-neutral rounded-3xl px-5 py-2 flex items-center h-1/2 w-full">
             <div class= "flex-1 h-[21vh] w-[25vw]">
                 <!-- title -->
                 <div class="text-start text-white">
