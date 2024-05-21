@@ -1,6 +1,9 @@
 <script>
 	// @ts-ignore
 	import CurrentWeatherCard from './components/dashboard/CurrentWeatherCard.svelte';
+	import GraphCard from "./components/GraphCard.svelte";
+
+	export let data;
 </script>
 
 <svelte:head>
@@ -8,22 +11,25 @@
 	<meta name="description" content="Climate web app" />
 </svelte:head>
 
-<div class="flex m-4">
-	<!-- Current weather -->
-	<div class="glassmorph mr-2 p-2">
-		<CurrentWeatherCard />
+<section>
+	<div class="flex m-4">
+		<!-- Current weather -->
+		<div class="glassmorph mr-2 p-2">
+			<CurrentWeatherCard />
+		</div>
+	
+		<!-- Today's insights -->
+		<div class="grow place-content-center ml-2 glassmorph">
+			<GraphCard/>
+		</div>
 	</div>
-
-	<!-- Today's insights -->
-	<div class="grow place-content-center ml-2 glassmorph">
-		<p class="text-center">Today's Insights</p>
+	
+	<!-- Other cities -->
+	<div class="m-4 mt-0 place-content-center glassmorph grow">
+		<p class="text-center">Other Cities</p>
 	</div>
-</div>
+</section>
 
-<!-- Other cities -->
-<div class="m-4 mt-0 place-content-center glassmorph grow">
-	<p class="text-center">Other Cities</p>
-</div>
 
 <style>
 	.glassmorph {
