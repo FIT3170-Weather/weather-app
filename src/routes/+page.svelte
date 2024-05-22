@@ -11,6 +11,7 @@
 	<meta name="description" content="Climate web app" />
 </svelte:head>
 
+
 <section>
 	<div class="flex m-4">
 		<!-- Current weather -->
@@ -32,7 +33,17 @@
 
 
 <style>
-	.glassmorph {
+	.content {
+       margin-left: 70px; /* Same width as the side nav */
+       margin-right: 10px;
+       /* Add additional styles as needed */
+   }
+
+   .grid-content {
+       width: 100%;
+   }
+
+   .glassmorph {
 		@apply border bg-white bg-opacity-10 shadow-lg rounded-2xl;
 	}
 </style>

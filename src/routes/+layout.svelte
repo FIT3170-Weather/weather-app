@@ -6,11 +6,16 @@
 </script>
 
 <div class="app">
-	<div class="flex flex-col h-dvh">
-		<Header></Header>
-		<slot></slot>
-		<footer></footer>
-	</div>
+	<Header></Header>
+	<SideNav></SideNav>
+	
+	<main>
+		<slot></slot> <!-- page.svelte content goes here-->
+	</main>
+
+	<footer>
+	</footer>
+
 </div>
 
 <style>
