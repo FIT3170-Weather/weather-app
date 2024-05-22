@@ -17,6 +17,10 @@ export default {
 				"*": {
 					color: "#171717"	// Default font colour
 				},
+
+				".rectangle": {
+					"background-image": "linear-gradient(to bottom, #62cbff, #d0f8fe)"
+				},
 				"primary": "#793ef9",
 				"primary-focus": "#570df8",
 				"primary-content": "#ffffff",
@@ -49,6 +53,9 @@ export default {
 				climate_dark: {
 					"*": {
 						color: "#f1f5f9"	// Default font colour
+					},
+					".rectangle": {
+						"background-image": "linear-gradient(to bottom, #6354BD, #2C124D)"
 					},
 				  "primary": "#793ef9",
 				  "primary-focus": "#570df8",
