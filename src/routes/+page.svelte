@@ -1,4 +1,9 @@
 <script>
+	// @ts-ignore
+	import CurrentWeatherCard from './components/dashboard/CurrentWeatherCard.svelte';
+	import GraphCard from "./components/GraphCard.svelte";
+
+	export let data;
 </script>
 
 <svelte:head>
@@ -6,18 +11,26 @@
 	<meta name="description" content="Climate web app" />
 </svelte:head>
 
-<section class="content">
-	<!-- 3x4 grid used for dashboard -->
-	<!-- 100vh - 64px (header height), so dashboard fills remaining height -->
-	<div class="grid grid-rows-3 grid-cols-4 gap-5 p-10 justify-center h-[calc(100vh-64px)] w-screen grid-content">
-		<!-- TODO: Main location here -->
-		<div class="row-span-2 col-span-2 border h-full w-full grow">Main Location</div>
-		<!-- TODO: Graphs here -->
-		<div class="row-span-2 col-span-2 border h-full w-full grow">Graphs</div>
-		<!-- TODO: Other locations here (bottom row of locations) -->
-		<div class="row-span-1 col-span-4 border h-full w-full grow">Other Locations</div>
+
+<section>
+	<div class="flex m-4">
+		<!-- Current weather -->
+		<div class="glassmorph mr-2 p-2">
+			<CurrentWeatherCard />
+		</div>
+	
+		<!-- Today's insights -->
+		<div class="grow place-content-center ml-2 glassmorph">
+			<GraphCard/>
+		</div>
+	</div>
+	
+	<!-- Other cities -->
+	<div class="m-4 mt-0 place-content-center glassmorph grow">
+		<p class="text-center">Other Cities</p>
 	</div>
 </section>
+
 
 <style>
 	.content {
@@ -30,4 +43,7 @@
        width: 100%;
    }
 
+   .glassmorph {
+		@apply border bg-white bg-opacity-10 shadow-lg rounded-2xl;
+	}
 </style>

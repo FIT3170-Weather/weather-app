@@ -1,8 +1,8 @@
 <script>
 	import '../app.css';
 	import './styles.css';
-	import Header from "./components/Header.svelte";
-	import SideNav from "./components/SideNav.svelte";
+	import Header from './components/Header.svelte';
+	import SideNav from './components/SideNav.svelte';
 </script>
 
 <div class="app">
@@ -15,6 +15,7 @@
 
 	<footer>
 	</footer>
+
 </div>
 
 <style>
