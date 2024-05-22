@@ -39,7 +39,7 @@
         height: 164px;
         margin: 10px;
         padding: 10px;
-        background-image: linear-gradient(to bottom, #6354BD, #2C124D);
+        /* background-image: linear-gradient(to bottom, #6354BD, #2C124D); */
         display: flex;
         flex-direction: column;
         align-items: center;
