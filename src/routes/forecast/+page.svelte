@@ -3,6 +3,9 @@
     let location = 'Kuala Lumpur, Malaysia';
     let selected = 'daily';
 
+    let button1 = 'HOURLY';
+    let button2 = 'DAILY';
+
     // Hardcoded forecast data
     const hourlyForecasts = [
         { time: '10 am', temp: '20°C', weather:"rain" , condition: ['Clear sky', 'Gentle Breeze'], message:"RealFeel", humidity: 30, wind_speed: 5, wind_direction: "North", pressure: 996, precipitation: 5.92, uv_index: 4, uv_intensity: "Moderate", cloud_cover_percentage: 29},
@@ -28,16 +31,20 @@
     <meta name="description" content="Climate web app" />
 </svelte:head>
 
-<section class="content">
-    <header class="header">
-        <h1 class="location-display">{location}</h1>
+<section class="flex flex-col items-center w-full pl-[70px]">
+    <header class="flex justify-start items-center w-full p-5 text-white text-2xl">
+        <h1>{location}</h1>
     </header>
-    <div class="text-center p-5 flex justify-center gap-5">
-        <button on:click={() => selected = 'hourly'} class:selected={selected === 'hourly'} class="text-black">
-            Hourly
+    <div class="flex justify-center gap-5 py-5 w-full text-white">
+        <button class="py-2 px-4 text-lg" 
+                on:click={() => selected = 'hourly'}
+                style:border-bottom={selected === 'hourly' ? '2.5px solid' : 'none'}>
+            {button1}
         </button>
-        <button on:click={() => selected = 'daily'} class:selected={selected === 'daily'}>
-            Daily
+        <button class="py-2 px-4 text-lg" 
+                on:click={() => selected = 'daily'}
+                style:border-bottom={selected === 'daily' ? '2.5px solid' : 'none'}>
+            {button2}
         </button>
     </div>
     <div class="flex flex-col w-full items-center">
@@ -104,60 +111,5 @@
 
 
 <style>
-    .header {
-        display: flex;
-        justify-content: flex-start; /* Aligns content to the left */
-        align-items: center;
-        padding: 20px;
-        color: white;
-        width: 100%; /* Ensures the header extends across the top of the page */
-    }
-    .location-display {
-        font-size: 20px;
-    }
-    .content {
-        margin-left: 70px;
-        margin-right: 10px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        height: calc(100vh - var(--nav-height));
-    }
-    .button-container {
-        text-align: center;
-        padding: 20px;
-        display: flex;
-        justify-content: center;
-        gap: 20px;
-    }
-    button {
-        padding: 10px 20px;
-        font-size: 16px;
-        cursor: pointer;
-        background: none;
-        border: 2px solid transparent;
-        color: white;
-        transition: border-color 0.3s;
-    }
-    button:hover {
-        border-color: white;
-    }
-    button.selected {
-        border-bottom: 2px solid white;
-    }
-    .cards {
-        display: flex;
-        flex-direction: column;
-        width: 100%;
-        align-items: center;
-    }
-    .card {
-        margin: 10px;
-        padding: 15px;
-        background-color: #f3f4f6;
-        border-radius: 8px;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        width: 80%;
-    }
 </style>
 
