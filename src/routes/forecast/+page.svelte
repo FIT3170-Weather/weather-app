@@ -5,17 +5,19 @@
 
     // Hardcoded forecast data
     const hourlyForecasts = [
-        { time: '00:00', temp: '20°C', description: 'Clear sky' },
-        { time: '01:00', temp: '19°C', description: 'Partly cloudy' },
+        { time: '00:00', temp: '20°C', description: 'Clear sky', humidity: 30, wind_speed: 5, wind_direction: "North", pressure: 996, precipitation: 5.92, uv_index: 4, uv_intensity: "Moderate", cloud_cover_percentage: 29},
+        { time: '01:00', temp: '19°C', description: 'Partly cloudy', humidity: 29, wind_speed: 10, wind_direction: "East", pressure: 996, precipitation: 5.92, uv_index: 4, uv_intensity: "Moderate", cloud_cover_percentage: 35},
         
     ];
 
     const dailyForecasts = [
-        { day: 'Monday', temp: '22°C', description: 'Sunny' },
-        { day: 'Tuesday', temp: '18°C', description: 'Rainy' },
-        { day: 'Wednesday', temp: '18°C', description: 'Rainy' },
+        { day: 'Monday', temp: '22°C', description: 'Sunny', humidity: 30, wind_speed: 5, wind_direction: "North", pressure: 996, precipitation: 5.92, uv_index: 4, uv_intensity: "Moderate", cloud_cover_percentage: 29},
+        { day: 'Tuesday', temp: '18°C', description: 'Rainy', humidity: 29, wind_speed: 10, wind_direction: "East", pressure: 996, precipitation: 5.92, uv_index: 4, uv_intensity: "Moderate", cloud_cover_percentage: 35},
+        { day: 'Wednesday', temp: '18°C', description: 'Rainy', humidity: 31, wind_speed: 7, wind_direction: "South", pressure: 997, precipitation: 6.00, uv_index: 4, uv_intensity: "Moderate", cloud_cover_percentage: 25},
         
     ];
+
+    import ForecastStat from "../components/forecast/ForecastStat.svelte";
 </script>
 
 
@@ -40,15 +42,47 @@
         {#if selected === 'hourly'}
             {#each hourlyForecasts as forecast}
                 <div class="card">
-                    <h4>{forecast.time}</h4>
-                    <p>{forecast.temp} - {forecast.description}</p>
+                    <div class="grid grid-cols-6">
+                        <div class="col-span-2">
+                            <h4>{forecast.time}</h4>
+                            <p>{forecast.temp} - {forecast.description}</p>
+                        </div>
+                        <div class="col-span-4">
+                            <ForecastStat 
+                                humidity_percentage={forecast.humidity}
+                                wind_speed={forecast.wind_speed}
+                                wind_direction={forecast.wind_direction}
+                                pressure={forecast.pressure}
+                                percipitation={forecast.precipitation}
+                                uv_index={forecast.uv_index}
+                                uv_intensity={forecast.uv_intensity}
+                                cloud_cover_percentage={forecast.cloud_cover_percentage}
+                            />
+                        </div>
+                    </div>
                 </div>
             {/each}
         {:else}
             {#each dailyForecasts as forecast}
                 <div class="card">
-                    <h4>{forecast.day}</h4>
-                    <p>{forecast.temp} - {forecast.description}</p>
+                    <div class="grid grid-cols-6">
+                        <div class="col-span-2">
+                            <h4>{forecast.day}</h4>
+                            <p>{forecast.temp} - {forecast.description}</p>
+                        </div>
+                        <div class="col-span-4">
+                            <ForecastStat 
+                                humidity_percentage={forecast.humidity}
+                                wind_speed={forecast.wind_speed}
+                                wind_direction={forecast.wind_direction}
+                                pressure={forecast.pressure}
+                                percipitation={forecast.precipitation}
+                                uv_index={forecast.uv_index}
+                                uv_intensity={forecast.uv_intensity}
+                                cloud_cover_percentage={forecast.cloud_cover_percentage}
+                            />
+                        </div>
+                    </div>
                 </div>
             {/each}
         {/if}
