@@ -5,9 +5,9 @@
 
     import { onMount } from 'svelte';
     let locations = [
-        { title: 'Selangor', image: rain, number: 1 , dropdownVisible: false},
-        { title: 'Petaling Jaya', image:  thunder, number: 2, dropdownVisible: false},
-        { title: 'Melaka', image: storm, number: 3, dropdownVisible: false},
+        { title: 'Selangor', image: rain, number: "34°", dropdownVisible: false, position: 1},
+        { title: 'Petaling Jaya', image:  thunder, number: "28°", dropdownVisible: false, position: 2},
+        { title: 'Melaka', image: storm, number: "31°", dropdownVisible: false, position: 3},
     ];
     var index = locations.length
     const locationNames = ['Subang Jaya', 'Putrajaya', 'Port Klang', 'Seremban', 'Kuantan'];
@@ -25,8 +25,9 @@
         const newRectangle = {
             title: locationNames.splice(0, 1)[0],
             image: getRandomItem(images),
-            number: locations.length + 1,
-            dropdownVisible: false
+            number: (Math.floor(Math.random() * (38-25) + 25)) +"°",
+            dropdownVisible: false,
+            position: locations.length +1
         };
         locations = [...locations, newRectangle];
     }
@@ -34,11 +35,11 @@
     let dropdownVisible = false;
 
     /**
-	 * @param {number} index
+	 * @param {number} position
 	 */
-    function toggleDropdown(index) {
+    function toggleDropdown(position) {
         locations = locations.map((location, i) => {
-            if (i === index) {
+            if (i === position) {
                 return { ...location, dropdownVisible: !location.dropdownVisible };
             } else {
                 return { ...location, dropdownVisible: false }; // Close other dropdowns
@@ -48,7 +49,7 @@
 
     /**
 	 * @param {number} option
-	 * @param {{ title: any; image?: string; number?: number; dropdownVisible?: boolean; }} location
+	 * @param {{ title: any; image?: string; number?: string; dropdownVisible?: boolean; position?: number }} location
 	 */
     function handleOptionClick(option, location) {
         alert(`Option ${option} clicked for ${location.title}`);
