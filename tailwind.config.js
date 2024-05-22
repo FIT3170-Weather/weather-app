@@ -17,6 +17,10 @@ export default {
 				"*": {
 					color: "#171717"	// Default font colour
 				},
+
+				".rectangle": {
+					"background-image": "linear-gradient(to bottom, #62cbff, #d0f8fe)"
+				},
 				"primary": "#793ef9",
 				"primary-focus": "#570df8",
 				"primary-content": "#ffffff",
