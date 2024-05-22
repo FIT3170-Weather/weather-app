@@ -2,6 +2,7 @@
 	// @ts-ignore
 	import CurrentWeatherCard from './components/dashboard/CurrentWeatherCard.svelte';
 	import GraphCard from "./components/GraphCard.svelte";
+	import BottomComponents from "./components/BottomComponents.svelte";
 
 	export let data;
 </script>
@@ -23,16 +24,30 @@
 		<div class="grow place-content-center ml-2 glassmorph">
 			<GraphCard/>
 		</div>
+
 	</div>
 	
 	<!-- Other cities -->
 	<div class="m-4 mt-0 place-content-center glassmorph grow">
-		<p class="text-center">Other Cities</p>
+		<BottomComponents></BottomComponents>
 	</div>
 </section>
 
 
 <style>
+	.other-locations{
+		height: 185px;
+		background-image: linear-gradient(to bottom, #ffffff42, #c4c4c430);
+		border-radius: 14px;
+	}
+
+	.main-location{
+		border-radius: 14px;
+	}
+
+	.graphs{
+		border-radius: 14px;
+	}
 	.content {
        margin-left: 70px; /* Same width as the side nav */
        margin-right: 10px;
