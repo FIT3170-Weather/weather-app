@@ -5,6 +5,7 @@
 	import BottomComponents from './components/BottomComponents.svelte';
 
 	export let data;
+	console.log(data);
 </script>
 
 <svelte:head>
@@ -15,7 +16,7 @@
 <div class="flex m-4">
 	<!-- Current weather -->
 	<div class="glassmorph mr-2 p-2">
-		<CurrentWeatherCard />
+		<CurrentWeatherCard currentWeatherData={data.currentWeather}  />
 	</div>
 
 	<!-- Today's insights -->
