@@ -68,15 +68,17 @@
     <!-- <div class="ghost-button" style="padding-top: 10px;">
         <button>Change Avatar</button>
     </div> -->
-
+    
+    <div class="h-max text-3xl font-semibold" style="padding-bottom: 30px; padding-top: 30px">General Settings</div> 
     <div class = "general-settings-container">
-        <div class="h-max text-3xl font-semibold" style="padding-bottom: 30px; padding-top: 30px">General Settings</div> 
-
+        <div class = "general-settings-item">
+            <div class="h-max text-2xl font-light grid-item" style="padding-right: 10px;">Password:</div>
+        </div>
         <div class = "general-settings-item">
             {#if !$editMode}
-            <div class="h-max text-2xl font-light">Password: {$editMode ? (showPassword ? $password : '********') : '********'}</div>
+            <div class="h-max text-2xl font-light">{$editMode ? (showPassword ? $password : '********') : '********'}</div>
             {:else}
-                <input type="text" bind:value={$password} class="input input-ghost w-full max-w-xs" />
+                <input type="text" bind:value={$password} class="input input-sm w-full max-w-xs" />
                 <button on:click={togglePasswordVisibility} class="toggle-password-button">
                 </button>
             {/if}
@@ -136,7 +138,7 @@
     }
     .general-settings-container {
         display: flex;
-        flex-direction: column;
+        flex-direction: grid-row;
     }
     .general-settings-item {
         display: flex;
@@ -160,5 +162,14 @@
     .edit-button strong {
         color: black;
         font-weight: bold;
+    }
+    .input[disabled] {
+        background-color: transparent;
+        color: white;
+        border: none;
+    }
+    .input {
+        background-color: transparent;
+        border: black 1px solid;
     }
 </style>
