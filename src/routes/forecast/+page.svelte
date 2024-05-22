@@ -32,18 +32,18 @@
     <header class="header">
         <h1 class="location-display">{location}</h1>
     </header>
-    <div class="button-container">
-        <button on:click={() => selected = 'hourly'} class:selected={selected === 'hourly'}>
+    <div class="text-center p-5 flex justify-center gap-5">
+        <button on:click={() => selected = 'hourly'} class:selected={selected === 'hourly'} class="text-black">
             Hourly
         </button>
         <button on:click={() => selected = 'daily'} class:selected={selected === 'daily'}>
             Daily
         </button>
     </div>
-    <div class="cards">
+    <div class="flex flex-col w-full items-center">
         {#if selected === 'hourly'}
             {#each hourlyForecasts as forecast}
-                <div class="card">
+                <div class="m-2.5 p-4 border border-white bg-base-content bg-opacity-10 shadow-xl rounded-lg w-4/5">
                     <div class="grid grid-cols-6">
                         <div class="col-span-2 text-black">
                             <ForcastInfoHourly
@@ -70,7 +70,7 @@
             {/each}
         {:else}
             {#each dailyForecasts as forecast}
-                <div class="card">
+                <div class="m-2.5 p-4 border border-white bg-base-content bg-opacity-10 shadow-xl rounded-lg w-4/5">
                     <div class="grid grid-cols-6">
                         <div class="col-span-2">
                             <ForcastInfoDaily
