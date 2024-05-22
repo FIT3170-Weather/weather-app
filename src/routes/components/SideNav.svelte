@@ -14,11 +14,11 @@
   <div class="navbar sidenav-custom bg-base-200">
     <div class="button-container" style="padding-top: 50px;">
       <!-- Top buttons -->
-      <button class="btn-icon">
-        <a href="/">
+      <a href="/">
+        <button class="btn-icon">
           <img src="../../src/lib/images/dashboard.png" alt="Dashboard" class="icon" />
-        </a>
-      </button>
+        </button>
+      </a>
       <button class="btn-icon">
         <a href="/">
           <img src="../../src/lib/images/forecast.png" alt="Forecast" class="icon" />
@@ -148,3 +148,4 @@
     }
   
 </style>
+

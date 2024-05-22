@@ -1,20 +1,20 @@
 <script>
 	import '../app.css';
 	import './styles.css';
-	import Header from "./components/Header.svelte";
-	import SideNav from "./components/SideNav.svelte";
+	import Header from './components/Header.svelte';
+	import SideNav from './components/SideNav.svelte';
 </script>
 
-<div class="app">
-	<Header></Header>
-	<SideNav></SideNav>
-	
-	<main>
-		<slot></slot> <!-- page.svelte content goes here-->
-	</main>
-
-	<footer>
-	</footer>
+<div class="app flex min-h-dvh">
+	<div class="">
+		<SideNav></SideNav>
+	</div>
+	<div class="flex flex-col grow">
+		<Header></Header>
+		<div class="ml-20 mr-4">
+			<slot></slot>
+		</div>
+	</div>
 </div>
 
 <style>
