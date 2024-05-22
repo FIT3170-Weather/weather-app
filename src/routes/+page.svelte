@@ -13,25 +13,25 @@
 </svelte:head>
 
 
-<section>
-	<div class="flex m-4">
-		<!-- Current weather -->
-		<div class="glassmorph mr-2 p-2">
-			<CurrentWeatherCard />
-		</div>
-	
-		<!-- Today's insights -->
-		<div class="grow place-content-center ml-2 glassmorph">
-			<GraphCard/>
-		</div>
 
+<div class="flex m-4">
+	<!-- Current weather -->
+	<div class="glassmorph mr-2 p-2">
+		<CurrentWeatherCard />
 	</div>
-	
-	<!-- Other cities -->
-	<div class="m-4 mt-0 place-content-center glassmorph grow">
-		<BottomComponents></BottomComponents>
+
+	<!-- Today's insights -->
+	<div class="grow place-content-center ml-2 glassmorph">
+		<GraphCard/>
 	</div>
-</section>
+
+</div>
+
+<!-- Other cities -->
+<div class="m-4 mt-0 place-content-center glassmorph grow">
+	<BottomComponents></BottomComponents>
+</div>
+
 
 
 <style>
