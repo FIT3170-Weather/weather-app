@@ -1,17 +1,30 @@
 <script>
     import rain from '$lib/images/rain.png';
+    import thunder from '$lib/images/thunder.png';
+    import storm from '$lib/images/storm.png';
+
     import { onMount } from 'svelte';
     let locations = [
-        { title: 'Rectangle 1', image: rain, number: 1 , dropdownVisible: false},
-        { title: 'Rectangle 2', image:  rain, number: 2, dropdownVisible: false},
-        { title: 'Rectangle 3', image: rain, number: 3, dropdownVisible: false},
+        { title: 'Selangor', image: rain, number: 1 , dropdownVisible: false},
+        { title: 'Petaling Jaya', image:  thunder, number: 2, dropdownVisible: false},
+        { title: 'Melaka', image: storm, number: 3, dropdownVisible: false},
     ];
     var index = locations.length
+    const locationNames = ['Subang Jaya', 'Putrajaya', 'Port Klang', 'Seremban', 'Kuantan'];
+    const images = [rain, storm, thunder];
+
+    /**
+	 * @param {any[]} arr
+	 */
+    function getRandomItem(arr){
+        return arr[Math.floor(Math.random() * arr.length)];
+    }
+
     function addRectangle() {
         index += 1
         const newRectangle = {
-            title: 'Rectangle ' + index,
-            image: rain,
+            title: locationNames.splice(0, 1)[0],
+            image: getRandomItem(images),
             number: locations.length + 1,
             dropdownVisible: false
         };
