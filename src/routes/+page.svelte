@@ -4,8 +4,32 @@
 	import GraphCard from './components/GraphCard.svelte';
 	import BottomComponents from './components/BottomComponents.svelte';
 
-	export let data;
-	console.log(data);
+	let data = {
+		currentWeather: {
+			sys: {
+				country: "Malaysia",
+				sunrise: 0,
+				sunset: 0
+			},
+			main: {
+				temp: 26,
+				feels_like: 24,
+				humidity: 20,
+				pressure: 21,
+				temp_max: 30,
+				temp_min: 20,
+
+			},
+			visibility: 20,
+			wind: {
+				speed: 20
+			}
+		}
+	}
+
+	// console.log(data);
+
+	
 </script>
 
 <svelte:head>
