@@ -14,13 +14,13 @@
   <div class="navbar sidenav-custom bg-base-200">
     <div class="button-container" style="padding-top: 50px;">
       <!-- Top buttons -->
-      <a href="/">
-        <button class="btn-icon">
-          <img src="../../src/lib/images/dashboard.png" alt="Dashboard" class="icon" />
-        </button>
-      </a>
       <button class="btn-icon">
         <a href="/">
+          <img src="../../src/lib/images/dashboard.png" alt="Dashboard" class="icon" />
+        </a>
+      </button>
+      <button class="btn-icon">
+        <a href="/forecast">
           <img src="../../src/lib/images/forecast.png" alt="Forecast" class="icon" />
         </a>
       </button>
@@ -49,7 +49,7 @@
           </form>
           <h3 class="sign-in">Sign In</h3>
           <button class="google-icon" on:click={closeModal}>
-            <a href="/settings/profile">
+            <a href="/settings/Profile">
                 <!--Will turn this button to refer to google email login page. (placeholder for now)-->
                 <img src="../../src/lib/images/google.png" alt="google" class="google" />
             </a>
@@ -148,4 +148,3 @@
     }
   
 </style>
-
