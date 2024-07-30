@@ -1,5 +1,5 @@
 <script>
-	import { onDestroy } from 'svelte';
+	import { onDestroy, onMount } from 'svelte';
 
     var currentDateTime = new Date();
 
@@ -39,6 +39,8 @@
     let searchResult = ""
     let userClosed = false // user click outside the search box it will close the search
 
+
+
     const onkeyup = async () => {
         searchResult = search_data
         userClosed = false;
@@ -48,10 +50,14 @@
         userClosed = true
     }
 
-    // document.body.addEventListener("click", onBodyClick)
-    // onDestroy ( () => {
-    //     document.body.removeEventListener("click", onBodyClick)
-    // })
+    onMount(() => {
+    document.body.addEventListener('click', onBodyClick);
+
+    // Cleanup the event listener on destroy
+    onDestroy(() => {
+      document.body.removeEventListener('click', onBodyClick);
+    });
+  });
     
 </script>
 
@@ -62,7 +68,7 @@
       <a class="btn btn-ghost text-xl" href="/"><img src="../../src/lib/images/climate_text_logo.png" alt="logo" width="100"></a>
     </div>
     <!-- Everything after logo in Header -->
-    <div class="grow flex-row w-max space-x-5 self-start px-5">
+    <div class="grow flex-row w-max space-x-5 self-start px-5 items-start">
         <!-- DateTime -->
         <div class="grow-0 h-fit flex flex-row space-x-3 items-center">
             <!-- Date -->
@@ -75,25 +81,27 @@
         </div>
         
         
+        
         <!-- Search Bar -->
-        <div class="form-control grow">
+        <div class="form-control grow flex flex-col ">
           <input type="text" placeholder="Search location, city, postal code, or place" bind:value="{searchString}" on:keyup="{onkeyup}" class="search-bar input input-bordered w-full bg-neutral"  />
+        
       
-
-        {#if searchResult && searchString && !userClosed }
-            <div class="bg-white absolute rounded mt-10 overflow-hidden z-50 w-full pl-3 pr-10">
-                {#each searchResult as user}
-                    <a href="/forecast" class="block z-20 cursor-pointer text-black mt-2">{user}</a>    
-                {/each}
-            </div>
+        
+            {#if searchResult && searchString && !userClosed }
+                <div class="bg-white flex flex-col rounded overflow-hidden z-50 w-full pl-3 pr-10">
+                    {#each searchResult as user}
+                        <a href="/" class="block z-20 cursor-pointer text-black mt-2">{user}</a>    
+                    {/each}
+                </div>
         <!-- svelte-ignore empty-block -->
         {:else}{/if}
+    </div>
         
-        </div>
         
         
         <!-- Light-dark mode toggle -->
-        <div class="flex items-center">
+        <div class="flex items-center mt-2">
             <label class="swap swap-rotate">
   
                 <!-- this hidden checkbox controls the state -->

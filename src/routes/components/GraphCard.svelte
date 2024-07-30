@@ -260,7 +260,7 @@ onMount(async () => {
                             align: 'end',
                             font: {
                                 weight: 'bold',
-                                size: 10
+                                size: 10 // datalable
                             },
                             // @ts-ignore
         
@@ -312,7 +312,7 @@ onMount(async () => {
                             ticks: {
                                 display: true,
                                 font: {
-                                    size: 10
+                                    size: 20
                                 },
 
                             }, 
