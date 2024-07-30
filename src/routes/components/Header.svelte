@@ -11,12 +11,8 @@
     var displayCurrentDateTime = currentDay + " " + currentMonth + ", " + currentYear;
 
     // Time
-    var currentHour = currentDateTime.toLocaleString('default', { hour: '2-digit' });
-    var currentMinute = currentDateTime.toLocaleString('default', { minute: '2-digit' });
-    // Temporary fix for leading zeros from minutes being removed
-    if (currentMinute.length < 2) {
-        currentMinute = '0' + currentMinute
-    }
+    var currentHour = currentDateTime.toLocaleString('default', { hour: '2-digit', hourCycle: 'h23'});
+    var currentMinute = currentDateTime.toLocaleString('default', { minute: '2-digit' }).padStart(2, '0');
     var displayCurrentTime = currentHour + ":" + currentMinute;
 
 
