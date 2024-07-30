@@ -89,6 +89,11 @@ function updateChartColors() {
     }
 }
 
+function getResponsiveFontSize() {
+        const vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
+        return vw * 0.01; // 2% of viewport width
+}
+
 
 
 Chart.register(ChartDataLabels);
@@ -161,7 +166,7 @@ onMount(async () => {
                             align: 'end',
                             font: {
                                 weight: 'bold',
-                                size: 10
+                                size: getResponsiveFontSize()
                             },
                             // @ts-ignore
                             formatter: function (value, context) {
@@ -212,7 +217,7 @@ onMount(async () => {
                             ticks: {
                                 display: true,
                                 font: {
-                                    size: 10
+                                    size: getResponsiveFontSize()
                                 },
                             }, 
                             grid: {
@@ -260,7 +265,7 @@ onMount(async () => {
                             align: 'end',
                             font: {
                                 weight: 'bold',
-                                size: 10 // datalable
+                                size: getResponsiveFontSize() // datalable
                             },
                             // @ts-ignore
         
@@ -312,7 +317,7 @@ onMount(async () => {
                             ticks: {
                                 display: true,
                                 font: {
-                                    size: 20
+                                    size: getResponsiveFontSize()
                                 },
 
                             }, 
@@ -326,4 +331,8 @@ onMount(async () => {
         });
         updateChartColors()
     });
+
+
+    
+    
 </script>

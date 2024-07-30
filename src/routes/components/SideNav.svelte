@@ -11,7 +11,7 @@
     
   </script>
   
-  <div class="navbar sidenav-custom bg-base-200">
+  <div class="navbar sidenav-custom bg-base-200 z-20">
     <div class="button-container" style="padding-top: 50px;">
       <!-- Top buttons -->
       <button class="btn-icon">
