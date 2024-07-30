@@ -1,4 +1,6 @@
 <script>
+	import { onDestroy } from 'svelte';
+
     var currentDateTime = new Date();
 
     // Day
@@ -30,6 +32,26 @@
             return newTheme;
     });
     }
+
+    // search bar (dummy data)
+    let search_data = ["Selangor", "Johor", "Penang", "Subang"]
+    let searchString = ""
+    let searchResult = ""
+    let userClosed = false // user click outside the search box it will close the search
+
+    const onkeyup = async () => {
+        searchResult = search_data
+        userClosed = false;
+    }
+
+    function onBodyClick() {
+        userClosed = true
+    }
+
+    // document.body.addEventListener("click", onBodyClick)
+    // onDestroy ( () => {
+    //     document.body.removeEventListener("click", onBodyClick)
+    // })
     
 </script>
 
@@ -51,10 +73,25 @@
             <!-- Time -->
             <div class="h-max text-2xl font-light border-l px-3">{displayCurrentTime}</div>
         </div>
+        
+        
         <!-- Search Bar -->
         <div class="form-control grow">
-          <input type="text" placeholder="Search location, city, postal code, or place" class="search-bar input input-bordered w-full bg-neutral" />
+          <input type="text" placeholder="Search location, city, postal code, or place" bind:value="{searchString}" on:keyup="{onkeyup}" class="search-bar input input-bordered w-full bg-neutral"  />
+      
+
+        {#if searchResult && searchString && !userClosed }
+            <div class="bg-white absolute rounded mt-10 overflow-hidden z-50 w-full pl-3 pr-10">
+                {#each searchResult as user}
+                    <a href="/forecast" class="block z-20 cursor-pointer text-black mt-2">{user}</a>    
+                {/each}
+            </div>
+        <!-- svelte-ignore empty-block -->
+        {:else}{/if}
+        
         </div>
+        
+        
         <!-- Light-dark mode toggle -->
         <div class="flex items-center">
             <label class="swap swap-rotate">
