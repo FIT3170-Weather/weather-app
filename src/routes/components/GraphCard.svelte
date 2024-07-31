@@ -330,6 +330,17 @@ onMount(async () => {
                 }
         });
         updateChartColors()
+        window.addEventListener('resize', resizeChart);
+
+        function resizeChart() {
+            chart.options.plugins.datalabels.font.size = getResponsiveFontSize();
+            chart.update();
+        }
+
+        return () => {
+            window.removeEventListener('resize', resizeChart);
+            chart.destroy();
+        };
     });
 
 
