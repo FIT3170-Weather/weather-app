@@ -32,7 +32,7 @@
     <div class="spacer"></div>
     <!-- Bottom button -->
     <button class="btn-icon">
-      <a href="/settings/alerts">
+      <a href="/settings/profile">
         <img src="../../src/lib/images/profile_icon.png" alt="Profile" class="icon" />
       </a>
     </button>

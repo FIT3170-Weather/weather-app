@@ -32,7 +32,7 @@
 
 <section class="content">
     <div class = "header">
-        <div class="h-max text-4xl font-semibold" style="padding-bottom: 30px;">User Profile</div>
+        <div class="h-max text-4xl font-semibold" style="padding-bottom: 30px;">Profile</div>
         <button class="edit-button" on:click={toggleEditMode}>
             <strong>{$editMode ? 'Save' : 'Edit'}</strong>
         </button>
