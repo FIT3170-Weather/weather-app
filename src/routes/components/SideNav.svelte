@@ -8,57 +8,56 @@
     function closeModal(){
         modal.close();
     }
-    
-  </script>
+</script>
   
-  <div class="navbar sidenav-custom bg-base-200">
-    <div class="button-container" style="padding-top: 50px;">
-      <!-- Top buttons -->
-      <button class="btn-icon">
-        <a href="/">
-          <img src="../../src/lib/images/dashboard.png" alt="Dashboard" class="icon" />
-        </a>
-      </button>
-      <button class="btn-icon">
-        <a href="/forecast">
-          <img src="../../src/lib/images/forecast.png" alt="Forecast" class="icon" />
-        </a>
-      </button>
-      <button class="btn-icon">
-        <a href="/">
-          <img src="../../src/lib/images/history.png" alt="History" class="icon" />
-        </a>
-      </button>
-      <button class="btn-icon">
-        <a href="/">
-          <img src="../../src/lib/images/search.png" alt="Search" class="icon" />
-        </a>
-      </button>
-      <!-- Spacer to push the last button to the bottom -->
-      <div class="spacer"></div>
-      <!-- Bottom button -->
-      <button class="btn-icon" on:click={openModal}>
-        <a href="/">
-          <img src="../../src/lib/images/log-out.png" alt="Logout" class="icon" />
-        </a>
-      </button>
-      <dialog bind:this={modal} class="modal">
-        <div class="modal-box modal-custom bg-base-100" >
-          <form method="dialog">
-            <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
-          </form>
-          <h3 class="sign-in">Sign In</h3>
-          <button class="google-icon" on:click={closeModal}>
-            <a href="/settings/Profile">
-                <!--Will turn this button to refer to google email login page. (placeholder for now)-->
-                <img src="../../src/lib/images/google.png" alt="google" class="google" />
-            </a>
-          </button>
-          <p class="conditions">By signing in you agree to CliMate's terms of service and privacy policy</p>
-        </div>
-      </dialog>
-    </div>
+<div class="navbar sidenav-custom bg-base-200">
+  <div class="button-container" style="padding-top: 50px;">
+    <!-- Top buttons -->
+    <button class="btn-icon">
+      <a href="/">
+        <img src="../../src/lib/images/dashboard.png" alt="Dashboard" class="icon" />
+      </a>
+    </button>
+    <button class="btn-icon">
+      <a href="/forecast">
+        <img src="../../src/lib/images/forecast.png" alt="Forecast" class="icon" />
+      </a>
+    </button>
+    <button class="btn-icon">
+      <a href="/">
+        <img src="../../src/lib/images/history.png" alt="History" class="icon" />
+      </a>
+    </button>
+    <!-- Spacer to push the last button to the bottom -->
+    <div class="spacer"></div>
+    <!-- Bottom button -->
+    <button class="btn-icon">
+      <a href="/settings/alerts">
+        <img src="../../src/lib/images/profile_icon.png" alt="Profile" class="icon" />
+      </a>
+    </button>
+    <button class="btn-icon" on:click={openModal}>
+      <a href="/">
+        <img src="../../src/lib/images/log-out.png" alt="Logout" class="icon" />
+      </a>
+    </button>
+    <dialog bind:this={modal} class="modal">
+      <div class="modal-box modal-custom bg-base-100" >
+        <form method="dialog">
+          <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+        </form>
+        <h3 class="sign-in">Sign In</h3>
+        <button class="google-icon" on:click={closeModal}>
+          <a href="/settings/Profile">
+              <!--Will turn this button to refer to google email login page. (placeholder for now)-->
+              <img src="../../src/lib/images/google.png" alt="google" class="google" />
+          </a>
+        </button>
+        <p class="conditions">By signing in you agree to CliMate's terms of service and privacy policy</p>
+      </div>
+    </dialog>
   </div>
+</div>
   
 
 <style>
