@@ -6,7 +6,6 @@
     let userName = writable("John Doe");
     let homeLocation = writable("Petaling Jaya, Selangor");
     let email = writable("johndoe@gmail.com");
-    let password = writable("johndoeno1")
     let showPassword = false;
 
     const toggleEditMode = () => {
@@ -19,10 +18,6 @@
 
     }
 
-    const togglePasswordVisibility = () => {
-        showPassword = !showPassword;
-    }
-
 </script>
 
 <svelte:head>
@@ -31,12 +26,7 @@
 </svelte:head>
 
 <section class="p-10">
-    <div class = "header">
-        <div class="h-max text-4xl font-semibold" style="padding-bottom: 30px;">Profile</div>
-        <button class="edit-button" on:click={toggleEditMode}>
-            <strong>{$editMode ? 'Save' : 'Edit'}</strong>
-        </button>
-    </div>
+    <div class="h-max text-4xl font-semibold" style="padding-bottom: 30px;">Profile</div>
 
     <div class = "profile-container">
         <div class="avatar grid-item w-25 rounded-full" style="height: 150px;">
@@ -44,20 +34,50 @@
         </div>
     </div>
 
-    <div class = "user-info">
-        <div class="user-info-item">
-            <!-- <div class="h-max text-2xl font-light">Name</div> -->
-            <input type="text" bind:value={$userName} class="input input-ghost w-full max-w-xs" disabled={!$editMode} />
-        </div>
-        <div class="user-info-item">
-            <!-- <div class="h-max text-2xl font-light">Home Location</div> -->
-            <input type="text" bind:value={$homeLocation} class="input input-ghost w-full max-w-xs" disabled={!$editMode} />
-        </div>
-        <div class="user-info-item">
-            <!-- <div class="h-max text-2xl font-light">Email</div> -->
-            <input type="text" bind:value={$email} class="input input-ghost w-full max-w-xs" disabled={!$editMode} />
-        </div>
-    </div>
+    <div class="h-max text-2xl font-semibold py-5">User Information</div>
+    <table class="table w-full">
+        <tbody>
+            <!-- row 1 -->
+            <tr class="border-b border-primary-content">
+                <td class="text-lg font-bold flex flex-col sm:flex-row sm:justify-between sm:items-center">
+                    <div class="flex items-center justify-between w-full sm:w-auto">
+                        <span>Name</span>
+                        <button class="btn btn-ghost btn-xs ml-2 sm:ml-2">
+                            <img src="../../src/lib/images/edit_icon.png" alt="Edit" class="h-full w-full icon"/>
+                        </button>
+                    </div>
+                    <div class="mt-2 sm:mt-0 sm:ml-4">
+                        <input type="text" bind:value={$userName} class="input input-ghost w-full max-w-xs font-normal" disabled={!$editMode} />
+                    </div>
+                </td>
+            </tr>
+            <!-- row 2 -->
+            <tr class="border-b border-primary-content">
+                <td class="text-lg font-bold flex flex-col sm:flex-row sm:justify-between sm:items-center">
+                    <div class="flex items-center justify-between w-full sm:w-auto">
+                        <span>Home Location</span>
+                        <button class="btn btn-ghost btn-xs ml-2 sm:ml-2">
+                            <img src="../../src/lib/images/edit_icon.png" alt="Edit" class="h-full w-full icon"/>
+                        </button>
+                    </div>
+                    <div class="mt-2 sm:mt-0 sm:ml-4">
+                        <input type="text" bind:value={$homeLocation} class="input input-ghost w-full max-w-xs font-normal" disabled={!$editMode} />
+                    </div>
+                </td>
+            </tr>
+            <!-- row 3 -->
+            <tr class="border-b border-primary-content">
+                <td class="text-lg font-bold flex flex-col sm:flex-row sm:justify-between sm:items-center">
+                    <span>Email</span>
+                    <div class="mt-2 sm:mt-0 sm:ml-4">
+                        <input type="text" bind:value={$email} class="input input-ghost w-full max-w-xs font-normal" disabled={true} />
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    
+    
 
 
 </section>
@@ -69,39 +89,6 @@
         grid-gap: 20px;
         align-items: start;
     }
-    .user-info {
-        display: flex;
-        flex-direction: column;
-        gap: 20px;
-    }
-    .user-info-item {
-        display: flex;
-        flex-direction: column;
-        align-items: start;
-    }
-    .header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-    .edit-button {
-        background-color: #D9D9D9;
-        color: rgb(0, 0, 0);
-        border: none;
-        padding: 5px 20px;
-        text-align: center;
-        text-decoration: none;
-        display: inline-block;
-        font-size: 16px;
-        margin: 4px 2px;
-        cursor: pointer;
-        border-radius: 8px;
-        font-weight: bold;
-    }
-    .edit-button strong {
-        color: black;
-        font-weight: bold;
-    }
     .input[disabled] {
         background-color: transparent;
         color: white;
@@ -110,5 +97,9 @@
     .input {
         background-color: transparent;
         border: black 1px solid;
+    }
+    .icon {
+        width: 100%; /* Full width of the button */
+        filter: brightness(0) invert(0.8);
     }
 </style>
