@@ -101,8 +101,8 @@
 
     <!-- Modal -->
     <dialog bind:this={modal} class="modal">
-        <div class="modal-box max-w-5xl">
-            <div class="text-2xl font-semibold p-7">Add New Location</div>
+        <div class="modal-box">
+            <div class="text-2xl font-semibold">Add New Location</div>
             <div class="modal-action">
             <form method="dialog">
                 <button class="btn bg-primary text-primary-content">+ ADD</button>   
