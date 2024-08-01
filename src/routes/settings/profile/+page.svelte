@@ -93,6 +93,9 @@
     <!-- Modal for changing name-->
     <dialog bind:this={editNameModal} class="modal">
         <div class="modal-box">
+            <form method="dialog">
+                <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+            </form>
             <div class="text-2xl font-semibold">Edit Name</div>
             <div class="py-4">
                 <input type="text" value={username} class="input input-bordered w-full" on:input={handleNameInputChange}/>
@@ -108,6 +111,9 @@
     <!-- Modal for changing location-->
     <dialog bind:this={editLocationModal} class="modal">
         <div class="modal-box">
+            <form method="dialog">
+                <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+            </form>
             <div class="text-2xl font-semibold">Change Home Location</div>
             <div class="form-control grow py-4">
                 <input type="text" placeholder="Search location" class="search-bar input input-bordered w-full bg-neutral" bind:value={newLocation} on:input={handleLocationInputChange}/>

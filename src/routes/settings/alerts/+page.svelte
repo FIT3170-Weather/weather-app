@@ -130,6 +130,9 @@
     <!-- Modal -->
     <dialog bind:this={modal} class="modal">
         <div class="modal-box">
+            <form method="dialog">
+                <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+            </form>
             <div class="text-2xl font-semibold">Add New Location</div>
             <div class="form-control grow py-4">
                 <input type="text" placeholder="Search location" class="search-bar input input-bordered w-full bg-neutral" bind:value={location} on:input={handleInputChange}/>
