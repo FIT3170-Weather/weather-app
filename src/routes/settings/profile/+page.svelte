@@ -42,69 +42,22 @@
         <div class="avatar grid-item w-25 rounded-full" style="height: 150px;">
             <img src="../src/lib/images/avatar_default.png" alt="avatar"/>
         </div>
-        <div class = "user-info">
-            <!-- <div class="ghost-button" style="padding-top: 10px;">
-                <button>Change Avatar</button>
-            </div> -->
-            <div class="user-info-item">
-                <!-- <div class="h-max text-2xl font-light">Name</div> -->
-                <input type="text" bind:value={$userName} class="input input-ghost w-full max-w-xs" disabled={!$editMode} />
-            </div>
-            <div class="user-info-item">
-                <!-- <div class="h-max text-2xl font-light">Home Location</div> -->
-                <input type="text" bind:value={$homeLocation} class="input input-ghost w-full max-w-xs" disabled={!$editMode} />
-            </div>
-            <div class="user-info-item">
-                <!-- <div class="h-max text-2xl font-light">Email</div> -->
-                <input type="text" bind:value={$email} class="input input-ghost w-full max-w-xs" disabled={!$editMode} />
-            </div>
-        </div>
-
-    </div>
-    <!-- <div class="avatar grid-item w-24 rounded-full" style="height: 100px;">
-        <img src="../src/lib/images/avatar_default.png" alt="avatar"/>
-    </div> -->
-
-    <!-- <div class="ghost-button" style="padding-top: 10px;">
-        <button>Change Avatar</button>
-    </div> -->
-    
-    <div class="h-max text-3xl font-semibold" style="padding-bottom: 30px; padding-top: 30px">General Settings</div> 
-    <div class = "general-settings-container">
-        <div class = "general-settings-item">
-            <div class="h-max text-2xl font-light grid-item" style="padding-right: 10px;">Password:</div>
-        </div>
-        <div class = "general-settings-item">
-            {#if !$editMode}
-            <div class="h-max text-2xl font-light">{$editMode ? (showPassword ? $password : '********') : '********'}</div>
-            {:else}
-                <input type="text" bind:value={$password} class="input input-sm w-full max-w-xs" />
-                <button on:click={togglePasswordVisibility} class="toggle-password-button">
-                </button>
-            {/if}
-        </div>
     </div>
 
-<!-- 
-    <div class="grid-container">
-        <div class="grid-item">
-            <div class="h-max text-2xl font-light">Name</div>
+    <div class = "user-info">
+        <div class="user-info-item">
+            <!-- <div class="h-max text-2xl font-light">Name</div> -->
+            <input type="text" bind:value={$userName} class="input input-ghost w-full max-w-xs" disabled={!$editMode} />
         </div>
-        <div class="grid-item">
-            <input type="text" bind:value={$userName} class="input input-ghost w-full max-w-xs" disabled={!$editMode}/>
+        <div class="user-info-item">
+            <!-- <div class="h-max text-2xl font-light">Home Location</div> -->
+            <input type="text" bind:value={$homeLocation} class="input input-ghost w-full max-w-xs" disabled={!$editMode} />
         </div>
-        <div class="grid-item">
-            <div class="h-max text-2xl font-light">Home Location</div>
+        <div class="user-info-item">
+            <!-- <div class="h-max text-2xl font-light">Email</div> -->
+            <input type="text" bind:value={$email} class="input input-ghost w-full max-w-xs" disabled={!$editMode} />
         </div>
-        <div class="grid-item">
-            <input type="text" bind:value={$homeLocation} class="input input-ghost w-full max-w-xs" disabled={!$editMode}/>
-        </div>
-        <div class="grid-item">
-            <div class="h-max text-2xl font-light">Email</div>
-        </div>
-        <div class="grid-item">
-            <input type="text" bind:value={$email} class="input input-ghost w-full max-w-xs" disabled={!$editMode}/>
-        </div> -->
+    </div>
 
 
 </section>
@@ -135,15 +88,6 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-    }
-    .general-settings-container {
-        display: flex;
-        flex-direction: grid-row;
-    }
-    .general-settings-item {
-        display: flex;
-        flex-direction: column;
-        align-items: start;
     }
     .edit-button {
         background-color: #D9D9D9;

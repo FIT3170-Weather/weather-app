@@ -9,13 +9,6 @@
         <img src="../src/lib/images/profile_icon.png" alt="Icon" class="icon">
         <div class="h-max text-3xl font-light">Profile</div>
       </button>
-    </a>
-    <a href="/settings/preferences">
-      <button class="ghost-button">
-        <img src="../src/lib/images/preferences_icon.png" alt="Icon" class="icon">
-        <div class="h-max text-3xl font-light">Preferences</div>
-      </button>
-    </a>
     <a href="/settings/alerts">
       <button class="ghost-button">
         <img src="../src/lib/images/alerts_icon.png" alt="Icon" class="icon">
