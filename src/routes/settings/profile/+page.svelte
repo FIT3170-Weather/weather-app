@@ -1,4 +1,7 @@
 <script lang="ts">
+    import { locations } from '../../locations.js';
+    import { onDestroy } from 'svelte';
+
     let username = "John Doe";
     let homeLocation = "Petaling Jaya, Selangor";
     let email = "johndoe@gmail.com";
@@ -10,6 +13,7 @@
     let isValid = false;
 
     let newLocation = "";
+    let showDropdown = false;
     
     function openEditNameModal() {
         editNameModal.showModal();
@@ -34,12 +38,18 @@
 
     const handleLocationInputChange = (event : any) => {
         newLocation = event.target.value;
+        showDropdown = true;
     };
 
     const handleLocationChangeSubmit = (event : any) => {
         event.preventDefault(); 
         homeLocation = newLocation;
         editLocationModal.close();
+    };
+
+    const handleDropdownSelection = (location : string) : any => {
+        newLocation = location;
+        showDropdown = false;
     };
 
 </script>
@@ -109,7 +119,7 @@
     </dialog>
 
     <!-- Modal for changing location-->
-    <dialog bind:this={editLocationModal} class="modal">
+    <dialog bind:this={editLocationModal} class="modal" on:close={() => (showDropdown = false)}>
         <div class="modal-box">
             <form method="dialog">
                 <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
@@ -117,6 +127,17 @@
             <div class="text-2xl font-semibold">Change Home Location</div>
             <div class="form-control grow py-4">
                 <input type="text" placeholder="Search location" class="search-bar input input-bordered w-full bg-neutral" bind:value={newLocation} on:input={handleLocationInputChange}/>
+                {#if showDropdown}
+                    <ul class="menu dropdown-content bg-base-200 rounded-box z-[1] w-full p-2 shadow">
+                        {#each $locations as location}
+                            <li class="w-full" >
+                                <button on:click={handleDropdownSelection(location)}>
+                                    {location}
+                                </button>
+                            </li>
+                        {/each}
+                    </ul>
+                {/if}
             </div>
             <div class="modal-action">
             <form method="dialog" on:submit={handleLocationChangeSubmit}>

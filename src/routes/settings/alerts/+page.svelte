@@ -40,11 +40,8 @@
     const unsubscribe = observedLocations.subscribe(locations => {
         locationCount = locations.length;
     });
-
-    // Cleanup subscription when the component is destroyed
-    onDestroy(() => {
-        unsubscribe();
-    });
+    
+    onDestroy(unsubscribe);
 
 </script>
 
