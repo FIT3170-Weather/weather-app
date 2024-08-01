@@ -9,7 +9,7 @@
         { title: 'Petaling Jaya', image:  thunder, number: "28°", dropdownVisible: false, position: 2},
         { title: 'Melaka', image: storm, number: "31°", dropdownVisible: false, position: 3},
         { title: 'Selangor', image: rain, number: "34°", dropdownVisible: false, position: 1},
-        { title: 'Petaling Jaya  dajskdja ', image:  thunder, number: "28°", dropdownVisible: false, position: 2},
+        { title: 'Petaling Jaya', image:  thunder, number: "28°", dropdownVisible: false, position: 2},
         { title: 'Melaka', image: storm, number: "31°", dropdownVisible: false, position: 3},
     ];
     var index = locations.length
@@ -68,7 +68,7 @@
             <div>
                 <h3>{location.title}</h3>
             </div>
-            <img src={location.image} alt={location.title} />
+            <img class="h-[105px]" src={location.image} alt={location.title} />
             <p>{location.number}</p>
         </div>
     {/each}
