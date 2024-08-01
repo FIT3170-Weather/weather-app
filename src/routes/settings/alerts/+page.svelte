@@ -12,7 +12,7 @@
 	<meta name="description" content="Climate web app" />
 </svelte:head>
 
-<section class="content">
+<section class="p-10">
     <div class="h-max text-4xl font-semibold" style="padding-bottom: 30px;">Alerts</div>
     <div class="flex-grow border-t border-primary-content"></div> 
     <div class="h-max text-2xl font-semibold py-5">Observed Locations</div>
@@ -115,12 +115,6 @@
 
 
 <style>
-	.content {
-        margin-top: 60px;
-        margin-left: 400px;
-        margin-right: 10px;
-    }
-
     .icon {
         width: 100%; /* Full width of the button */
         filter: brightness(0) invert(0.8);

@@ -36,6 +36,11 @@
         <img src="../../src/lib/images/profile_icon.png" alt="Profile" class="icon" />
       </a>
     </button>
+    <button class="btn-icon">
+      <a href="/settings/alerts">
+        <img src="../../src/lib/images/alerts_icon.png" alt="Alerts" class="icon" />
+      </a>
+    </button>
     <button class="btn-icon" on:click={openModal}>
       <a href="/">
         <img src="../../src/lib/images/log-out.png" alt="Logout" class="icon" />
