@@ -1,9 +1,7 @@
 <script lang="ts">
-    import {writable} from 'svelte/store';
-
-    let userName = writable("John Doe");
-    let homeLocation = writable("Petaling Jaya, Selangor");
-    let email = writable("johndoe@gmail.com");
+    let username = "John Doe";
+    let homeLocation = "Petaling Jaya, Selangor";
+    let email = "johndoe@gmail.com";
 
     let editNameModal: HTMLDialogElement;
     let editLocationModal: HTMLDialogElement;
@@ -27,7 +25,7 @@
     const handleSubmit = (event : any) => {
         event.preventDefault(); 
         if (isValid) {
-            userName.set(newName);
+            username = newName;
             editNameModal.close();
         }
     };
@@ -54,7 +52,7 @@
             </button>
         </div>
         <div class="sm:col-span-2 lg:col-span-1 text-lg">
-            {$userName}
+            {username}
         </div>
     </div>
     <div class="border-b border-primary-content"></div>
@@ -66,7 +64,7 @@
             </button>
         </div>
         <div class="md:col-span-2 lg:col-span-1 text-lg">
-            {$homeLocation}
+            {homeLocation}
         </div>
     </div>
     <div class="border-b border-primary-content"></div>
@@ -75,7 +73,7 @@
             <span class="text-lg font-bold">Email</span>
         </div>
         <div class="md:col-span-2 lg:col-span-1 text-lg">
-            {$email}
+            {email}
         </div>
     </div>
     <div class="border-b border-primary-content"></div>
@@ -85,7 +83,7 @@
         <div class="modal-box">
             <div class="text-2xl font-semibold">Edit Name</div>
             <div class="py-4">
-                <input type="text" value={$userName} class="input input-bordered w-full" on:input={handleInputChange}/>
+                <input type="text" value={username} class="input input-bordered w-full" on:input={handleInputChange}/>
             </div>
             <div class="modal-action">
                 <form method="dialog" on:submit={handleSubmit}>
@@ -94,7 +92,7 @@
             </div>
         </div>
     </dialog>
-    
+
     <!-- Modal for changing location-->
     <dialog bind:this={editLocationModal} class="modal">
         <div class="modal-box">
