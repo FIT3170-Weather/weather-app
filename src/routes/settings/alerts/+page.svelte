@@ -1,9 +1,50 @@
 <script lang="ts">
+    import { writable } from 'svelte/store';
+    import { onDestroy } from 'svelte';
+ 
+    let observedLocations = writable([
+        'Kuala Lumpur, Wilayah Persekutuan',
+        'Petaling Jaya, Selangor',
+        'Taiping, Perak'
+    ]);
+
     let modal: HTMLDialogElement;
-  
+    let rain = false;
+    let wind = false;
+    let thunderstorm = false;
+    let temperature = false;
+
+    let location = "";
+
     function openModal() {
         modal.showModal();
     }
+
+    function removeLocation(location : string) : any {
+        observedLocations.update(locations => locations.filter(l => l !== location));
+    }
+
+    const handleInputChange = (event : any) => {
+        location = event.target.value;
+    };
+
+    const handleSubmit = (event : any) => {
+        event.preventDefault(); 
+        observedLocations.update(locations => [...locations, location]);
+        modal.close();
+    };
+
+    let locationCount = 0;
+
+    // Subscribe to the store and update locationCount whenever observedLocations changes
+    const unsubscribe = observedLocations.subscribe(locations => {
+        locationCount = locations.length;
+    });
+
+    // Cleanup subscription when the component is destroyed
+    onDestroy(() => {
+        unsubscribe();
+    });
 
 </script>
 
@@ -21,33 +62,20 @@
             <div class="overflow-x-auto">
                 <table class="table">
                     <tbody>
-                        <!-- row 1 -->
-                        <tr>
-                            <td class="text-lg">Kuala Lumpur, Wilayah Persekutuan</td>
-                            <th class="text-end">
-                                <button class="btn btn-ghost btn-xs">
-                                    <img src="../../src/lib/images/delete_icon.png" alt="Delete" class="h-full w-full icon"/>
-                                </button>
-                            </th>
-                        </tr>
-                        <!-- row 2 -->
-                        <tr>
-                            <td class="text-lg">Petailing Jaya, Selangor</td>
-                            <th class="text-end">
-                                <button class="btn btn-ghost btn-xs">
-                                    <img src="../../src/lib/images/delete_icon.png" alt="Delete" class="h-full w-full icon"/>
-                                </button>
-                            </th>
-                        </tr>
-                        <!-- row 3 -->
-                        <tr>
-                            <td class="text-lg">Taiping, Perak</td>
-                            <th class="text-end">
-                                <button class="btn btn-ghost btn-xs">
-                                    <img src="../../src/lib/images/delete_icon.png" alt="Delete" class="h-full w-full icon"/>
-                                </button>
-                            </th>
-                        </tr>
+                        {#if locationCount > 0}
+                            {#each $observedLocations as location}
+                                <tr>
+                                    <td class="text-lg">{location}</td>
+                                    <th class="text-end">
+                                        <button class="btn btn-ghost btn-xs" on:click={removeLocation(location)}>
+                                            <img src="../../src/lib/images/delete_icon.png" alt="Delete" class="h-full w-full icon"/>
+                                        </button>
+                                    </th>
+                                </tr>
+                            {/each}
+                        {:else}
+                            <div class="h-max text-lg font-semibold">Add a new location to get notified...</div>
+                        {/if}
                     </tbody>
                 </table>
             </div>
@@ -68,28 +96,28 @@
                         <tr>
                             <td class="text-lg">Rain</td>
                             <th class="text-end">
-                                <input type="checkbox" class="toggle"/>
+                                <input type="checkbox" class="toggle" bind:checked={rain}/>
                             </th>
                         </tr>
                         <!-- row 2 -->
                         <tr>
                             <td class="text-lg">Wind</td>
                             <th class="text-end">
-                                <input type="checkbox" class="toggle"/>
+                                <input type="checkbox" class="toggle" bind:checked={wind}/>
                             </th>
                         </tr>
                         <!-- row 3 -->
                         <tr>
                             <td class="text-lg">Thunderstorm</td>
                             <th class="text-end">
-                                <input type="checkbox" class="toggle"/>
+                                <input type="checkbox" class="toggle" bind:checked={thunderstorm}/>
                             </th>
                         </tr>
                         <!-- row 4 -->
                         <tr>
                             <td class="text-lg">Temperature</td>
                             <th class="text-end">
-                                <input type="checkbox" class="toggle"/>
+                                <input type="checkbox" class="toggle" bind:checked={temperature}/>
                             </th>
                         </tr>
                     </tbody>
@@ -103,10 +131,13 @@
     <dialog bind:this={modal} class="modal">
         <div class="modal-box">
             <div class="text-2xl font-semibold">Add New Location</div>
-            <div class="modal-action">
-            <form method="dialog">
-                <button class="btn bg-primary text-primary-content">+ ADD</button>   
-            </form>
+            <div class="form-control grow py-4">
+                <input type="text" placeholder="Search location" class="search-bar input input-bordered w-full bg-neutral" bind:value={location} on:input={handleInputChange}/>
+            </div>
+            <div class="modal-action">  
+                <form method="dialog" on:submit={handleSubmit}>
+                    <button class="btn bg-primary text-primary-content">+ ADD</button>   
+                </form>
             </div>
         </div>
     </dialog>
