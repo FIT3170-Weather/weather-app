@@ -8,26 +8,38 @@
 
     let newName = '';
     let isValid = false;
+
+    let newLocation = "";
     
     function openEditNameModal() {
         editNameModal.showModal();
     }
 
-    function openEditLocationModal() {
-        editLocationModal.showModal();
-    }
-
-    const handleInputChange = (event : any) => {
+    const handleNameInputChange = (event : any) => {
         newName = event.target.value;
         isValid = newName.trim().length > 0; // Valid if not empty or only spaces
     };
 
-    const handleSubmit = (event : any) => {
+    const handleNameChangeSubmit = (event : any) => {
         event.preventDefault(); 
         if (isValid) {
             username = newName;
             editNameModal.close();
         }
+    };
+
+    function openEditLocationModal() {
+        editLocationModal.showModal();
+    }
+
+    const handleLocationInputChange = (event : any) => {
+        newLocation = event.target.value;
+    };
+
+    const handleLocationChangeSubmit = (event : any) => {
+        event.preventDefault(); 
+        homeLocation = newLocation;
+        editLocationModal.close();
     };
 
 </script>
@@ -83,10 +95,10 @@
         <div class="modal-box">
             <div class="text-2xl font-semibold">Edit Name</div>
             <div class="py-4">
-                <input type="text" value={username} class="input input-bordered w-full" on:input={handleInputChange}/>
+                <input type="text" value={username} class="input input-bordered w-full" on:input={handleNameInputChange}/>
             </div>
             <div class="modal-action">
-                <form method="dialog" on:submit={handleSubmit}>
+                <form method="dialog" on:submit={handleNameChangeSubmit}>
                     <button class="btn bg-primary text-primary-content" disabled={!isValid}>SAVE</button>   
                 </form>
             </div>
@@ -97,8 +109,11 @@
     <dialog bind:this={editLocationModal} class="modal">
         <div class="modal-box">
             <div class="text-2xl font-semibold">Change Home Location</div>
+            <div class="form-control grow py-4">
+                <input type="text" placeholder="Search location" class="search-bar input input-bordered w-full bg-neutral" bind:value={newLocation} on:input={handleLocationInputChange}/>
+            </div>
             <div class="modal-action">
-            <form method="dialog">
+            <form method="dialog" on:submit={handleLocationChangeSubmit}>
                 <button class="btn bg-primary text-primary-content">SAVE</button>   
             </form>
             </div>
