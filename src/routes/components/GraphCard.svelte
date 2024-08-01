@@ -92,6 +92,7 @@ function updateChartColors() {
 function getResponsiveFontSize() {
         const vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
         return vw * 0.01; // 2% of viewport width
+
 }
 
 
@@ -329,18 +330,17 @@ onMount(async () => {
                     },
                 }
         });
-        updateChartColors()
+        
         window.addEventListener('resize', resizeChart);
-
         function resizeChart() {
-            chart.options.plugins.datalabels.font.size = getResponsiveFontSize();
-            chart.update();
+            myPerciChart.options.plugins.datalabels.font.size = getResponsiveFontSize();
+            myPerciChart.options.scales.x.ticks.font.size = getResponsiveFontSize();
+            myPerciChart.update();
+            myTempChart.options.plugins.datalabels.font.size = getResponsiveFontSize();
+            myTempChart.options.scales.x.ticks.font.size = getResponsiveFontSize();
+            myTempChart.update();
         }
-
-        return () => {
-            window.removeEventListener('resize', resizeChart);
-            chart.destroy();
-        };
+        updateChartColors()
     });
 
 
