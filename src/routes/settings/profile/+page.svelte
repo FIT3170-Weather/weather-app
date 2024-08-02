@@ -9,14 +9,14 @@
     let editLocationModal: HTMLDialogElement;
 
     let newName = '';
-    let isValid = false;
+    let isValidName = false;
 
     let newLocation = "";
     let showDropdown = false;
 
-    let filteredLocations : any = [];
+    let filteredLocations : string[] = [];
 
-    function getStringsWithPrefix(list : Array<string>, prefix: string) : Array<string> {
+    function getStringsWithPrefix(list : string[], prefix: string) : string[] {
         if (prefix.length > 0) {
             // match options with entered prefix
             return list.filter(str => str.toLowerCase().startsWith(prefix.toLowerCase()));
@@ -30,12 +30,12 @@
 
     const handleNameInputChange = (event : any) => {
         newName = event.target.value;
-        isValid = newName.trim().length > 0; // Valid if not empty or only spaces
+        isValidName = newName.trim().length > 0; // Valid if not empty or only spaces
     };
 
     const handleNameChangeSubmit = (event : any) => {
         event.preventDefault(); 
-        if (isValid) {
+        if (isValidName) {
             username = newName;
             editNameModal.close();
         }
@@ -44,18 +44,21 @@
     function openEditLocationModal() {
         editLocationModal.showModal();
     }
-
+    
+    // show dropdown when user types in search bar
     const handleLocationInputChange = (event : any) => {
         filteredLocations = getStringsWithPrefix(locations, newLocation); // get locations with matching prefix
         showDropdown = true;
     };
 
+    // set new location and close modal
     const handleLocationChangeSubmit = (event : any) => {
         event.preventDefault(); 
         homeLocation = newLocation;
         editLocationModal.close();
     };
 
+    // set new location when user selects from dropdown and stop showing dropdown
     const handleDropdownSelection = (location : string) : any => {
         newLocation = location;
         showDropdown = false;
@@ -75,34 +78,34 @@
 
     <div class="h-max text-2xl font-semibold py-5">User Information</div>
     <div class="grid grid-cols-2 justify-items-start items-center py-5">
-        <div class="md:col-span-2 lg:col-span-1">
+        <div class="col-span-2 lg:col-span-1">
             <span class="text-lg font-bold">Name</span>
             <button class="btn btn-ghost btn-xs" on:click={openEditNameModal}>
                 <img src="../../src/lib/images/edit_icon.png" alt="Edit" class="h-full w-full icon"/>
             </button>
         </div>
-        <div class="sm:col-span-2 lg:col-span-1 text-lg">
+        <div class="col-span-2 lg:col-span-1 text-lg">
             {username}
         </div>
     </div>
     <div class="border-b border-primary-content"></div>
     <div class="grid grid-cols-2 justify-items-start items-center py-5">
-        <div class="md:col-span-2 lg:col-span-1">
+        <div class="col-span-2 lg:col-span-1">
             <span class="text-lg font-bold">Home Location</span>
             <button class="btn btn-ghost btn-xs" on:click={openEditLocationModal}>
                 <img src="../../src/lib/images/edit_icon.png" alt="Edit" class="h-full w-full icon"/>
             </button>
         </div>
-        <div class="md:col-span-2 lg:col-span-1 text-lg">
+        <div class="col-span-2 lg:col-span-1 text-lg">
             {homeLocation}
         </div>
     </div>
     <div class="border-b border-primary-content"></div>
     <div class="grid grid-cols-2 justify-items-start items-center py-5">
-        <div class="md:col-span-2 lg:col-span-1">
+        <div class="col-span-2 lg:col-span-1">
             <span class="text-lg font-bold">Email</span>
         </div>
-        <div class="md:col-span-2 lg:col-span-1 text-lg">
+        <div class="col-span-2 lg:col-span-1 text-lg">
             {email}
         </div>
     </div>
@@ -120,7 +123,7 @@
             </div>
             <div class="modal-action">
                 <form method="dialog" on:submit={handleNameChangeSubmit}>
-                    <button class="btn bg-primary text-primary-content" disabled={!isValid}>SAVE</button>   
+                    <button class="btn bg-primary text-primary-content" disabled={!isValidName}>SAVE</button>   
                 </form>
             </div>
         </div>
@@ -149,7 +152,7 @@
             </div>
             <div class="modal-action">
             <form method="dialog" on:submit={handleLocationChangeSubmit}>
-                <button class="btn bg-primary text-primary-content">SAVE</button>   
+                <button class="btn bg-primary text-primary-content" disabled={!(locations.includes(newLocation))}>SAVE</button>   
             </form>
             </div>
         </div>
