@@ -3,7 +3,7 @@
     import { onDestroy } from 'svelte';
     import { locations } from '../../locations.js';
  
-    let observedLocations = writable([]);
+    let observedLocations = writable<string[]>([]);
 
     let modal: HTMLDialogElement;
     let rain = false;
@@ -14,9 +14,9 @@
     let newLocation = "";
     let showDropdown = false;
 
-    let filteredLocations : any = [];
+    let filteredLocations : string[] = [];
 
-    function getStringsWithPrefix(list : Array<string>, prefix: string) : Array<string> {
+    function getStringsWithPrefix(list : string[], prefix: string) : string[] {
         if (prefix.length > 0) {
             // match options with entered prefix
             return list.filter(str => str.toLowerCase().startsWith(prefix.toLowerCase()));
