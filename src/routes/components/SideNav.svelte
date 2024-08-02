@@ -24,7 +24,7 @@
       </a>
     </button>
     <button class="btn-icon">
-      <a href="/">
+      <a href="/history">
         <img src="../../src/lib/images/history.png" alt="History" class="icon" />
       </a>
     </button>
