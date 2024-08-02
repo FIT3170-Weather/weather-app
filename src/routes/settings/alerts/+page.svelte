@@ -1,6 +1,7 @@
 <script lang="ts">
     import { writable } from 'svelte/store';
     import { onDestroy } from 'svelte';
+    import { locations } from '../../locations.js';
  
     let observedLocations = writable([
         'Kuala Lumpur, Wilayah Persekutuan',
@@ -14,7 +15,8 @@
     let thunderstorm = false;
     let temperature = false;
 
-    let location = "";
+    let newLocation = "";
+    let showDropdown = false;
 
     function openModal() {
         modal.showModal();
@@ -25,13 +27,19 @@
     }
 
     const handleInputChange = (event : any) => {
-        location = event.target.value;
+        newLocation = event.target.value;
+        showDropdown = true;
     };
 
     const handleSubmit = (event : any) => {
         event.preventDefault(); 
-        observedLocations.update(locations => [...locations, location]);
+        observedLocations.update(locations => [...locations, newLocation]);
         modal.close();
+    };
+
+    const handleDropdownSelection = (location : string) : any => {
+        newLocation = location;
+        showDropdown = false;
     };
 
     let locationCount = 0;
@@ -40,7 +48,7 @@
     const unsubscribe = observedLocations.subscribe(locations => {
         locationCount = locations.length;
     });
-    
+
     onDestroy(unsubscribe);
 
 </script>
@@ -132,7 +140,18 @@
             </form>
             <div class="text-2xl font-semibold">Add New Location</div>
             <div class="form-control grow py-4">
-                <input type="text" placeholder="Search location" class="search-bar input input-bordered w-full bg-neutral" bind:value={location} on:input={handleInputChange}/>
+                <input type="text" placeholder="Search location" class="search-bar input input-bordered w-full bg-neutral" bind:value={newLocation} on:input={handleInputChange}/>
+                {#if showDropdown}
+                    <ul class="menu dropdown-content bg-base-200 rounded-box z-[1] w-full p-2 shadow">
+                        {#each $locations as location}
+                            <li class="w-full" >
+                                <button on:click={handleDropdownSelection(location)}>
+                                    {location}
+                                </button>
+                            </li>
+                        {/each}
+                    </ul>
+                {/if}
             </div>
             <div class="modal-action">  
                 <form method="dialog" on:submit={handleSubmit}>
