@@ -1,6 +1,4 @@
-import { readable } from "svelte/store";
-
-export const locations = readable([
+export const locations = [
     "Johor Bahru, Johor",
     "Mersing, Johor",
     "Batu Pahat, Johor",
@@ -51,4 +49,4 @@ export const locations = readable([
     "Kuala Lumpur",
     "Labuan",
     "Putrajaya",
-]);
+];

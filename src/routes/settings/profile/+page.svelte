@@ -1,6 +1,5 @@
 <script lang="ts">
     import { locations } from '../../locations.js';
-    import { onDestroy } from 'svelte';
 
     let username = "John Doe";
     let homeLocation = "Petaling Jaya, Selangor";
@@ -14,6 +13,16 @@
 
     let newLocation = "";
     let showDropdown = false;
+
+    let filteredLocations : any = [];
+
+    function getStringsWithPrefix(list : Array<string>, prefix: string) : Array<string> {
+        if (prefix.length > 0) {
+            // match options with entered prefix
+            return list.filter(str => str.toLowerCase().startsWith(prefix.toLowerCase()));
+        }
+        return [];
+    }   
     
     function openEditNameModal() {
         editNameModal.showModal();
@@ -37,7 +46,7 @@
     }
 
     const handleLocationInputChange = (event : any) => {
-        newLocation = event.target.value;
+        filteredLocations = getStringsWithPrefix(locations, newLocation); // get locations with matching prefix
         showDropdown = true;
     };
 
@@ -51,7 +60,6 @@
         newLocation = location;
         showDropdown = false;
     };
-
 </script>
 
 <svelte:head>
@@ -127,9 +135,9 @@
             <div class="text-2xl font-semibold">Change Home Location</div>
             <div class="form-control grow py-4">
                 <input type="text" placeholder="Search location" class="search-bar input input-bordered w-full bg-neutral" bind:value={newLocation} on:input={handleLocationInputChange}/>
-                {#if showDropdown}
+                {#if showDropdown && filteredLocations.length > 0}
                     <ul class="menu dropdown-content bg-base-200 rounded-box z-[1] w-full p-2 shadow">
-                        {#each $locations as location}
+                        {#each filteredLocations as location}
                             <li class="w-full" >
                                 <button on:click={handleDropdownSelection(location)}>
                                     {location}

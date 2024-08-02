@@ -1,6 +1,7 @@
-<script>
+<script lang="ts">
 
     import { time } from '../clock.js'
+    import { onMount, onDestroy } from 'svelte';
 
     // formatter to format day
     const dayFormatter = new Intl.DateTimeFormat('en', {
@@ -38,7 +39,7 @@
     // search bar (dummy data)
     let search_data = ["Selangor", "Johor", "Penang", "Subang"]
     let searchString = ""
-    let filteredItems = [];
+    let filteredItems:any = [];
     let userClosed = true // user click outside the search box it will close the search
 
     // function to search the info inside the search bar
@@ -83,7 +84,7 @@
         
         
         <!-- Search Bar -->
-        <div class="form-control grow flex flex-col ">
+        <div class="form-control grow flex flex-col">
           <input type="text" placeholder="Search location, city, postal code, or place" bind:value="{searchString}" on:input="{handleInput}" class="search-bar input input-bordered w-full bg-neutral"  />
         
         <!-- search bar algoriithm -->
