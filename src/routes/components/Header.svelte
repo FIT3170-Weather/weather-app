@@ -1,4 +1,6 @@
 <script>
+	import { onDestroy, onMount } from 'svelte';
+
     var currentDateTime = new Date();
 
     // Day
@@ -30,6 +32,30 @@
             return newTheme;
     });
     }
+
+    // search bar (dummy data)
+    let search_data = ["Selangor", "Johor", "Penang", "Subang"]
+    let searchString = ""
+    let filteredItems = [];
+    let userClosed = true // user click outside the search box it will close the search
+
+    // function to search the info inside the search bar
+    const handleInput = () => {
+        userClosed = false;
+		return filteredItems = search_data.filter(item => item.toLowerCase().match(searchString.toLowerCase()));	
+	}
+
+    // function that allow user to click on the screen to remove the search widget.
+    function onBodyClick() {
+        userClosed = true
+    }
+    onMount(() => {
+    document.body.addEventListener('click', onBodyClick);
+    // Cleanup the event listener on destroy
+    onDestroy(() => {
+      document.body.removeEventListener('click', onBodyClick);
+    });
+  });
     
 </script>
 
@@ -40,7 +66,7 @@
       <a class="btn btn-ghost text-xl" href="/"><img src="../../src/lib/images/climate_text_logo.png" alt="logo" width="100"></a>
     </div>
     <!-- Everything after logo in Header -->
-    <div class="grow flex-row w-max space-x-5 self-start px-5">
+    <div class="grow flex-row w-max space-x-5 self-start px-5 items-start">
         <!-- DateTime -->
         <div class="grow-0 h-fit flex flex-row space-x-3 items-center">
             <!-- Date -->
@@ -51,12 +77,39 @@
             <!-- Time -->
             <div class="h-max text-2xl font-light border-l px-3">{displayCurrentTime}</div>
         </div>
+        
+        
+        
         <!-- Search Bar -->
-        <div class="form-control grow">
-          <input type="text" placeholder="Search location, city, postal code, or place" class="search-bar input input-bordered w-full bg-neutral" />
-        </div>
+        <div class="form-control grow flex flex-col ">
+          <input type="text" placeholder="Search location, city, postal code, or place" bind:value="{searchString}" on:input="{handleInput}" class="search-bar input input-bordered w-full bg-neutral"  />
+        
+        <!-- search bar algoriithm -->
+        {#if !userClosed}
+            {#if filteredItems.length > 0 }
+                <div class="bg-white flex flex-col rounded overflow-hidden z-50 w-full pl-3 pr-10">
+                    {#each filteredItems as items}
+                        <a href="/" class="block z-20 cursor-pointer text-black mt-2">{items}</a>    
+                    {/each}
+                </div>
+        <!-- svelte-ignore empty-block -->
+            {:else}
+                <div class="bg-white flex flex-col rounded overflow-hidden z-50 w-full pl-3 pr-10">
+                    {#each search_data as items}
+                        <a href="/" class="block z-20 cursor-pointer text-black mt-2">{items}</a>    
+                    {/each}
+                </div>
+            {/if}
+        {/if}
+        
+
+
+    </div>
+        
+        
+        
         <!-- Light-dark mode toggle -->
-        <div class="flex items-center">
+        <div class="flex items-center mt-2">
             <label class="swap swap-rotate">
   
                 <!-- this hidden checkbox controls the state -->

@@ -82,7 +82,7 @@ export default {
 				  "success": "#87d039",
 				  "warning": "#e2d562",
 				  "error": "#ff6f6f",
-				  "error-content":  "#f1f5f9"
+				  "error-content":  "#f1f5f9",
 				},
 			  },
 		  ],

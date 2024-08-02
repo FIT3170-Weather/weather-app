@@ -12,10 +12,10 @@
                         <!-- Icon next to the title -->
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="red" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>                        
+                        </svg>                   
                     </h2>
                     <!-- Line below title -->
-                    <div class=" bg-error-content h-0.5 mx-auto"></div> 
+                    <div class=" bg-error-content h-0.5 mx-auto"></div>
                 </div>
                 <!-- The temperature graph -->
                 <div class= "h-[90%] w-full py-5">  
@@ -87,6 +87,12 @@ function updateChartColors() {
         myPerciChart.options.scales.y.grid.color = themeColors[$themeStore].yAxisLine;
         myPerciChart.update();
     }
+}
+
+function getResponsiveFontSize() {
+        const vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
+        return vw * 0.01; // 2% of viewport width
+
 }
 
 
@@ -161,7 +167,7 @@ onMount(async () => {
                             align: 'end',
                             font: {
                                 weight: 'bold',
-                                size: 10
+                                size: getResponsiveFontSize()
                             },
                             // @ts-ignore
                             formatter: function (value, context) {
@@ -212,7 +218,7 @@ onMount(async () => {
                             ticks: {
                                 display: true,
                                 font: {
-                                    size: 10
+                                    size: getResponsiveFontSize()
                                 },
                             }, 
                             grid: {
@@ -260,7 +266,7 @@ onMount(async () => {
                             align: 'end',
                             font: {
                                 weight: 'bold',
-                                size: 10
+                                size: getResponsiveFontSize() // datalable
                             },
                             // @ts-ignore
         
@@ -312,7 +318,7 @@ onMount(async () => {
                             ticks: {
                                 display: true,
                                 font: {
-                                    size: 10
+                                    size: getResponsiveFontSize()
                                 },
 
                             }, 
@@ -324,6 +330,20 @@ onMount(async () => {
                     },
                 }
         });
+        
+        window.addEventListener('resize', resizeChart);
+        function resizeChart() {
+            myPerciChart.options.plugins.datalabels.font.size = getResponsiveFontSize();
+            myPerciChart.options.scales.x.ticks.font.size = getResponsiveFontSize();
+            myPerciChart.update();
+            myTempChart.options.plugins.datalabels.font.size = getResponsiveFontSize();
+            myTempChart.options.scales.x.ticks.font.size = getResponsiveFontSize();
+            myTempChart.update();
+        }
         updateChartColors()
     });
+
+
+    
+    
 </script>

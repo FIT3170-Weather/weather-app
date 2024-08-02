@@ -37,7 +37,7 @@
 	<meta name="description" content="Climate web app" />
 </svelte:head>
 
-<div class="flex m-4">
+<div class="flex flex-wrap m-4">
 	<!-- Current weather -->
 	<div class="glassmorph mr-2 p-2">
 		<CurrentWeatherCard currentWeatherData={data.currentWeather}  />
