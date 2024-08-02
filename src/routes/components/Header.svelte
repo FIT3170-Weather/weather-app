@@ -1,7 +1,6 @@
 <script lang="ts">
 
     import { time } from '../clock.js'
-    import { onMount, onDestroy } from 'svelte';
 
     // formatter to format day
     const dayFormatter = new Intl.DateTimeFormat('en', {
@@ -39,26 +38,48 @@
     // search bar (dummy data)
     let search_data = ["Selangor", "Johor", "Penang", "Subang"]
     let searchString = ""
-    let filteredItems:any = [];
+    let filteredItems: String[] = [];
+    let findItemItems: String[] = [];
     let userClosed = true // user click outside the search box it will close the search
 
     // function to search the info inside the search bar
     const handleInput = () => {
+        filteredItems = []
+        findItemItems = []
         userClosed = false;
-		return filteredItems = search_data.filter(item => item.toLowerCase().match(searchString.toLowerCase()));	
+        if (searchString.trim().length !== 0) {
+            findItemItems = search_data.filter(item => item.toLowerCase().startsWith(searchString.toLowerCase()));
+            if (findItemItems.length !== 0){
+                filteredItems = findItemItems
+            }
+            else{
+                userClosed = true
+            }
+        }
+        return filteredItems
 	}
 
-    // function that allow user to click on the screen to remove the search widget.
-    function onBodyClick() {
-        userClosed = true
+    // function to clear search if the x button is pressed
+    function clearSearch() {
+        searchString = "";
+        userClosed = true;
     }
-    onMount(() => {
-    document.body.addEventListener('click', onBodyClick);
-    // Cleanup the event listener on destroy
-    onDestroy(() => {
-      document.body.removeEventListener('click', onBodyClick);
-    });
-  });
+
+    // function to show all option when there is no input on the search bar
+    function showAllOption() {
+        filteredItems = search_data;
+        userClosed = false;
+    }
+
+    // function that allows the info will be updated based on the location selected.
+    function changeLocation(items : String) {
+        return () => {
+        // Implement the logic to change location
+        console.log(items);
+        };
+  }
+
+    // function that allow user to click on the screen to remove the search widget.
     
 </script>
 
@@ -80,26 +101,26 @@
             <!-- Time -->
             <div class="h-max text-2xl font-light border-l px-3">{timeFormatter.format($time)}</div>
         </div>
-        
-        
+
+
         
         <!-- Search Bar -->
         <div class="form-control grow flex flex-col">
-          <input type="text" placeholder="Search location, city, postal code, or place" bind:value="{searchString}" on:input="{handleInput}" class="search-bar input input-bordered w-full bg-neutral"  />
+          <input type="text" placeholder="Search location, city, postal code, or place" bind:value="{searchString}" on:input="{handleInput}" on:click={showAllOption} class="search-bar input input-bordered w-full bg-neutral"  />
         
         <!-- search bar algoriithm -->
-        {#if !userClosed}
+        {#if !userClosed} 
+        <button on:click={clearSearch} class="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-500 focus:outline-none mr-20">✕</button>
             {#if filteredItems.length > 0 }
                 <div class="bg-white flex flex-col rounded overflow-hidden z-50 w-full pl-3 pr-10">
                     {#each filteredItems as items}
-                        <a href="/" class="block z-20 cursor-pointer text-black mt-2">{items}</a>    
+                        <button on:click={() => changeLocation(items)()} class="block z-20 cursor-pointer text-black my-2 text-left">{items}</button>    
                     {/each}
                 </div>
-        <!-- svelte-ignore empty-block -->
             {:else}
                 <div class="bg-white flex flex-col rounded overflow-hidden z-50 w-full pl-3 pr-10">
                     {#each search_data as items}
-                        <a href="/" class="block z-20 cursor-pointer text-black mt-2">{items}</a>    
+                        <button on:click={() => changeLocation(items)()} class="block z-20 cursor-pointer text-black my-2 text-left">{items}</button>    
                     {/each}
                 </div>
             {/if}
