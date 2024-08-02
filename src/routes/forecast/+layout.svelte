@@ -5,7 +5,6 @@
 </script>
 
 <div class="app">
-	<SideNav></SideNav>
 	
 	<main>
 		<slot></slot> <!-- page.svelte content goes here-->
