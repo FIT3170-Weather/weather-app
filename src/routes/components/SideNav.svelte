@@ -9,43 +9,47 @@
         modal.close();
     }
 </script>
-  
-<div class="navbar sidenav-custom bg-base-200">
-  <div class="button-container" style="padding-top: 50px;">
+
+<!-- SideNav -->
+<div class="fixed top-0 left-0 bottom-0 w-16 bg-base-200">
+  <div class="flex flex-col items-center h-full gap-5 pt-24">
+    
     <!-- Top buttons -->
-    <button class="btn-icon">
-      <a href="/">
-        <img src="../../src/lib/images/dashboard.png" alt="Dashboard" class="icon" />
+    <div class="w-full flex justify-center" >
+      <a href="/" class="w-12 h-12 hover:bg-indigo-900 rounded-2xl flex justify-center items-center hover:scale-110 transition-transform">
+        <img src="../../src/lib/images/dashboard.png" alt="Dashboard" class="icon" width="30">
       </a>
-    </button>
-    <button class="btn-icon">
-      <a href="/forecast">
-        <img src="../../src/lib/images/forecast.png" alt="Forecast" class="icon" />
+    </div>
+
+    <div class="w-full flex justify-center" >
+      <a href="/forecast" class="w-12 h-12 hover:bg-indigo-900 rounded-2xl flex justify-center items-center hover:scale-110 transition-transform">
+        <img src="../../src/lib/images/forecast.png" alt="Forecast" class="icon" width="30">
       </a>
-    </button>
-    <button class="btn-icon">
-      <a href="/">
-        <img src="../../src/lib/images/history.png" alt="History" class="icon" />
+    </div>
+
+    <div class="w-full flex justify-center" >
+      <a href="/history" class="w-12 h-12 hover:bg-indigo-900 rounded-2xl flex justify-center items-center hover:scale-110 transition-transform">
+        <img src="../../src/lib/images/history.png" alt="History" class="icon" width="30">
       </a>
-    </button>
+    </div>
+
     <!-- Spacer to push the last button to the bottom -->
     <div class="spacer"></div>
+    
     <!-- Bottom button -->
-    <button class="btn-icon">
-      <a href="/settings/profile">
-        <img src="../../src/lib/images/profile_icon.png" alt="Profile" class="icon" />
+    <div class="w-full flex justify-center">
+      <a href="/settings/profile" class="w-12 h-12 hover:bg-indigo-900 rounded-2xl flex justify-center items-center hover:scale-110 transition-transform">
+        <img src="../../src/lib/images/profile_icon.png" alt="Profile" class="icon" width="30"/>
       </a>
-    </button>
-    <button class="btn-icon">
-      <a href="/settings/alerts">
-        <img src="../../src/lib/images/alerts_icon.png" alt="Alerts" class="icon" />
+    </div>
+    <div class="w-full flex justify-center">
+      <a href="/settings/alerts" class="w-12 h-12 hover:bg-indigo-900 rounded-2xl flex justify-center items-center hover:scale-110 transition-transform">
+        <img src="../../src/lib/images/alerts_icon.png" alt="Alerts" class="icon" width="30"/>
       </a>
-    </button>
-    <button class="btn-icon" on:click={openModal}>
-      <a href="/">
-        <img src="../../src/lib/images/log-out.png" alt="Logout" class="icon" />
-      </a>
-    </button>
+    </div>
+    <div class="pb-5 w-full flex justify-center">
+      <a class="w-12 h-12 hover:bg-indigo-900 rounded-2xl flex justify-center items-center hover:scale-110 transition-transform" on:click={openModal} href="/"><img src="../../src/lib/images/log-out.png" alt="Logout" class="icon" width="30"></a>
+    </div>
     <dialog bind:this={modal} class="modal">
       <div class="modal-box modal-custom bg-base-100" >
         <form method="dialog">
@@ -66,89 +70,59 @@
   
 
 <style>
-    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
-
-    .btn-icon {
-        width: 48px; /* Adjust button size */
-        height: 48px; /* Adjust button size */
-        padding: 10px; /* Button padding */
-        display: flex;
-        justify-content: center;
-        align-items: center;
-
-    }
-    .btn-icon:hover {
-        background-color: grey;
-        border-radius: 50%;
-    }
-
-    .icon {
-        width: 100%; /* Full width of the button */
-        filter: brightness(0) invert(0.8);
-    }
-
-    .navbar {
-        position: fixed;
-        top: 60px;
-        left: 0;
-        bottom: 0;
-        width: 70px;
-    }
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
 
 
-    .button-container {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        height: 100%;
-        gap: 20px;
-    }
+  .icon {
 
-    .spacer {
-        flex-grow: 1; /* Takes up all available space */
-    }
+      filter: brightness(0) invert(0.8);
+  }
 
-    .modal {
-        background: rgba(0, 0, 0, 0.7);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin: 0;
-    }
+  .spacer {
+      flex-grow: 1; 
+  }
 
-    .modal-box {
-        width: 355px;
-        height: 200px;
-        margin: 0 auto;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        position: relative;
-        padding: 1rem;
-    }
+  .modal {
+      background: rgba(0, 0, 0, 0.7);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0;
+  }
 
-    .sign-in{
-        font-family: 'Poppins', sans-serif;
-        font-size: 40px;
-        color: white;
-        margin: 0; 
-        margin-top: 0.2rem;
-    }
+  .modal-box {
+      width: 355px;
+      height: 200px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      padding: 1rem;
+  }
 
-    .conditions{
-        font-size: 14px;
-        color: white;
-        margin: 5px; 
-        text-align: center;
-        font-weight: 5;
-        line-height: 16px;
-    }
+  .sign-in{
+      font-family: 'Poppins', sans-serif;
+      font-size: 40px;
+      color: white;
+      margin: 0; 
+      margin-top: 0.2rem;
+  }
 
-    .google-icon {
-        width: 122px;
-        height: 40px;
-        margin: 5px;
-    }
-  
+  .conditions{
+      font-size: 14px;
+      color: white;
+      margin: 5px; 
+      text-align: center;
+      font-weight: 5;
+      line-height: 16px;
+  }
+
+  .google-icon {
+      width: 122px;
+      height: 40px;
+      margin: 5px;
+  }
+
 </style>
