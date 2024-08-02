@@ -37,7 +37,7 @@
 
 </script>
 
-<div class="flex-col space-y-2.5">
+<div class="flex-col space-y-5 m-5">
     <div class="flex-col space-y-1.5">
         <!-- Location -->
         <div class="flex justify-center p-2">
@@ -65,38 +65,38 @@
             <!-- {#each currentWeatherData.weather as weather}
                 <div class="badge badge-primary">{capitalizeFirstLetter(weather.description)}</div>
             {/each} -->
-            <div class="badge badge-primary">Gentle Breeze</div>
+            <div class="badge badge-primary text-lg">Gentle Breeze</div>
         </div>
         <div class="flex justify-center">
-            <p class="font-extralight text-sm">Feels like {Math.round(currentWeatherData.main.feels_like)}°C</p>
+            <p class="font-extralight text-lg">Feels like {Math.round(currentWeatherData.main.feels_like)}°C</p>
         </div>
     </div>
     
     <!-- Weather Statistics -->
-    <div class="space-y-6" >
+    <div class="space-y-5 " >
         <!-- First Stats Line -->
         <div class="flex flex-wrap justify-center space-x-10">
             <div class="stats shadow">
-                <div class="stat">
-                  <div class="stat-title text-error-content opacity-60 text-sm">Humidity</div>
+                <div class="stat w-40 h-28 text-center items-center">
+                  <div class="stat-title text-error-content opacity-60 text-lg">Humidity</div>
                   <div class="stat-value text-xl">{currentWeatherData.main.humidity}%</div>
-                  <div class="stat-desc"></div>
+                  <!-- <div class="stat-desc"></div> -->
                 </div>
             </div>
     
             <div class="stats shadow">
-                <div class="stat">
-                  <div class="stat-title text-error-content opacity-60 text-sm">Wind</div>
+                <div class="stat w-40 h-28 text-center items-center">
+                  <div class="stat-title text-error-content opacity-60 text-lg">Wind</div>
                   <div class="stat-value text-xl">{currentWeatherData.wind.speed}m/s</div>
                   <!-- <div class="stat-desc">East</div> -->
                 </div>
             </div>
             
             <div class="stats shadow">
-                <div class="stat">
-                  <div class="stat-title text-error-content opacity-60 text-sm">Pressure</div>
+                <div class="stat w-40 h-28 text-center items-center">
+                  <div class="stat-title text-error-content opacity-60 text-lg">Pressure</div>
                   <div class="stat-value text-xl">{currentWeatherData.main.pressure}hPa</div>
-                  <div class="stat-desc"></div>
+                  <!-- <div class="stat-desc"></div> -->
                 </div>
             </div>
             
@@ -105,10 +105,10 @@
         <!-- Second Stats Line -->
         <div class="flex flex-wrap justify-center space-x-10">
             <div class="stats shadow">
-                <div class="stat">
-                  <div class="stat-title text-error-content opacity-60 text-sm">Visibility</div>
+                <div class="stat w-40 h-28 text-center items-center">
+                  <div class="stat-title text-error-content opacity-60 text-lg">Visibility</div>
                   <div class="stat-value text-xl">{currentWeatherData.visibility}m</div>
-                  <div class="stat-desc"></div>
+                  <!-- <div class="stat-desc"></div> -->
                 </div>
             </div>
     
@@ -121,18 +121,18 @@
             </div> -->
 
             <div class="stats shadow">
-                <div class="stat">
-                  <div class="stat-title text-error-content opacity-60 text-sm">Temperature</div>
+                <div class="stat w-40 h-28 text-center items-center">
+                  <div class="stat-title text-error-content opacity-60 text-lg">Temperature</div>
                   <div class="stat-title text-error-content">Max <span class="stat-value text-xl">{Math.round(currentWeatherData.main.temp_max)}°C</span></div>
                   <div class="stat-title text-error-content">Min <span class="stat-value text-xl">{Math.round(currentWeatherData.main.temp_min)}°C</span></div>
                 </div>
             </div>
 
             <div class="stats shadow">
-                <div class="stat">
-                  <div class="stat-title text-error-content opacity-60 text-sm">Sun</div>
-                  <div class="stat-title text-error-content">Rise <span class="stat-value text-xl">{convertEpochToLocalTime(currentWeatherData.sys.sunrise)}</span></div>
-                  <div class="stat-title text-error-content">Set <span class="stat-value text-xl">{convertEpochToLocalTime(currentWeatherData.sys.sunset)}</span></div>
+                <div class="stat w-40 h-28 text-center items-center">
+                  <div class="stat-title text-error-content opacity-60 text-lg">Sun</div>
+                  <div class="stat-title text-error-content">Rise: <span class="stat-value text-xl">{convertEpochToLocalTime(currentWeatherData.sys.sunrise)}</span></div>
+                  <div class="stat-title text-error-content">Set: <span class="stat-value text-xl">{convertEpochToLocalTime(currentWeatherData.sys.sunset)}</span></div>
                 </div>
             </div>
             
