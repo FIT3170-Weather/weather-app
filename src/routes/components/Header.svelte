@@ -1,26 +1,29 @@
-<script>
-	import { onDestroy, onMount } from 'svelte';
+<script lang="ts">
 
-    var currentDateTime = new Date();
+    import { time } from '../clock.js'
+    import { onMount, onDestroy } from 'svelte';
 
-    // Day
-    var displayCurrentDay = currentDateTime.toLocaleString('default', { weekday:'long' });
+    // formatter to format day
+    const dayFormatter = new Intl.DateTimeFormat('en', {
+        weekday: 'long',
+    });
+    
+    // formatter to format date
+    const dateFormatter = new Intl.DateTimeFormat('en', {
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric',
+    });
 
-    // Date
-    var currentDay = currentDateTime.toLocaleString('default', { day:'2-digit' });
-    var currentMonth = currentDateTime.toLocaleString('default', { month: 'long' });
-    var currentYear = currentDateTime.toLocaleString('default', { year: 'numeric' });
-    var displayCurrentDateTime = currentDay + " " + currentMonth + ", " + currentYear;
-
-    // Time
-    var currentHour = currentDateTime.toLocaleString('default', { hour: '2-digit' });
-    var currentMinute = currentDateTime.toLocaleString('default', { minute: '2-digit' });
-    // Temporary fix for leading zeros from minutes being removed
-    if (currentMinute.length < 2) {
-        currentMinute = '0' + currentMinute
-    }
-    var displayCurrentTime = currentHour + ":" + currentMinute;
-
+    // formatter to format time
+	const timeFormatter = new Intl.DateTimeFormat(
+		'en',
+		{
+			hour12: true,
+			hour: 'numeric',
+			minute: '2-digit',
+		}
+	);
 
     import { themeStore } from '../stroreTheme';
 
@@ -36,7 +39,7 @@
     // search bar (dummy data)
     let search_data = ["Selangor", "Johor", "Penang", "Subang"]
     let searchString = ""
-    let filteredItems = [];
+    let filteredItems:any = [];
     let userClosed = true // user click outside the search box it will close the search
 
     // function to search the info inside the search bar
@@ -71,17 +74,17 @@
         <div class="grow-0 h-fit flex flex-row space-x-3 items-center">
             <!-- Date -->
             <div class="flex flex-col">
-                <div class="h-1/2 text-base font-semibold">{displayCurrentDay}</div>
-                <div class="h-1/2 text-sm"> {displayCurrentDateTime}</div>
+                <div class="h-1/2 text-base font-semibold">{dayFormatter.format($time)}</div>
+                <div class="h-1/2 text-sm"> {dateFormatter.format($time)}</div>
             </div>
             <!-- Time -->
-            <div class="h-max text-2xl font-light border-l px-3">{displayCurrentTime}</div>
+            <div class="h-max text-2xl font-light border-l px-3">{timeFormatter.format($time)}</div>
         </div>
         
         
         
         <!-- Search Bar -->
-        <div class="form-control grow flex flex-col ">
+        <div class="form-control grow flex flex-col">
           <input type="text" placeholder="Search location, city, postal code, or place" bind:value="{searchString}" on:input="{handleInput}" class="search-bar input input-bordered w-full bg-neutral"  />
         
         <!-- search bar algoriithm -->
