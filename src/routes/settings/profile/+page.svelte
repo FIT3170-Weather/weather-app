@@ -70,7 +70,7 @@
 	<meta name="description" content="Climate web app" />
 </svelte:head>
 
-<section class="p-10">
+<div class="p-10">
     <div class="h-max text-4xl font-semibold" style="padding-bottom: 30px;">Profile</div>
     <div class="avatar grid-item w-25 rounded-full" style="height: 150px;">
         <img src="../src/lib/images/avatar_default.png" alt="avatar"/>
@@ -157,7 +157,7 @@
             </div>
         </div>
     </dialog>
-</section>
+</div>
 
 <style>
     .icon {
