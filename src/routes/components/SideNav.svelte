@@ -48,7 +48,9 @@
       </a>
     </div>
     <div class="pb-5 w-full flex justify-center">
-      <a class="w-12 h-12 hover:bg-indigo-900 rounded-2xl flex justify-center items-center hover:scale-110 transition-transform" on:click={openModal} href="/"><img src="../../src/lib/images/log-out.png" alt="Logout" class="icon" width="30"></a>
+      <button class="w-12 h-12 hover:bg-indigo-900 rounded-2xl flex justify-center items-center hover:scale-110 transition-transform" on:click={openModal}>
+        <img src="../../src/lib/images/log-out.png" alt="Logout" class="icon" width="30">
+      </button>
     </div>
     <dialog bind:this={modal} class="modal">
       <div class="modal-box modal-custom bg-base-100" >

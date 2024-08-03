@@ -64,7 +64,7 @@
 	<meta name="description" content="Climate web app" />
 </svelte:head>
 
-<section class="p-10">
+<div class="p-10">
     <div class="h-max text-4xl font-semibold" style="padding-bottom: 30px;">Alerts</div>
     <div class="flex-grow border-t border-primary-content"></div> 
     <div class="h-max text-2xl font-semibold py-5">Observed Locations</div>
@@ -161,12 +161,12 @@
             </div>
             <div class="modal-action">  
                 <form method="dialog" on:submit={handleSubmit}>
-                    <button class="btn bg-primary text-primary-content">+ ADD</button>   
+                    <button class="btn bg-primary text-primary-content" disabled={!(locations.includes(newLocation))}>+ ADD</button>   
                 </form>
             </div>
         </div>
     </dialog>
-</section>
+</div>
 
 
 
