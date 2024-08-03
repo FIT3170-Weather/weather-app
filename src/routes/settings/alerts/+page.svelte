@@ -161,7 +161,7 @@
             </div>
             <div class="modal-action">  
                 <form method="dialog" on:submit={handleSubmit}>
-                    <button class="btn bg-primary text-primary-content">+ ADD</button>   
+                    <button class="btn bg-primary text-primary-content" disabled={!(locations.includes(newLocation))}>+ ADD</button>   
                 </form>
             </div>
         </div>
