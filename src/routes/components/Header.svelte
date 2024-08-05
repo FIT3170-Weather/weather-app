@@ -76,6 +76,7 @@
         return () => {
         // Implement the logic to change location
         console.log(items);
+        userClosed = true
         };
   }
 
