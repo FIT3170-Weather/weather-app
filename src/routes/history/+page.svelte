@@ -29,9 +29,9 @@
         <h1>Historical Weather: 7-Day Review</h1>
     </div>
     {#each historicalData as history}
-        <div class="m-2.5 p-4 border border-white bg-base-content bg-opacity-10 shadow-xl rounded-lg w-4/5">
-            <div class="grid grid-cols-6">
-                <div class="col-span-2">
+        <div class="m-2.5 p-4 border border-white bg-base-content bg-opacity-10 shadow-xl rounded-lg md:w-4/5">
+            <div class="grid grid-cols-1 md:grid-cols-6 gap-4">
+                <div class="md:col-span-2 col-span-1">
                     <HistoryInfo
                     day = {history.day}
                     date = {history.date}
@@ -39,7 +39,7 @@
                     temp = {history.temp}
                     />
                 </div>
-                <div class="col-span-4">
+                <div class="md:col-span-4 col-span-1">
                     <HistoryStat
                         humidity_percentage={history.humidity}
                         wind_speed={history.wind_speed}
