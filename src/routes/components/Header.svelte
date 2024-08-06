@@ -95,8 +95,19 @@
     </div>
     
     <!-- Search Bar -->
-    <div class="form-control flex-grow pl-16 hidden md:flex">
+    <div class="self-start form-control flex-grow pl-16 hidden md:flex">
         <input type="text" placeholder="Search location, city, postal code or place" bind:value="{newLocation}" on:input="{handleLocationInputChange}" class="search-bar input input-bordered w-full bg-neutral font-extralight"/>
+        {#if showDropdown && filteredLocations.length > 0}
+            <ul class="menu dropdown-content bg-base-200 rounded-box z-[1] w-full p-2 shadow">
+                {#each filteredLocations as location}
+                    <li class="w-full" >
+                        <button on:click="{handleDropdownSelection(location)}">
+                            {location}
+                        </button>
+                    </li>
+                {/each}
+            </ul>
+        {/if}
     </div> 
     
     <div class="flex items-center px-5">
