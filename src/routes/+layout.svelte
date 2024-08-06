@@ -6,9 +6,8 @@
 </script>
 
 <div class="app min-h-dvh">
-	<div class="">
-		<SideNav></SideNav>
-	</div>
+	<SideNav></SideNav>
+	
 	<div class="flex flex-col grow">
 		<Header></Header>
 		<div class="ml-20">
