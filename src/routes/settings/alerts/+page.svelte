@@ -64,7 +64,7 @@
 	<meta name="description" content="Climate web app" />
 </svelte:head>
 
-<div class="p-10">
+<div class="p-5 md:p-10">
     <div class="h-max text-4xl font-semibold" style="padding-bottom: 30px;">Alerts</div>
     <div class="flex-grow border-t border-primary-content"></div> 
     <div class="h-max text-2xl font-medium py-5">Observed Locations</div>
