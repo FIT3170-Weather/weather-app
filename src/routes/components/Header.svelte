@@ -1,7 +1,7 @@
 <script lang="ts">
 
     import { time } from '../clock.js'
-    import { onMount, onDestroy } from 'svelte';
+    import { locations } from '../locations.js';
 
     // formatter to format day
     const dayFormatter = new Intl.DateTimeFormat('en', {
@@ -36,29 +36,43 @@
     });
     }
 
-    // search bar (dummy data)
-    let search_data = ["Selangor", "Johor", "Penang", "Subang"]
-    let searchString = ""
-    let filteredItems:any = [];
-    let userClosed = true // user click outside the search box it will close the search
+    let modal: HTMLDialogElement;
 
-    // function to search the info inside the search bar
-    const handleInput = () => {
-        userClosed = false;
-		return filteredItems = search_data.filter(item => item.toLowerCase().match(searchString.toLowerCase()));	
-	}
+    let newLocation = "";
+    let showDropdown = false;
 
-    // function that allow user to click on the screen to remove the search widget.
-    function onBodyClick() {
-        userClosed = true
+    function openModal() {
+        newLocation = ""; // clear input field
+        modal.showModal();
     }
-    onMount(() => {
-    document.body.addEventListener('click', onBodyClick);
-    // Cleanup the event listener on destroy
-    onDestroy(() => {
-      document.body.removeEventListener('click', onBodyClick);
-    });
-  });
+
+    let filteredLocations : string[] = [];
+
+    function getStringsWithPrefix(list : string[], prefix: string) : string[] {
+        if (prefix.length > 0) {
+            // match options with entered prefix
+            return list.filter(str => str.toLowerCase().startsWith(prefix.toLowerCase()));
+        }
+        return [];
+    }   
+
+    // show dropdown when user types in search bar
+    const handleLocationInputChange = (event : any) => {
+        filteredLocations = getStringsWithPrefix(locations, newLocation); // get locations with matching prefix
+        showDropdown = true;
+    };
+
+    // add logic and close modal
+    const handleLocationChangeSubmit = (event : any) => {
+        event.preventDefault();
+        modal.close();
+    };
+
+    // set new location when user selects from dropdown and stop showing dropdown
+    const handleDropdownSelection = (location : string) : any => {
+        newLocation = location;
+        showDropdown = false;
+    };
     
 </script>
 
@@ -68,8 +82,7 @@
     <div class="pr-10 justify-self-start">
       <a class="btn btn-ghost text-xl" href="/"><img src="../../src/lib/images/climate_text_logo.png" alt="logo" width="100"></a>
     </div>
-    <!-- Everything after logo in Header -->
-    <!-- <div class="grow flex-row w-max space-x-5 self-start px-5 items-center"> -->
+
     <!-- DateTime -->
     <div class="flex-row items-center space-x-3 hidden md:flex"> 
         <!-- Date -->
@@ -81,18 +94,15 @@
         <div class="text-2xl font-extralight">{timeFormatter.format($time)}</div>
     </div>
     
-    
-    
     <!-- Search Bar -->
     <div class="form-control flex-grow pl-16 hidden md:flex">
-        <input type="text" placeholder="Search location, city, postal code or place" bind:value="{searchString}" on:input="{handleInput}" class="search-bar input input-bordered w-full bg-neutral font-extralight"  />
+        <input type="text" placeholder="Search location, city, postal code or place" bind:value="{newLocation}" on:input="{handleLocationInputChange}" class="search-bar input input-bordered w-full bg-neutral font-extralight"/>
     </div> 
     
-    
     <div class="flex items-center px-5">
-
+        <!-- search button for mobile view -->
         <div class="flex md:hidden">
-            <button class="btn btn-ghost btn-circle">
+            <button class="btn btn-ghost btn-circle" on:click={openModal}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   class="h-6 w-6"
@@ -117,8 +127,35 @@
             
             <!-- moon icon -->
             <svg class="swap-on fill-current w-7 h-7" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21.64,13a1,1,0,0,0-1.05-.14,8.05,8.05,0,0,1-3.37.73A8.15,8.15,0,0,1,9.08,5.49a8.59,8.59,0,0,1,.25-2A1,1,0,0,0,8,2.36,10.14,10.14,0,1,0,22,14.05,1,1,0,0,0,21.64,13Zm-9.5,6.69A8.14,8.14,0,0,1,7.08,5.22v.27A10.15,10.15,0,0,0,17.22,15.63a9.79,9.79,0,0,0,2.1-.22A8.11,8.11,0,0,1,12.14,19.73Z"/></svg>
-            
-            </label>
+        </label>
     </div>
-    <!-- </div> -->
 </div>
+
+<!-- Modal for changing location-->
+<dialog bind:this={modal} class="modal" on:close={() => (showDropdown = false)}>
+    <div class="modal-box">
+        <form method="dialog">
+            <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+        </form>
+        <div class="text-2xl font-semibold">Search location</div>
+        <div class="form-control grow py-4">
+            <input type="text" placeholder="Search location" class="search-bar input input-bordered w-full bg-neutral" bind:value={newLocation} on:input={handleLocationInputChange}/>
+            {#if showDropdown && filteredLocations.length > 0}
+                <ul class="menu dropdown-content bg-base-200 rounded-box z-[1] w-full p-2 shadow">
+                    {#each filteredLocations as location}
+                        <li class="w-full" >
+                            <button on:click={handleDropdownSelection(location)}>
+                                {location}
+                            </button>
+                        </li>
+                    {/each}
+                </ul>
+            {/if}
+        </div>
+        <div class="modal-action">
+        <form method="dialog" on:submit={handleLocationChangeSubmit}>
+            <button class="btn bg-primary text-primary-content" disabled={!(locations.includes(newLocation))}>SEARCH</button>   
+        </form>
+        </div>
+    </div>
+</dialog>
