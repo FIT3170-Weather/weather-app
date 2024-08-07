@@ -297,7 +297,7 @@
         </div>
         <div class="modal-action">
         <form method="dialog" on:submit={handleLocationChangeSubmit}>
-            <button class="btn bg-primary text-primary-content" disabled={!(filteredItems.includes(newLocation))}>SEARCH</button>   
+            <button class="custom-btn btn" disabled={!(filteredItems.includes(newLocation))}>SEARCH</button>   
         </form>
         </div>
     </div>

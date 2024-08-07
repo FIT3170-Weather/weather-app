@@ -91,7 +91,7 @@
         </table>
     </div>
     <div class="py-5 flex justify-end">
-        <button class="btn bg-primary text-primary-content" on:click={openModal}>+ ADD</button>
+        <button class="custom-btn btn" on:click={openModal}>+ ADD</button>
     </div>
     <div class="flex-grow border-t border-primary-content"></div>
 
@@ -103,28 +103,28 @@
                 <tr>
                     <td class="text-lg">Rain</td>
                     <th class="text-end">
-                        <input type="checkbox" class="toggle checked:[--tglbg:purple]" bind:checked={rain}/>
+                        <input type="checkbox" class="custom-toggle toggle" bind:checked={rain}/>
                     </th>
                 </tr>
                 <!-- row 2 -->
                 <tr>
                     <td class="text-lg">Wind</td>
                     <th class="text-end">
-                        <input type="checkbox" class="toggle checked:[--tglbg:purple]" bind:checked={wind}/>
+                        <input type="checkbox" class="custom-toggle toggle" bind:checked={wind}/>
                     </th>
                 </tr>
                 <!-- row 3 -->
                 <tr>
                     <td class="text-lg">Thunderstorm</td>
                     <th class="text-end">
-                        <input type="checkbox" class="toggle checked:[--tglbg:purple]" bind:checked={thunderstorm}/>
+                        <input type="checkbox" class="custom-toggle toggle" bind:checked={thunderstorm}/>
                     </th>
                 </tr>
                 <!-- row 4 -->
                 <tr>
                     <td class="text-lg">Temperature</td>
                     <th class="text-end">
-                        <input type="checkbox" class="toggle checked:[--tglbg:purple]" bind:checked={temperature}/>
+                        <input type="checkbox" class="custom-toggle toggle" bind:checked={temperature}/>
                     </th>
                 </tr>
             </tbody>
@@ -154,7 +154,7 @@
             </div>
             <div class="modal-action">  
                 <form method="dialog" on:submit={handleSubmit}>
-                    <button class="btn bg-primary text-primary-content" disabled={!(locations.includes(newLocation))}>+ ADD</button>   
+                    <button class="custom-btn btn" disabled={!(locations.includes(newLocation))}>+ ADD</button>   
                 </form>
             </div>
         </div>
