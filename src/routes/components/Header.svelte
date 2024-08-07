@@ -37,27 +37,28 @@
     }
 
     // search bar (dummy data)
-    let search_data = ["Selangor", "Johor", "Penang", "Subang"]
+    let search_data = locations
     let searchString = ""
     let filteredItems: string[] = [];
     let findItemItems: string[] = [];
-    let userClosed = true // user click outside the search box it will close the search
+    let userClosed = true
     let showDropdown = false;
     let modal: HTMLDialogElement;
-    let newLocation = "";
 
     function openModal() {
-        newLocation = ""; // clear input field
         modal.showModal();
+        searchString = "" // clear input field
     }
 
     // function to search the info inside the search bar
     const handleInput = () => {
+        userClosed = true
         showDropdown = true
         filteredItems = []
         findItemItems = []
-        userClosed = false;
-        if (searchString.trim().length !== 0) {
+        console.log(searchString);
+        if (searchString.length > 0) {
+            userClosed = false;
             findItemItems = search_data.filter(item => item.toLowerCase().startsWith(searchString.toLowerCase()));
             if (findItemItems.length !== 0){
                 filteredItems = findItemItems
@@ -75,20 +76,15 @@
         userClosed = true;
     }
 
-    // function to show all option when there is no input on the search bar
-    function showAllOption() {
-        filteredItems = search_data;
-        userClosed = false;
-    }
 
     // function that allows the info will be updated based on the location selected.
     function changeLocation(items : string) {
         return () => {
         // Implement the logic to change location
-        console.log(items);
         userClosed = true
-        newLocation = items;
-        
+        searchString = items
+        showDropdown = false;
+        console.log(items);
     };
   }
 
@@ -123,7 +119,7 @@
         
         <!-- Search Bar -->
         <div class="self-start relative form-control flex-grow pl-16 hidden md:flex">
-          <input type="text" placeholder="Search location, city, postal code, or place" bind:value="{searchString}" on:input="{handleInput}" on:click={showAllOption} class="search-bar input input-bordered w-full bg-neutral"  />
+          <input type="text" placeholder="Search location, city, postal code, or place" bind:value="{searchString}" on:input="{handleInput}" class="search-bar input input-bordered w-full bg-neutral"  />
         
         <!-- search bar algoriithm -->
         {#if !userClosed} 
@@ -203,7 +199,7 @@
         </div>
         <div class="modal-action">
         <form method="dialog" on:submit={handleLocationChangeSubmit}>
-            <button class="btn bg-primary text-primary-content" disabled={!(filteredItems.includes(newLocation))}>SEARCH</button>   
+            <button class="btn bg-primary text-primary-content" disabled={!(filteredItems.includes(searchString))}>SEARCH</button>   
         </form>
         </div>
     </div>

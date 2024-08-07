@@ -50,13 +50,13 @@
         </div>
         <!-- Weather image -->
         <div class="flex justify-center">
-            <img class="object-cover w-52 max-sm:w-32" src="../../src/lib/images/weather-3d-icon.png" alt="logo">
+            <img class="object-cover w-40 max-sm:w-32" src="../../src/lib/images/weather-3d-icon.png" alt="logo">
         </div>
         <!-- Temperature -->
         <div class="flex justify-center">
             <h1>
-                <span class="font-extrabold text-8xl max-sm:text-[50px]">
-                    {Math.round(currentWeatherData.main.temp)}<sup class="text-6xl max-sm:text-[30px]">°C</sup>
+                <span class="font-extrabold text-6xl max-sm:text-[50px]">
+                    {Math.round(currentWeatherData.main.temp)}<sup class="text-4xl max-sm:text-[30px]">°C</sup>
                 </span>
             </h1>
         </div>
