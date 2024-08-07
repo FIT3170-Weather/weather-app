@@ -3,7 +3,9 @@
 	import CurrentWeatherCard from './components/dashboard/CurrentWeatherCard.svelte';
 	import GraphCard from './components/GraphCard.svelte';
 	import BottomComponents from './components/BottomComponents.svelte';
-
+	
+	// export let data;
+	// console.log(data);
 	let data = {
 		currentWeather: {
 			sys: {
@@ -26,8 +28,7 @@
 			}
 		}
 	}
-
-	// console.log(data);
+	
 
 	
 </script>

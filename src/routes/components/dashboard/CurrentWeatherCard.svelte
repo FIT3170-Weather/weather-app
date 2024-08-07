@@ -1,5 +1,5 @@
 <script>
-    export let currentWeatherData
+    export let currentWeatherData;
 
     let location = `Subang Jaya, ${currentWeatherData.sys.country}`; // Default
     // let temperature = "32"; // Default
@@ -62,11 +62,16 @@
         </div>
         <!-- Descriptors -->
         <div class="flex flex-wrap justify-center space-x-1.5">
+           
+           <!-- api data -->
             <!-- {#each currentWeatherData.weather as weather}
                 <div class="badge badge-primary">{capitalizeFirstLetter(weather.description)}</div>
             {/each} -->
+
+            <!-- dummy data -->
             <div class="badge badge-primary text-lg">Gentle Breeze</div>
         </div>
+        
         <div class="flex justify-center">
             <p class="font-extralight text-lg">Feels like {Math.round(currentWeatherData.main.feels_like)}°C</p>
         </div>

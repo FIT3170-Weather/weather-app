@@ -85,16 +85,14 @@
         searchString = items
         showDropdown = false;
         console.log(items);
-    };
-  }
+        };
+    }
 
     // add logic and close modal
     const handleLocationChangeSubmit = (event : any) => {
             event.preventDefault();
             modal.close();
-        };
-
-    // function that allow user to click on the screen to remove the search widget.
+    };
     
 </script>
 
