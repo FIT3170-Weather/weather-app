@@ -158,10 +158,3 @@
         </div>
     </dialog>
 </div>
-
-<style>
-    .icon {
-        width: 100%; /* Full width of the button */
-        filter: brightness(0) invert(0.8);
-    }
-</style>

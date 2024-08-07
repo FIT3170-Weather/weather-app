@@ -4,7 +4,7 @@ export default {
 	theme: {
 		extend: {}
 	},
-	plugins: [require('daisyui')],
+	plugins: [require('daisyui')],  
 
 	// daisyUI config (optional - here are the default values)
 	daisyui: {
@@ -21,6 +21,10 @@ export default {
 				".rectangle": {
 					"background-image": "linear-gradient(to bottom, #62cbff, #d0f8fe)"
 				},
+				".icon": {
+					"--tw-brightness": "brightness(0)",
+				},
+
 				"primary": "#793ef9",
 				"primary-focus": "#570df8",
 				"primary-content": "#ffffff",
@@ -57,6 +61,12 @@ export default {
 					".rectangle": {
 						"background-image": "linear-gradient(to bottom, #6354BD, #2C124D)"
 					},
+					".icon": {
+						"--tw-brightness": "brightness(0)",
+						"--tw-invert": "invert(0.8)",
+						"filter": "var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow)",
+					},
+
 				  "primary": "#793ef9",
 				  "primary-focus": "#570df8",
 				  "primary-content": "#ffffff",

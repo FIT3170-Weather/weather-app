@@ -74,12 +74,6 @@
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
 
-
-  .icon {
-
-      filter: brightness(0) invert(0.8);
-  }
-
   .spacer {
       flex-grow: 1; 
   }

@@ -322,9 +322,3 @@
         <p class="text-xs font-extralight">By signing in you agree to CliMate's terms of service and privacy policy</p>
     </div>
 </dialog>
-
-<style>
-    .icon {
-        filter: brightness(0) invert(0.8);
-    }
-</style>
