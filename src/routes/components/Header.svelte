@@ -1,6 +1,6 @@
 <script lang="ts">
 
-    import { time } from '../clock.js'
+    import { time } from '../clock.js';
     import { locations } from '../locations.js';
 
     // formatter to format day
@@ -36,53 +36,79 @@
     });
     }
 
-    let modal: HTMLDialogElement;
-
-    let newLocation = "";
+    // search bar (dummy data)
+    let search_data = ["Selangor", "Johor", "Penang", "Subang"]
+    let searchString = ""
+    let filteredItems: string[] = [];
+    let findItemItems: string[] = [];
+    let userClosed = true // user click outside the search box it will close the search
     let showDropdown = false;
+    let modal: HTMLDialogElement;
+    let newLocation = "";
 
     function openModal() {
         newLocation = ""; // clear input field
         modal.showModal();
     }
 
-    let filteredLocations : string[] = [];
-
-    function getStringsWithPrefix(list : string[], prefix: string) : string[] {
-        if (prefix.length > 0) {
-            // match options with entered prefix
-            return list.filter(str => str.toLowerCase().startsWith(prefix.toLowerCase()));
+    // function to search the info inside the search bar
+    const handleInput = () => {
+        showDropdown = true
+        filteredItems = []
+        findItemItems = []
+        userClosed = false;
+        if (searchString.trim().length !== 0) {
+            findItemItems = search_data.filter(item => item.toLowerCase().startsWith(searchString.toLowerCase()));
+            if (findItemItems.length !== 0){
+                filteredItems = findItemItems
+            }
+            else{
+                userClosed = true
+            }
         }
-        return [];
-    }   
+        return filteredItems
+	}
 
-    // show dropdown when user types in search bar
-    const handleLocationInputChange = (event : any) => {
-        filteredLocations = getStringsWithPrefix(locations, newLocation); // get locations with matching prefix
-        showDropdown = true;
+    // function to clear search if the x button is pressed
+    function clearSearch() {
+        searchString = "";
+        userClosed = true;
+    }
+
+    // function to show all option when there is no input on the search bar
+    function showAllOption() {
+        filteredItems = search_data;
+        userClosed = false;
+    }
+
+    // function that allows the info will be updated based on the location selected.
+    function changeLocation(items : string) {
+        return () => {
+        // Implement the logic to change location
+        console.log(items);
+        userClosed = true
+        newLocation = items;
+        
     };
+  }
 
     // add logic and close modal
     const handleLocationChangeSubmit = (event : any) => {
-        event.preventDefault();
-        modal.close();
-    };
+            event.preventDefault();
+            modal.close();
+        };
 
-    // set new location when user selects from dropdown and stop showing dropdown
-    const handleDropdownSelection = (location : string) : any => {
-        newLocation = location;
-        showDropdown = false;
-    };
+    // function that allow user to click on the screen to remove the search widget.
     
 </script>
 
 <!-- Header -->
-<div class="navbar bg-base-200 flex-row max-h-[48px] z-50 justify-between">
+<div class=" fixed navbar bg-base-200 flex-row max-h-[48px] z-50 justify-between">
     <!-- Logo -->
     <div class="pr-10 justify-self-start">
       <a class="btn btn-ghost text-xl" href="/"><img src="../../src/lib/images/climate_text_logo.png" alt="logo" width="100"></a>
     </div>
-
+   
     <!-- DateTime -->
     <div class="flex-row items-center space-x-3 hidden md:flex"> 
         <!-- Date -->
@@ -93,20 +119,29 @@
         <!-- Time -->
         <div class="text-2xl font-extralight">{timeFormatter.format($time)}</div>
     </div>
-    
-    <!-- Search Bar -->
-    <div class="self-start form-control flex-grow pl-16 hidden md:flex">
-        <input type="text" placeholder="Search location, city, postal code or place" bind:value="{newLocation}" on:input="{handleLocationInputChange}" class="search-bar input input-bordered w-full bg-neutral font-extralight"/>
-        {#if showDropdown && filteredLocations.length > 0}
-            <ul class="menu dropdown-content bg-base-200 rounded-box z-[1] w-full p-2 shadow">
-                {#each filteredLocations as location}
-                    <li class="w-full" >
-                        <button on:click="{handleDropdownSelection(location)}">
-                            {location}
-                        </button>
-                    </li>
-                {/each}
-            </ul>
+
+        
+        <!-- Search Bar -->
+        <div class="self-start relative form-control flex-grow pl-16 hidden md:flex">
+          <input type="text" placeholder="Search location, city, postal code, or place" bind:value="{searchString}" on:input="{handleInput}" on:click={showAllOption} class="search-bar input input-bordered w-full bg-neutral"  />
+        
+        <!-- search bar algoriithm -->
+        {#if !userClosed} 
+        <!-- <button on:click={clearSearch} class="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-500 focus:outline-none">✕</button> -->
+        <button on:click={clearSearch} class="absolute pb-[60px] self-end pr-4 bottom-10 transform -translate-y-1/2 text-gray-500">✕</button>
+            {#if filteredItems.length > 0 }
+                <div class="bg-white flex flex-col rounded overflow-hidden z-50 w-full pl-3 pr-10">
+                    {#each filteredItems as items}
+                        <button on:click={() => changeLocation(items)()} class="block z-20 cursor-pointer text-black my-2 text-left">{items}</button>    
+                    {/each}
+                </div>
+            {:else}
+                <div class="bg-white flex flex-col rounded overflow-hidden z-50 w-full pl-3 pr-10">
+                    {#each search_data as items}
+                        <button on:click={() => changeLocation(items)()} class="block z-20 cursor-pointer text-black my-2 text-left">{items}</button>    
+                    {/each}
+                </div>
+            {/if}
         {/if}
     </div> 
     
@@ -150,22 +185,25 @@
         </form>
         <div class="text-2xl font-semibold">Search location</div>
         <div class="form-control grow py-4">
-            <input type="text" placeholder="Search location" class="search-bar input input-bordered w-full bg-neutral" bind:value={newLocation} on:input={handleLocationInputChange}/>
-            {#if showDropdown && filteredLocations.length > 0}
+            <input type="text" placeholder="Search location" class="search-bar input input-bordered w-full bg-neutral" bind:value={searchString} on:input={handleInput}/>
+            
+            
+            {#if showDropdown && filteredItems.length > 0}
                 <ul class="menu dropdown-content bg-base-200 rounded-box z-[1] w-full p-2 shadow">
-                    {#each filteredLocations as location}
+                    {#each filteredItems as items}
                         <li class="w-full" >
-                            <button on:click={handleDropdownSelection(location)}>
-                                {location}
+                            <button on:click={() => changeLocation(items)()}>
+                                {items}
                             </button>
                         </li>
                     {/each}
                 </ul>
+            
             {/if}
         </div>
         <div class="modal-action">
         <form method="dialog" on:submit={handleLocationChangeSubmit}>
-            <button class="btn bg-primary text-primary-content" disabled={!(locations.includes(newLocation))}>SEARCH</button>   
+            <button class="btn bg-primary text-primary-content" disabled={!(filteredItems.includes(newLocation))}>SEARCH</button>   
         </form>
         </div>
     </div>

@@ -2,13 +2,15 @@
 <!-- the purple container -->
 <div class="border border-white card bg-base-content bg-opacity-10 shadow-xl h-full w-full">
     <div class="flex flex-col space-y-4 items-center p-5 h-full w-full"> 
+        
         <!-- the container for the temperatue graph -->
         <div class = " bg-neutral rounded-3xl px-5 py-2 flex items-center h-1/2 w-full">
             <div class= "flex-1 h-[21vh] w-[25vw]">
+                
                 <!-- title -->
                 <div class=" text-start text-white">    
-                    <h2 class=" flex items-center text-xl font-semibold space-x-2">Average Temperatures 
-                        <span class=" text-xl font-extralight mx-1">(°C)</span>
+                    <h2 class=" flex items-center text-xl font-semibold space-x-2 max-sm:text-sm">Average Temperatures 
+                        <span class=" text-xl font-extralight mx-1 max-sm:text-sm">(°C)</span>
                         <!-- Icon next to the title -->
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="red" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -28,8 +30,8 @@
             <div class= "flex-1 h-[21vh] w-[25vw]">
                 <!-- title -->
                 <div class="text-start text-white">
-                    <h2 class=" flex items-center text-xl font-semibold space-x-2">Average Rainfall
-                        <span class=" text-xl font-extralight mx-1">(millimeters)</span>
+                    <h2 class=" flex items-center text-xl font-semibold space-x-2 max-sm:text-sm">Average Rainfall
+                        <span class=" text-xl font-extralight mx-1 max-sm:text-sm">(millimeters)</span>
                         <!-- Icon next to the title -->
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="blue" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -90,9 +92,13 @@ function updateChartColors() {
 }
 
 function getResponsiveFontSize() {
-        const vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
-        return vw * 0.01; // 2% of viewport width
-
+        const width = window.innerWidth;
+        const vw = Math.max(document.documentElement.clientWidth || 0, width || 0);
+        let selectedSize = vw * 0.01 // 2% of viewport width
+        if (width <= 425) {
+            selectedSize = 8;  // Font size for extra small devices
+        }
+        return selectedSize;
 }
 
 

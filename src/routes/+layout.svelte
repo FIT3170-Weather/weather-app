@@ -7,10 +7,9 @@
 
 <div class="app min-h-dvh">
 	<SideNav></SideNav>
-
+	<Header></Header>
 	<div class="flex flex-col grow">
-		<Header></Header>
-		<div class="ml-16">
+		<div class="ml-16 mt-14">
 			<slot></slot>
 		</div>
 	</div>
