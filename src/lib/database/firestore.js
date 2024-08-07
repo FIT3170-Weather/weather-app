@@ -1,15 +1,15 @@
-import firebase from 'firebase-admin';
+const { initializeApp, applicationDefault } = await import('firebase-admin/app');
+const { getFirestore } = await import('firebase-admin/firestore');
 
+// const serviceAccountPath = "../../../serviceAccountKey.json";
+// const serviceAccount = await import(serviceAccountPath, { assert: { type: 'json' } });
 
-const serviceAccountPath = "../../../serviceAccountKey.json";
-const serviceAccount = await import(serviceAccountPath, { assert: { type: 'json' } });
-
-firebase.initializeApp({
-    credential: firebase.credential.cert(serviceAccount),
+const app = initializeApp({
+    credential: applicationDefault(),
     databaseURL: "https://fit3170-weather-app-default-rtdb.asia-southeast1.firebasedatabase.app"
-});
+})
 
-const db =  firebase.firestore();
+const db =  getFirestore(app)
 
 export {db};
 

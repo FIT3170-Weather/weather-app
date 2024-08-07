@@ -43,6 +43,7 @@
 	"dependencies": {
 		"chart.js": "^4.4.2",
 		"chartjs-plugin-datalabels": "^2.2.0",
-		"firebase-admin": "^12.3.0"
+		"firebase-admin": "^12.3.0",
+		"vite-plugin-wasm": "^3.3.0"
 	}
 }

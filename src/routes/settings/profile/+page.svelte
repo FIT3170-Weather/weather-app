@@ -1,8 +1,7 @@
 
 <script	async script>
-    import SideNav from "../../components/SideNav.svelte";
     import {writable} from 'svelte/store';
-    import {saveProfile, getProfile} from '../../api/profile/profile';
+
 
     let editMode = writable(false);
     let userName = writable("John Doe");
@@ -15,22 +14,41 @@
     
     const toggleEditMode = () => {
         editMode.update(value => !value);
-        if(editMode) showPassword = false;
+        if (!$editMode){
+            setProfile();
+        }
     }
     const saveChanges = () => {
         toggleEditMode();
-        // Add logic here for what to do when saved
-        setProfile();
     }
 
     const togglePasswordVisibility = () => {
         showPassword = !showPassword;
+
     }
 
-    const setProfile = () => {
-        saveProfile({body: {userName: $userName, location: $homeLocation, email: $email, password: $password}});
-    }
+    const setProfile = async () => {
+        const response = await fetch('/api/profile/save', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                userName: $userName,
+                location: $homeLocation,
+                email: $email,
+                password: $password
+            })
+        });
 
+        if (response.ok) {
+            const result = await response.json();
+            console.log(result.message);
+        } else {
+            const error = await response.json();
+            console.error(error.error);
+        }
+    }
 </script>
 
 <svelte:head>
@@ -41,7 +59,7 @@
 <section class="content">
     <div class = "header">
         <div class="h-max text-4xl font-semibold" style="padding-bottom: 30px;">User Profile</div>
-        <button class="edit-button" on:click={toggleEditMode}>
+        <button class="edit-button" on:click={saveChanges}>
             <strong>{$editMode ? 'Save' : 'Edit'}</strong>
         </button>
     </div>
