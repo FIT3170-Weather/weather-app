@@ -31,7 +31,7 @@
     <meta name="description" content="Climate web app" />
 </svelte:head>
 
-<section class="flex flex-col items-center w-full pl-[70px]">
+<section class="flex flex-col items-center w-full">
     <header class="flex justify-start items-center w-full p-5 text-white text-2xl">
         <h1>{location}</h1>
     </header>
@@ -50,9 +50,9 @@
     <div class="flex flex-col w-full items-center">
         {#if selected === 'hourly'}
             {#each hourlyForecasts as forecast}
-                <div class="m-2.5 p-4 border border-white bg-base-content bg-opacity-10 shadow-xl rounded-lg w-4/5">
-                    <div class="grid grid-cols-6">
-                        <div class="col-span-2 text-black">
+                <div class="m-2.5 p-4 border border-white bg-base-content bg-opacity-10 shadow-xl rounded-lg md:w-4/5">
+                    <div class="grid grid-cols-1 md:grid-cols-6 gap-4">
+                        <div class="md:col-span-2 col-span-1 text-black">
                             <ForcastInfoHourly
                             time = {forecast.time}
                             temp = {forecast.temp}
@@ -60,7 +60,7 @@
                             condition = {forecast.condition}
                             />
                         </div>
-                        <div class="col-span-4">
+                        <div class="md:col-span-4 col-span-1">
                             <ForecastStat 
                                 humidity_percentage={forecast.humidity}
                                 wind_speed={forecast.wind_speed}
@@ -77,9 +77,9 @@
             {/each}
         {:else}
             {#each dailyForecasts as forecast}
-                <div class="m-2.5 p-4 border border-white bg-base-content bg-opacity-10 shadow-xl rounded-lg w-4/5">
-                    <div class="grid grid-cols-6">
-                        <div class="col-span-2">
+                <div class="m-2.5 p-4 border border-white bg-base-content bg-opacity-10 shadow-xl rounded-lg md:w-4/5">
+                    <div class="grid grid-cols-1 md:grid-cols-6 gap-4">
+                        <div class="md:col-span-2 col-span-1">
                             <ForcastInfoDaily
                             day = {forecast.day}
                             date = {forecast.date}
@@ -90,7 +90,7 @@
                             description = {forecast.description}
                             />
                         </div>
-                        <div class="col-span-4">
+                        <div class="md:col-span-4 col-span-1">
                             <ForecastStat 
                                 humidity_percentage={forecast.humidity}
                                 wind_speed={forecast.wind_speed}
@@ -112,4 +112,3 @@
 
 <style>
 </style>
-
