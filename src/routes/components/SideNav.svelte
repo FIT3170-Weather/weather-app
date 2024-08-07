@@ -49,7 +49,7 @@
           </form>
           <h3 class="sign-in">Sign In</h3>
           <button class="google-icon" on:click={closeModal}>
-            <a href="/settings/Profile">
+            <a href="/settings/profile">
                 <!--Will turn this button to refer to google email login page. (placeholder for now)-->
                 <img src="../../src/lib/images/google.png" alt="google" class="google" />
             </a>

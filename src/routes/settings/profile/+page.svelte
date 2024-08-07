@@ -1,6 +1,23 @@
-<script>
+<script context="module">
+    // @ts-ignore
+    export async function load({fetch}){
+        const res = await fetch('/api/profile/profile');
+        const data = await res.json();
+        return {
+            profiles: data.profiles
+        };
+    }
+</script>
+
+<script	async script>
     import SideNav from "../../components/SideNav.svelte";
     import {writable} from 'svelte/store';
+    import {onMount} from 'svelte';
+
+    /**
+	 * @type {string | any[]}
+	 */
+     export let profiles = [];
 
     let editMode = writable(false);
     let userName = writable("John Doe");
@@ -8,6 +25,15 @@
     let email = writable("johndoe@gmail.com");
     let password = writable("johndoeno1")
     let showPassword = false;
+
+    onMount(() => {
+        if (profiles.length > 0){
+            userName.set(profiles[0].name);
+            homeLocation.set(profiles[0].location);
+            email.set(profiles[0].email);
+            password.set(profiles[0].password);
+        }
+    })
 
     const toggleEditMode = () => {
         editMode.update(value => !value);
@@ -22,6 +48,10 @@
     const togglePasswordVisibility = () => {
         showPassword = !showPassword;
     }
+
+
+
+
 
 </script>
 
