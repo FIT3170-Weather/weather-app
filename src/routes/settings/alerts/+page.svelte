@@ -64,79 +64,72 @@
 	<meta name="description" content="Climate web app" />
 </svelte:head>
 
-<div class="p-10">
+<div class="p-5 md:p-10">
     <div class="h-max text-4xl font-semibold" style="padding-bottom: 30px;">Alerts</div>
     <div class="flex-grow border-t border-primary-content"></div> 
-    <div class="h-max text-2xl font-semibold py-5">Observed Locations</div>
-    <div class="card text-primary-content w-full outline">
-        <div class="card-body">
-            <div class="overflow-x-auto">
-                <table class="table">
-                    <tbody>
-                        {#if locationCount > 0}
-                            {#each $observedLocations as location}
-                                <tr>
-                                    <td class="text-lg">{location}</td>
-                                    <th class="text-end">
-                                        <button class="btn btn-ghost btn-xs" on:click={removeLocation(location)}>
-                                            <img src="../../src/lib/images/delete_icon.png" alt="Delete" class="h-full w-full icon"/>
-                                        </button>
-                                    </th>
-                                </tr>
-                            {/each}
-                        {:else}
-                            <div class="h-max text-lg font-semibold">Add a new location to get notified...</div>
-                        {/if}
-                    </tbody>
-                </table>
-            </div>
-        </div>
+    <div class="h-max text-2xl font-medium py-5">Observed Locations</div>
+    <div class="overflow-x-auto">
+        <table class="table">
+            <tbody>
+                {#if locationCount > 0}
+                    {#each $observedLocations as location}
+                        <tr>
+                            <td class="text-lg">{location}</td>
+                            <th class="text-end">
+                                <button class="btn btn-ghost btn-xs" on:click={removeLocation(location)}>
+                                    <img src="../../src/lib/images/delete_icon.png" alt="Delete" class="h-full w-full icon"/>
+                                </button>
+                            </th>
+                        </tr>
+                    {/each}
+                {:else}
+                    <tr>
+                        <th class="h-max text-lg font-light">Add a new location to get notified...</th>
+                    </tr>
+                {/if}
+            </tbody>
+        </table>
     </div>
     <div class="py-5 flex justify-end">
         <button class="btn bg-primary text-primary-content" on:click={openModal}>+ ADD</button>
     </div>
     <div class="flex-grow border-t border-primary-content"></div>
 
-    <div class="h-max text-2xl font-semibold py-5">Notifications</div>
-    <div class="card text-primary-content w-full outline">
-        <div class="card-body">
-            <div class="overflow-x-auto">
-                <table class="table">
-                    <tbody>
-                        <!-- row 1 -->
-                        <tr>
-                            <td class="text-lg">Rain</td>
-                            <th class="text-end">
-                                <input type="checkbox" class="toggle" bind:checked={rain}/>
-                            </th>
-                        </tr>
-                        <!-- row 2 -->
-                        <tr>
-                            <td class="text-lg">Wind</td>
-                            <th class="text-end">
-                                <input type="checkbox" class="toggle" bind:checked={wind}/>
-                            </th>
-                        </tr>
-                        <!-- row 3 -->
-                        <tr>
-                            <td class="text-lg">Thunderstorm</td>
-                            <th class="text-end">
-                                <input type="checkbox" class="toggle" bind:checked={thunderstorm}/>
-                            </th>
-                        </tr>
-                        <!-- row 4 -->
-                        <tr>
-                            <td class="text-lg">Temperature</td>
-                            <th class="text-end">
-                                <input type="checkbox" class="toggle" bind:checked={temperature}/>
-                            </th>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
+    <div class="h-max text-2xl font-medium py-5">Notifications</div>
+    <div class="overflow-x-auto">
+        <table class="table">
+            <tbody>
+                <!-- row 1 -->
+                <tr>
+                    <td class="text-lg">Rain</td>
+                    <th class="text-end">
+                        <input type="checkbox" class="toggle checked:[--tglbg:purple]" bind:checked={rain}/>
+                    </th>
+                </tr>
+                <!-- row 2 -->
+                <tr>
+                    <td class="text-lg">Wind</td>
+                    <th class="text-end">
+                        <input type="checkbox" class="toggle checked:[--tglbg:purple]" bind:checked={wind}/>
+                    </th>
+                </tr>
+                <!-- row 3 -->
+                <tr>
+                    <td class="text-lg">Thunderstorm</td>
+                    <th class="text-end">
+                        <input type="checkbox" class="toggle checked:[--tglbg:purple]" bind:checked={thunderstorm}/>
+                    </th>
+                </tr>
+                <!-- row 4 -->
+                <tr>
+                    <td class="text-lg">Temperature</td>
+                    <th class="text-end">
+                        <input type="checkbox" class="toggle checked:[--tglbg:purple]" bind:checked={temperature}/>
+                    </th>
+                </tr>
+            </tbody>
+        </table>
     </div>
-    <div class="py-10"></div>
 
     <!-- Modal -->
     <dialog bind:this={modal} class="modal">
