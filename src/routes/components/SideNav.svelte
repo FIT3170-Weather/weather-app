@@ -11,7 +11,7 @@
 </script>
 
 <!-- SideNav -->
-<div class="fixed top-0 left-0 bottom-0 w-16 bg-base-200">
+<div class="hidden fixed top-0 left-0 bottom-0 w-16 bg-base-200 md:block">
   <div class="flex flex-col items-center h-full gap-5 pt-24">
     
     <!-- Top buttons -->
