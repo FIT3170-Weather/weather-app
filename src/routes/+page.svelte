@@ -37,9 +37,9 @@
 	<meta name="description" content="Climate web app" />
 </svelte:head>
 
-<div class="flex xl:flex-wrap max-lg:flex-col m-4">
+<div class="flex flex-wrap max-lg:flex-col m-4">
 	<!-- Current weather -->
-	<div class="grow glassmorph m-4 p-2">
+	<div class="grow glassmorph m-4 p-2 flex items-center justify-center xl:w-1/2 max-lg:w-full">
 		<CurrentWeatherCard currentWeatherData={data.currentWeather}  />
 	</div>
 
@@ -50,7 +50,7 @@
 </div>
 
 <!-- Other cities -->
-<div class="m-7 place-content-center glassmorph grow">
+<div class="m-7  place-content-center glassmorph grow">
 	<BottomComponents></BottomComponents>
 </div>
 

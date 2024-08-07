@@ -5,7 +5,7 @@
 	import SideNav from './components/SideNav.svelte';
 </script>
 
-<div class="app flex min-h-dvh">
+<div class="app min-h-dvh">
 	<div class="">
 		<SideNav></SideNav>
 	</div>
