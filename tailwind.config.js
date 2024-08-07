@@ -24,6 +24,13 @@ export default {
 				".icon": {
 					"--tw-brightness": "brightness(0)",
 				},
+				".icon-container:hover": {
+					"--tw-bg-opacity": "1",
+					"background-color" : "rgb(15 118 110 / var(--tw-bg-opacity))",
+					"--tw-scale-x": "1.1",
+					"--tw-scale-y": "1.1",
+					"transform": "translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))",
+				},
 
 				"primary": "#793ef9",
 				"primary-focus": "#570df8",
@@ -65,6 +72,13 @@ export default {
 						"--tw-brightness": "brightness(0)",
 						"--tw-invert": "invert(0.8)",
 						"filter": "var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow)",
+					},
+					".icon-container:hover": {
+						"--tw-bg-opacity": "1",
+						"background-color" : "rgb(49 46 129 / var(--tw-bg-opacity))",
+						"--tw-scale-x": "1.1",
+    					"--tw-scale-y": "1.1",
+    					"transform": "translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))",
 					},
 
 				  "primary": "#793ef9",

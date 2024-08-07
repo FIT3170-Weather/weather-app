@@ -314,7 +314,7 @@
             <button class="w-[122px] h-[40px] m-[5px]" on:click={closeLoginModal}>
                 <a href="/settings/profile">
                     <!--Will turn this button to refer to google email login page. (placeholder for now)-->
-                    <img src="../../src/lib/images/google.png" alt="google" class="google"/>
+                    <img src="../../src/lib/images/google.png" alt="google"/>
                 </a>
             </button>
         </div>
