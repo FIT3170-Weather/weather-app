@@ -119,11 +119,11 @@
             </form>
             <div class="text-2xl font-semibold">Edit Name</div>
             <div class="py-4">
-                <input type="text" value={username} class="input input-bordered w-full" on:input={handleNameInputChange}/>
+                <input type="text" value={username} class="input input-bordered w-full bg-neutral" on:input={handleNameInputChange}/>
             </div>
             <div class="modal-action">
                 <form method="dialog" on:submit={handleNameChangeSubmit}>
-                    <button class="btn bg-primary text-primary-content" disabled={!isValidName}>SAVE</button>   
+                    <button class="custom-btn btn" disabled={!isValidName}>SAVE</button>   
                 </form>
             </div>
         </div>
@@ -147,12 +147,12 @@
                                 </button>
                             </li>
                         {/each}
-                    </ul>
+                    </ul>155151
                 {/if}
             </div>
             <div class="modal-action">
             <form method="dialog" on:submit={handleLocationChangeSubmit}>
-                <button class="btn bg-primary text-primary-content" disabled={!(locations.includes(newLocation))}>SAVE</button>   
+                <button class="custom-btn btn" disabled={!(locations.includes(newLocation))}>SAVE</button>   
             </form>
             </div>
         </div>
