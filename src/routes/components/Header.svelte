@@ -204,11 +204,19 @@
     </div>
     <div class="drawer-side z-50">
         <label for="my-drawer" aria-label="close sidebar" class="drawer-overlay"></label>
-        <ul class="menu bg-base-200 min-h-full w-80 p-4">
+        <ul class="menu bg-base-200 min-h-full w-6/7">
             <!-- Sidebar content here -->
             <li>
-                <a class="btn btn-ghost text-xl px-1 self-start" href="/"><img src="../../src/lib/images/climate_text_logo.png" alt="logo" width="100"></a>
+                <div class="flex flex-row justify-between">
+                    <a class="btn btn-ghost pl-0" href="/"><img src="../../src/lib/images/climate_text_logo.png" alt="logo" width="100"></a>
+                    <!-- Date -->
+                    <div class="flex flex-col">
+                        <div class="h-1/2 text-base">{dayFormatter.format($time)}</div>
+                        <div class="h-1/2 text-sm font-extralight"> {dateFormatter.format($time)}</div>
+                    </div>
+                </div>
             </li>
+            <div class="divider my-0 py-1"></div>
             <li>      
                 <a href="/" class="w-fufull h-12 rounded-2xl items-center">
                     <div class="flex flex-row items-center space-x-5">
