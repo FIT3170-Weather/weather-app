@@ -31,7 +31,7 @@
     <meta name="description" content="Climate web app" />
 </svelte:head>
 
-<section class="flex flex-col items-center w-full pl-[70px]">
+<section class="flex flex-col items-center w-full">
     <header class="flex justify-start items-center w-full p-5 text-white text-2xl">
         <h1>{location}</h1>
     </header>
