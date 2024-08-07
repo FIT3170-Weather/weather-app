@@ -37,20 +37,20 @@
 	<meta name="description" content="Climate web app" />
 </svelte:head>
 
-<div class="flex flex-wrap max-lg:flex-col m-4">
+<div class="flex flex-wrap max-lg:flex-col m-5 space-x-5">
 	<!-- Current weather -->
-	<div class="grow glassmorph m-4 p-2 flex items-center justify-center xl:w-1/2 max-lg:w-full">
+	<div class="grow glassmorph flex items-center justify-center max-lg:w-full">
 		<CurrentWeatherCard currentWeatherData={data.currentWeather}  />
 	</div>
 
 	<!-- Today's insights -->
-	<div class="grow place-content-center m-4 glassmorph">
+	<div class="grow place-content-center glassmorph ">
 		<GraphCard />
 	</div>
 </div>
 
 <!-- Other cities -->
-<div class=" ml-7 place-content-center glassmorph grow">
+<div class="place-content-center glassmorph grow m-5">
 	<BottomComponents></BottomComponents>
 </div>
 

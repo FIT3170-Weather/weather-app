@@ -1,6 +1,7 @@
 <script lang="ts">
 
-    import { time } from '../clock.js'
+    import { time } from '../clock.js';
+    import { locations } from '../locations.js';
 
     // formatter to format day
     const dayFormatter = new Intl.DateTimeFormat('en', {
@@ -52,6 +53,7 @@
 
     // function to search the info inside the search bar
     const handleInput = () => {
+        showDropdown = true
         filteredItems = []
         findItemItems = []
         userClosed = false;
@@ -101,7 +103,7 @@
 </script>
 
 <!-- Header -->
-<div class="navbar bg-base-200 flex-row max-h-[48px] z-50 justify-between">
+<div class=" fixed navbar bg-base-200 flex-row max-h-[48px] z-50 justify-between">
     <!-- Logo -->
     <div class="pr-10 justify-self-start">
       <a class="btn btn-ghost text-xl" href="/"><img src="../../src/lib/images/climate_text_logo.png" alt="logo" width="100"></a>
@@ -120,13 +122,13 @@
 
         
         <!-- Search Bar -->
-        <div class="self-start form-control flex-grow pl-16 md:flex">
+        <div class="self-start relative form-control flex-grow pl-16 hidden md:flex">
           <input type="text" placeholder="Search location, city, postal code, or place" bind:value="{searchString}" on:input="{handleInput}" on:click={showAllOption} class="search-bar input input-bordered w-full bg-neutral"  />
         
         <!-- search bar algoriithm -->
         {#if !userClosed} 
         <!-- <button on:click={clearSearch} class="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-500 focus:outline-none">✕</button> -->
-        <button on:click={clearSearch} class="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-500">✕</button>
+        <button on:click={clearSearch} class="absolute pb-[60px] self-end pr-4 bottom-10 transform -translate-y-1/2 text-gray-500">✕</button>
             {#if filteredItems.length > 0 }
                 <div class="bg-white flex flex-col rounded overflow-hidden z-50 w-full pl-3 pr-10">
                     {#each filteredItems as items}
