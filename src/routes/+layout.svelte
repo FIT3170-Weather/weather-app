@@ -5,13 +5,12 @@
 	import SideNav from './components/SideNav.svelte';
 </script>
 
-<div class="app flex min-h-dvh">
-	<div class="">
-		<SideNav></SideNav>
-	</div>
+<div class="app min-h-dvh">
+	<SideNav></SideNav>
+
 	<div class="flex flex-col grow">
 		<Header></Header>
-		<div class="ml-20 mr-4">
+		<div class="ml-16">
 			<slot></slot>
 		</div>
 	</div>
