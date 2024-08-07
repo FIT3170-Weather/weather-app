@@ -21,6 +21,10 @@ export default {
 				".rectangle": {
 					"background-image": "linear-gradient(to bottom, #62cbff, #d0f8fe)"
 				},
+				".cards":{
+					"background":"#8eccee"
+				},
+
 				"primary": "#793ef9",
 				"primary-focus": "#570df8",
 				"primary-content": "#ffffff",
@@ -57,6 +61,10 @@ export default {
 					".rectangle": {
 						"background-image": "linear-gradient(to bottom, #6354BD, #2C124D)"
 					},
+					".cards":{
+						"background":"#28265f"
+					},
+			
 				  "primary": "#793ef9",
 				  "primary-focus": "#570df8",
 				  "primary-content": "#ffffff",
