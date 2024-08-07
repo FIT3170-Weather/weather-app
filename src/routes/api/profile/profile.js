@@ -1,13 +1,20 @@
 import {db} from '$lib/database/firestore';
 
-export async function get(){
+/**
+ * @param {string} userName
+ */
+
+export async function getProfile(userName){
     try {
-        const snapshot = await db.collection('Profiles').get();
-        const profiles = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        const profile = await db.collection('Profiles').doc(userName).get();
+        if (!profile.exists) {
         return {
           status: 200,
-          body: { profiles },
+          body: { error: "Profile does not exist!" },
         };
+      }
+      return profile.data();
+
       } catch (error) {
         return {
           status: 500,
@@ -15,3 +22,24 @@ export async function get(){
         };
       }
 }
+
+
+/**
+ * @param {{ body: {userName: string; location: string; email: string; password: string; }; }} request
+ */
+export async function saveProfile(request){
+    const { userName, location, email, password } = request.body;
+    try {
+        await db.collection('Profiles').doc(userName).set({location, email, password });
+        return {
+          status: 200,
+          body: { message: 'Profile saved' },
+        };
+      } catch (error) {
+        return {
+          status: 500,
+          body: { error: 'Failed to save profile' },
+        };
+      }
+}
+

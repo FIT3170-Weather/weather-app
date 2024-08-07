@@ -1,23 +1,8 @@
-<script context="module">
-    // @ts-ignore
-    export async function load({fetch}){
-        const res = await fetch('/api/profile/profile');
-        const data = await res.json();
-        return {
-            profiles: data.profiles
-        };
-    }
-</script>
 
 <script	async script>
     import SideNav from "../../components/SideNav.svelte";
     import {writable} from 'svelte/store';
-    import {onMount} from 'svelte';
-
-    /**
-	 * @type {string | any[]}
-	 */
-     export let profiles = [];
+    import {saveProfile, getProfile} from '../../api/profile/profile';
 
     let editMode = writable(false);
     let userName = writable("John Doe");
@@ -26,15 +11,8 @@
     let password = writable("johndoeno1")
     let showPassword = false;
 
-    onMount(() => {
-        if (profiles.length > 0){
-            userName.set(profiles[0].name);
-            homeLocation.set(profiles[0].location);
-            email.set(profiles[0].email);
-            password.set(profiles[0].password);
-        }
-    })
 
+    
     const toggleEditMode = () => {
         editMode.update(value => !value);
         if(editMode) showPassword = false;
@@ -42,16 +20,16 @@
     const saveChanges = () => {
         toggleEditMode();
         // Add logic here for what to do when saved
-
+        setProfile();
     }
 
     const togglePasswordVisibility = () => {
         showPassword = !showPassword;
     }
 
-
-
-
+    const setProfile = () => {
+        saveProfile({body: {userName: $userName, location: $homeLocation, email: $email, password: $password}});
+    }
 
 </script>
 
