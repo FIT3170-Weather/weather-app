@@ -61,7 +61,7 @@
 
 
 
-<div class= "flex flex-nowrap justify-items-start w-full overflow-x-auto overflow-y-hidden">
+<div class= "flex flex-nowrap justify-items-start w-full overflow-x-auto overflow-y-hidden px-3">
     {#each locations as location} 
         <!-- <div class="rectangle"> -->
         <div class=" text-center w-[126px] h-[164px] m-[10px] p-[10px] flex flex-col items-center justify-center flex-shrink-0 relative select-none rounded-xl shadow-sm rectangle">

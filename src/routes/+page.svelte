@@ -50,7 +50,7 @@
 </div>
 
 <!-- Other cities -->
-<div class="m-7  place-content-center glassmorph grow">
+<div class=" ml-7 place-content-center glassmorph grow">
 	<BottomComponents></BottomComponents>
 </div>
 
