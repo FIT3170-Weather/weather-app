@@ -53,6 +53,10 @@ export default {
 					"--tglbg": "#2aa79b",
 					"background-color": "#fff",
 				},
+				".custom-container": {
+					"background-color" : "#44e0da",
+				},
+				
 
 				"primary": "#793ef9",
 				"primary-focus": "#570df8",
@@ -117,6 +121,9 @@ export default {
 					".custom-toggle:checked": {
 						"--tglbg": "#793ef9",
 					},
+					".custom-container": {
+					"background-color" : "#793ef9",
+				},
 
 				  "primary": "#793ef9",
 				  "primary-focus": "#570df8",

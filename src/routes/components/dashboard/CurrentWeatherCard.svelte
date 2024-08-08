@@ -69,7 +69,7 @@
             {/each} -->
 
             <!-- dummy data -->
-            <div class="badge badge-primary text-lg">Gentle Breeze</div>
+            <div class="badge custom-container text-error-content text-lg p-4">Gentle Breeze</div>
         </div>
         
         <div class="flex justify-center">
