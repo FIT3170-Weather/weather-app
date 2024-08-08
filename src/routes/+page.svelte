@@ -3,7 +3,9 @@
 	import CurrentWeatherCard from './components/dashboard/CurrentWeatherCard.svelte';
 	import GraphCard from './components/GraphCard.svelte';
 	import BottomComponents from './components/BottomComponents.svelte';
-
+	
+	// export let data;
+	// console.log(data);
 	let data = {
 		currentWeather: {
 			sys: {
@@ -26,8 +28,7 @@
 			}
 		}
 	}
-
-	// console.log(data);
+	
 
 	
 </script>
@@ -37,14 +38,14 @@
 	<meta name="description" content="Climate web app" />
 </svelte:head>
 
-<div class="flex flex-wrap max-lg:flex-col m-5 space-x-5">
+<div class="flex flex-wrap max-lg:flex-col m-5 max-lg:space-x-0 space-x-5 max-lg:space-y-5">
 	<!-- Current weather -->
 	<div class="grow glassmorph flex items-center justify-center max-lg:w-full">
 		<CurrentWeatherCard currentWeatherData={data.currentWeather}  />
 	</div>
 
 	<!-- Today's insights -->
-	<div class="grow place-content-center glassmorph ">
+	<div class="grow place-content-center glassmorph">
 		<GraphCard />
 	</div>
 </div>

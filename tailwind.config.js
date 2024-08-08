@@ -21,6 +21,9 @@ export default {
 				".rectangle": {
 					"background-image": "linear-gradient(to bottom, #62cbff, #d0f8fe)"
 				},
+				".cards":{
+					"background":"#8eccee"
+				},
 				".icon": {
 					"--tw-brightness": "brightness(0)",
 				},
@@ -50,6 +53,10 @@ export default {
 					"--tglbg": "#2aa79b",
 					"background-color": "#fff",
 				},
+				".custom-container": {
+					"background-color" : "#44e0da",
+				},
+				
 
 				"primary": "#793ef9",
 				"primary-focus": "#570df8",
@@ -87,6 +94,10 @@ export default {
 					".rectangle": {
 						"background-image": "linear-gradient(to bottom, #6354BD, #2C124D)"
 					},
+					".cards":{
+						"background":"#28265f"
+					},
+			
 					".icon": {
 						"--tw-brightness": "brightness(0)",
 						"--tw-invert": "invert(0.8)",
@@ -110,6 +121,9 @@ export default {
 					".custom-toggle:checked": {
 						"--tglbg": "#793ef9",
 					},
+					".custom-container": {
+					"background-color" : "#793ef9",
+				},
 
 				  "primary": "#793ef9",
 				  "primary-focus": "#570df8",

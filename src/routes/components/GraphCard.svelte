@@ -95,8 +95,8 @@ function getResponsiveFontSize() {
         const width = window.innerWidth;
         const vw = Math.max(document.documentElement.clientWidth || 0, width || 0);
         let selectedSize = vw * 0.01 // 2% of viewport width
-        if (width <= 425) {
-            selectedSize = 8;  // Font size for extra small devices
+        if (width < 427) {
+            selectedSize = 10;  // Font size for extra small devices
         }
         return selectedSize;
 }

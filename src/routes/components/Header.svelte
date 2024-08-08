@@ -46,27 +46,28 @@
     }
 
     // search bar (dummy data)
-    let search_data = ["Selangor", "Johor", "Penang", "Subang"]
+    let search_data = locations
     let searchString = ""
     let filteredItems: string[] = [];
     let findItemItems: string[] = [];
-    let userClosed = true // user click outside the search box it will close the search
+    let userClosed = true
     let showDropdown = false;
     let modal: HTMLDialogElement;
-    let newLocation = "";
 
     function openModal() {
-        newLocation = ""; // clear input field
         modal.showModal();
+        searchString = "" // clear input field
     }
 
     // function to search the info inside the search bar
     const handleInput = () => {
+        userClosed = true
         showDropdown = true
         filteredItems = []
         findItemItems = []
-        userClosed = false;
-        if (searchString.trim().length !== 0) {
+        console.log(searchString);
+        if (searchString.length > 0) {
+            userClosed = false;
             findItemItems = search_data.filter(item => item.toLowerCase().startsWith(searchString.toLowerCase()));
             if (findItemItems.length !== 0){
                 filteredItems = findItemItems
@@ -84,30 +85,24 @@
         userClosed = true;
     }
 
-    // function to show all option when there is no input on the search bar
-    function showAllOption() {
-        filteredItems = search_data;
-        userClosed = false;
-    }
 
     // function that allows the info will be updated based on the location selected.
     function changeLocation(items : string) {
         return () => {
         // Implement the logic to change location
-        console.log(items);
         userClosed = true
-        newLocation = items;
-        
-    };
-  }
+        searchString = items
+        showDropdown = false;
+        console.log(items);
+        };
+    }
 
     // add logic and close modal
     const handleLocationChangeSubmit = (event : any) => {
             event.preventDefault();
             modal.close();
-        };
-
-    // function that allow user to click on the screen to remove the search widget.
+            searchString = "";
+    };
     
 </script>
 
@@ -146,49 +141,50 @@
             <div class="text-2xl font-extralight">{timeFormatter.format($time)}</div>
         </div>
 
-            
-            <!-- Search Bar -->
-            <div class="self-start relative form-control flex-grow pl-16 hidden md:flex">
-            <input type="text" placeholder="Search location, city, postal code, or place" bind:value="{searchString}" on:input="{handleInput}" on:click={showAllOption} class="search-bar input input-bordered w-full bg-neutral"  />
-            
-            <!-- search bar algoriithm -->
-            {#if !userClosed} 
-            <!-- <button on:click={clearSearch} class="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-500 focus:outline-none">✕</button> -->
-            <button on:click={clearSearch} class="absolute pb-[60px] self-end pr-4 bottom-10 transform -translate-y-1/2 text-gray-500">✕</button>
-                {#if filteredItems.length > 0 }
-                    <div class="bg-white flex flex-col rounded overflow-hidden z-50 w-full pl-3 pr-10">
-                        {#each filteredItems as items}
-                            <button on:click={() => changeLocation(items)()} class="block z-20 cursor-pointer text-black my-2 text-left">{items}</button>    
-                        {/each}
-                    </div>
-                {:else}
-                    <div class="bg-white flex flex-col rounded overflow-hidden z-50 w-full pl-3 pr-10">
-                        {#each search_data as items}
-                            <button on:click={() => changeLocation(items)()} class="block z-20 cursor-pointer text-black my-2 text-left">{items}</button>    
-                        {/each}
-                    </div>
-                {/if}
-            {/if}
-        </div> 
+        <!-- Search Bar -->
+        <div class="self-start relative form-control flex-grow pl-16 hidden md:flex">
+            <input type="text" placeholder="Search location, city, postal code, or place" bind:value="{searchString}" on:input="{handleInput}" class="search-bar input input-bordered w-full bg-neutral"  />
+          
+          <!-- search bar algoriithm -->
+          {#if !userClosed} 
+          <!-- <button on:click={clearSearch} class="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-500 focus:outline-none">✕</button> -->
+          <button on:click={clearSearch} class="absolute pb-[60px] self-end pr-4 bottom-10 transform -translate-y-1/2 text-gray-500">✕</button>
+              {#if filteredItems.length > 0 }
+                  <div class="bg-white flex flex-col rounded overflow-hidden z-50 w-full pl-3 pr-10">
+                      {#each filteredItems as items}
+                          <button on:click={() => changeLocation(items)()} class="block z-20 cursor-pointer text-black my-2 text-left">{items}</button>    
+                      {/each}
+                  </div>
+              {:else}
+                  <div class="bg-white flex flex-col rounded overflow-hidden z-50 w-full pl-3 pr-10">
+                      {#each search_data as items}
+                          <button on:click={() => changeLocation(items)()} class="block z-20 cursor-pointer text-black my-2 text-left">{items}</button>    
+                      {/each}
+                  </div>
+              {/if}
+          {/if}
+      </div> 
+      
+      <div class="flex items-center px-5">
+          <!-- search button for mobile view -->
+          <div class="flex md:hidden">
+              <button class="btn btn-ghost btn-circle" on:click={openModal}>
+                <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor">
+                <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+              </button>
+              </div>
+
         
-        <div class="flex items-center px-5">
-            <!-- search button for mobile view -->
-            <div class="flex md:hidden">
-                <button class="btn btn-ghost btn-circle" on:click={openModal}>
-                    <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    class="h-6 w-6"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor">
-                    <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                    </svg>
-                </button>
-            </div>
             <!-- Light-dark mode toggle -->
             <label class="swap swap-rotate">
                 <!-- this hidden checkbox controls the state -->
@@ -297,7 +293,7 @@
         </div>
         <div class="modal-action">
         <form method="dialog" on:submit={handleLocationChangeSubmit}>
-            <button class="custom-btn btn" disabled={!(filteredItems.includes(newLocation))}>SEARCH</button>   
+            <button class="custom-btn btn" disabled={!(filteredItems.includes(searchString))}>SEARCH</button>   
         </form>
         </div>
     </div>
