@@ -87,14 +87,27 @@
 
 
     // function that allows the info will be updated based on the location selected.
-    function changeLocation(items : string) {
+    function changeLocationNormalView(items : string) {
         return () => {
-        // Implement the logic to change location
         userClosed = true;
         searchString = "";
         showDropdown = false;
-        console.log(items);
+        updateLocation(items);
         };
+    }
+
+    function changeLocationMobileView(items : string) {
+        return () => {
+        userClosed = true;
+        searchString = items;
+        showDropdown = false;
+        updateLocation(items);
+        };
+    }
+
+    function updateLocation(items: string){
+        // Implement the logic to change location
+        console.log(items);
     }
 
     // add logic and close modal
@@ -152,13 +165,13 @@
               {#if filteredItems.length > 0 }
                   <div class="bg-white flex flex-col rounded overflow-hidden z-50 w-full pl-3 pr-10">
                       {#each filteredItems as items}
-                          <button on:click={() => changeLocation(items)()} class="block z-20 cursor-pointer text-black my-2 text-left">{items}</button>    
+                          <button on:click={() => changeLocationNormalView(items)()} class="block z-20 cursor-pointer text-black my-2 text-left">{items}</button>    
                       {/each}
                   </div>
               {:else}
                   <div class="bg-white flex flex-col rounded overflow-hidden z-50 w-full pl-3 pr-10">
                       {#each search_data as items}
-                          <button on:click={() => changeLocation(items)()} class="block z-20 cursor-pointer text-black my-2 text-left">{items}</button>    
+                          <button on:click={() => changeLocationNormalView(items)()} class="block z-20 cursor-pointer text-black my-2 text-left">{items}</button>    
                       {/each}
                   </div>
               {/if}
@@ -282,7 +295,7 @@
                 <ul class="menu dropdown-content bg-base-200 rounded-box z-[1] w-full p-2 shadow">
                     {#each filteredItems as items}
                         <li class="w-full" >
-                            <button on:click={() => changeLocation(items)()}>
+                            <button on:click={() => changeLocationMobileView(items)()}>
                                 {items}
                             </button>
                         </li>
