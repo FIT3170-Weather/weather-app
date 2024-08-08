@@ -28,7 +28,7 @@ export default {
 					"--tw-brightness": "brightness(0)",
 				},
 				".icon-container:hover": {
-					"background-color" : "rgb(15 118 110 / var(--tw-bg-opacity))",
+					"background-color" : "rgb(170 245 228 / var(--tw-bg-opacity))",
 					"--tw-scale-x": "1.1",
 					"--tw-scale-y": "1.1",
 					"transform": "translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))",
