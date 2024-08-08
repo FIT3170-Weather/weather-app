@@ -33,7 +33,7 @@
         <h1>{page_title_description}</h1>
     </div>
     {#each historicalData as history}
-        <div class="m-2.5 p-4 border border-white bg-base-content bg-opacity-10 shadow-xl rounded-lg md:w-4/5">
+        <div class="m-2.5 p-4 border border-error-content bg-base-content bg-opacity-10 shadow-xl rounded-lg md:w-4/5">
             <div class="grid grid-cols-1 md:grid-cols-6 gap-4">
                 <div class="md:col-span-2 col-span-1">
                     <HistoryInfo
