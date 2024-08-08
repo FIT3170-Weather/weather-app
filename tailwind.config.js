@@ -4,7 +4,7 @@ export default {
 	theme: {
 		extend: {}
 	},
-	plugins: [require('daisyui')],
+	plugins: [require('daisyui')],  
 
 	// daisyUI config (optional - here are the default values)
 	daisyui: {
@@ -21,6 +21,36 @@ export default {
 				".rectangle": {
 					"background-image": "linear-gradient(to bottom, #62cbff, #d0f8fe)"
 				},
+				".icon": {
+					"--tw-brightness": "brightness(0)",
+				},
+				".icon-container:hover": {
+					"background-color" : "rgb(15 118 110 / var(--tw-bg-opacity))",
+					"--tw-scale-x": "1.1",
+					"--tw-scale-y": "1.1",
+					"transform": "translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))",
+				},
+				".custom-btn": {
+					"background-color": "#37cdbe"
+				},
+				".custom-btn:hover": {
+					"background-color" : "rgb(15 118 110 / var(--tw-bg-opacity))",
+				},
+				".custom-btn:disabled": {
+					"background-color":"#134e4a",
+				},
+				".custom-toggle": {
+					"border-color": "#52525b",
+					"background-color": "#52525b",
+				},
+				".custom-toggle:hover": {
+					"background-color": "#52525b",
+				},
+				".custom-toggle:checked": {
+					"--tglbg": "#2aa79b",
+					"background-color": "#fff",
+				},
+
 				"primary": "#793ef9",
 				"primary-focus": "#570df8",
 				"primary-content": "#ffffff",
@@ -57,6 +87,30 @@ export default {
 					".rectangle": {
 						"background-image": "linear-gradient(to bottom, #6354BD, #2C124D)"
 					},
+					".icon": {
+						"--tw-brightness": "brightness(0)",
+						"--tw-invert": "invert(0.8)",
+						"filter": "var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow)",
+					},
+					".icon-container:hover": {
+						"background-color" : "rgb(49 46 129 / var(--tw-bg-opacity))",
+						"--tw-scale-x": "1.1",
+    					"--tw-scale-y": "1.1",
+    					"transform": "translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))",
+					},
+					".custom-btn": {
+						"background-color": "#793ef9"
+					},
+					".custom-btn:hover": {
+						"background-color" : "rgb(87 42 186 / var(--tw-bg-opacity))",
+					},
+					".custom-btn:disabled": {
+						"background-color":"#1e1b4b",
+					},
+					".custom-toggle:checked": {
+						"--tglbg": "#793ef9",
+					},
+
 				  "primary": "#793ef9",
 				  "primary-focus": "#570df8",
 				  "primary-content": "#ffffff",
