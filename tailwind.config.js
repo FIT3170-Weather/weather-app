@@ -56,6 +56,10 @@ export default {
 				".custom-container": {
 					"background-color" : "#44e0da",
 				},
+
+				".stats-bg": {
+					"background-image":"linear-gradient(to bottom, #62cbff, #d0f8fe)"
+				},
 				
 
 				"primary": "#793ef9",
@@ -123,7 +127,11 @@ export default {
 					},
 					".custom-container": {
 					"background-color" : "#793ef9",
-				},
+					},
+
+					".stats-bg": {
+						"background-image":"linear-gradient(to bottom, #312E81, #6366F1)"
+					}, 
 
 				  "primary": "#793ef9",
 				  "primary-focus": "#570df8",
