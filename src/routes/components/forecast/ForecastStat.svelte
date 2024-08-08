@@ -13,10 +13,10 @@
 
     <!-- humidity stat -->
     <div class="row-span-1 col-span-1 h-full w-full">
-        <div class="stats shadow h-full w-full bg-gradient-to-b from-indigo-900 to-indigo-500">
+        <div class="stats shadow h-full w-full stats-bg">
             <div class="stat ">
-                <div class="stat-title text-sm text-white">Humidity</div>
-                <div class="stat-value text-xl text-white">{humidity_percentage}%</div>
+                <div class="stat-title text-sm text-error-content opacity-60">Humidity</div>
+                <div class="stat-value text-xl">{humidity_percentage}%</div>
                 
             </div>
         </div>
@@ -24,52 +24,52 @@
 
     <!-- wind stat -->
     <div class="row-span-1 col-span-1 h-full w-full">
-        <div class="stats shadow h-full w-full bg-gradient-to-b from-indigo-900 to-indigo-500">
+        <div class="stats shadow h-full w-full stats-bg">
             <div class="stat ">
-                <div class="stat-title text-sm text-white">Wind</div>
-                <div class="stat-value text-xl text-white">{wind_speed} km/h</div>
-                <div class="stat-desc text-white">{wind_direction}</div>
+                <div class="stat-title text-sm text-error-content opacity-60">Wind</div>
+                <div class="stat-value text-xl">{wind_speed} km/h</div>
+                <div class="stat-desc text-error-content opacity-60">{wind_direction}</div>
             </div>
         </div>
     </div>
 
     <!-- pressure stat -->
     <div class="row-span-1 col-span-1 h-full w-full">
-        <div class="stats shadow h-full w-full bg-gradient-to-b from-indigo-900 to-indigo-500">
+        <div class="stats shadow h-full w-full stats-bg">
             <div class="stat ">
-                <div class="stat-title text-sm text-white">Pressure</div>
-                <div class="stat-value text-xl text-white">{pressure}hPa</div>
+                <div class="stat-title text-sm text-error-content opacity-60">Pressure</div>
+                <div class="stat-value text-xl">{pressure}hPa</div>
             </div>
         </div>
     </div>
 
     <!-- precipitation stat -->
     <div class="row-span-1 col-span-1 h-full w-full">
-        <div class="stats shadow h-full w-full bg-gradient-to-b from-indigo-900 to-indigo-500">
+        <div class="stats shadow h-full w-full stats-bg">
             <div class="stat ">
-                <div class="stat-title text-sm text-white">Precipitation</div>
-                <div class="stat-value text-xl text-white">{percipitation} mm</div>
+                <div class="stat-title text-sm text-error-content opacity-60">Precipitation</div>
+                <div class="stat-value text-xl">{percipitation} mm</div>
             </div>
         </div>
     </div>
 
     <!-- uv index stat -->
     <div class="row-span-1 col-span-1 h-full w-full">
-        <div class="stats shadow h-full w-full bg-gradient-to-b from-indigo-900 to-indigo-500">
+        <div class="stats shadow h-full w-full stats-bg">
             <div class="stat ">
-                <div class="stat-title text-sm text-white">UV Index</div>
-                <div class="stat-value text-xl text-white">{uv_index}</div>
-                <div class="stat-desc text-white">{uv_intensity}</div>
+                <div class="stat-title text-sm text-error-content opacity-60">UV Index</div>
+                <div class="stat-value text-xl">{uv_index}</div>
+                <div class="stat-desc text-error-content opacity-60">{uv_intensity}</div>
             </div>
         </div>  
     </div>
 
     <!-- cloud cover stat -->
     <div class="row-span-1 col-span-1 h-full w-full">
-        <div class="stats shadow h-full w-full bg-gradient-to-b from-indigo-900 to-indigo-500">
+        <div class="stats shadow h-full w-full stats-bg">
             <div class="stat ">
-                <div class="stat-title text-sm text-white">Cloud Cover</div>
-                <div class="stat-value text-xl text-white">{cloud_cover_percentage}%</div>
+                <div class="stat-title text-sm text-error-content opacity-60">Cloud Cover</div>
+                <div class="stat-value text-xl">{cloud_cover_percentage}%</div>
             </div>
         </div>
     </div>
