@@ -3,6 +3,7 @@ import { deleteApp, getApps, initializeApp, type FirebaseApp } from "firebase/ap
 import { getStorage } from "firebase/storage";
 import { getFirestore } from "firebase/firestore";
 import { getAuth, GoogleAuthProvider } from "firebase/auth";
+import { getDatabase } from "firebase/database";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -26,8 +27,9 @@ if (!getApps().length) {
   firebaseApp = initializeApp(firebaseConfig);
 }
 
-export const db = getFirestore(firebaseApp);
-export const auth = getAuth(firebaseApp);
-export const storage = getStorage(firebaseApp);
+export const db = getFirestore(firebaseApp); 
+export const auth = getAuth(firebaseApp); // Authentication database (Google sign in)
+export const storage = getStorage(firebaseApp); // Storage for user placing in files (i think)
+export const database = getDatabase(firebaseApp); // This is the real time database
 export const googleProvider = new GoogleAuthProvider();
 
