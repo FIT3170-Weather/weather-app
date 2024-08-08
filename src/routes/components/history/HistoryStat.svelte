@@ -14,9 +14,9 @@
     <!-- humidity stat -->
     <div class="row-span-1 col-span-1 h-full w-full">
         <div class="stats shadow h-full w-full stats-bg">
-            <div class="stat ">
-                <div class="stat-title text-sm text-error-content opacity-60">Humidity</div>
-                <div class="stat-value text-xl ">{humidity_percentage}%</div>
+            <div class="stat sm:p-6 p-3">
+                <div class="stat-title sm:text-base text-xs text-error-content opacity-60">Humidity</div>
+                <div class="stat-value sm:text-xl text-base">{humidity_percentage}%</div>
                 
             </div>
         </div>
@@ -25,10 +25,10 @@
     <!-- wind stat -->
     <div class="row-span-1 col-span-1 h-full w-full">
         <div class="stats shadow h-full w-full stats-bg">
-            <div class="stat ">
-                <div class="stat-title text-sm text-error-content opacity-60">Wind</div>
-                <div class="stat-value text-xl ">{wind_speed} km/h</div>
-                <div class="stat-desc text-error-content opacity-60">{wind_direction}</div>
+            <div class="stat sm:p-6 p-3">
+                <div class="stat-title sm:text-base text-xs text-error-content opacity-60">Wind</div>
+                <div class="stat-value sm:text-xl text-base">{wind_speed} km/h</div>
+                <div class="stat-desc sm:text-sm text-xs text-error-content opacity-60">{wind_direction}</div>
             </div>
         </div>
     </div>
@@ -36,9 +36,9 @@
     <!-- pressure stat -->
     <div class="row-span-1 col-span-1 h-full w-full">
         <div class="stats shadow h-full w-full stats-bg">
-            <div class="stat ">
-                <div class="stat-title text-sm text-error-content opacity-60">Pressure</div>
-                <div class="stat-value text-xl ">{pressure}hPa</div>
+            <div class="stat sm:p-6 p-3">
+                <div class="stat-title sm:text-base text-xs text-error-content opacity-60">Pressure</div>
+                <div class="stat-value sm:text-xl text-base ">{pressure}hPa</div>
             </div>
         </div>
     </div>
@@ -46,9 +46,9 @@
     <!-- precipitation stat -->
     <div class="row-span-1 col-span-1 h-full w-full">
         <div class="stats shadow h-full w-full stats-bg">
-            <div class="stat ">
-                <div class="stat-title text-sm text-error-content opacity-60">Precipitation</div>
-                <div class="stat-value text-xl ">{percipitation} mm</div>
+            <div class="stat sm:p-6 p-3">
+                <div class="stat-title sm:text-base text-xs text-error-content opacity-60">Precipitation</div>
+                <div class="stat-value sm:text-xl text-base ">{percipitation} mm</div>
             </div>
         </div>
     </div>
@@ -56,10 +56,10 @@
     <!-- uv index stat -->
     <div class="row-span-1 col-span-1 h-full w-full">
         <div class="stats shadow h-full w-full stats-bg">
-            <div class="stat ">
-                <div class="stat-title text-sm text-error-content opacity-60">UV Index</div>
-                <div class="stat-value text-xl ">{uv_index}</div>
-                <div class="stat-desc text-error-content opacity-60">{uv_intensity}</div>
+            <div class="stat sm:p-6 p-3">
+                <div class="stat-title sm:text-base text-xs text-error-content opacity-60">UV Index</div>
+                <div class="stat-value sm:text-xl text-base ">{uv_index}</div>
+                <div class="stat-desc sm:text-sm text-xs text-error-content opacity-60">{uv_intensity}</div>
             </div>
         </div>  
     </div>
@@ -67,9 +67,9 @@
     <!-- cloud cover stat -->
     <div class="row-span-1 col-span-1 h-full w-full">
         <div class="stats shadow h-full w-full stats-bg">
-            <div class="stat ">
-                <div class="stat-title text-sm text-error-content opacity-60">Cloud Cover</div>
-                <div class="stat-value text-xl ">{cloud_cover_percentage}%</div>
+            <div class="stat sm:p-6 p-3">
+                <div class="stat-title sm:text-base text-xs text-error-content opacity-60">Cloud Cover</div>
+                <div class="stat-value sm:text-xl text-base ">{cloud_cover_percentage}%</div>
             </div>
         </div>
     </div>
