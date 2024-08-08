@@ -88,7 +88,7 @@
             {username}
         </div>
     </div>
-    <div class="border-b border-primary-content"></div>
+    <div class="border-b border-error-content"></div>
     <div class="grid grid-cols-2 justify-items-start items-center py-5">
         <div class="col-span-2 lg:col-span-1">
             <span class="text-lg font-bold">Home Location</span>
@@ -100,7 +100,7 @@
             {homeLocation}
         </div>
     </div>
-    <div class="border-b border-primary-content"></div>
+    <div class="border-b border-error-content"></div>
     <div class="grid grid-cols-2 justify-items-start items-center py-5">
         <div class="col-span-2 lg:col-span-1">
             <span class="text-lg font-bold">Email</span>
@@ -109,7 +109,7 @@
             {email}
         </div>
     </div>
-    <div class="border-b border-primary-content"></div>
+    <div class="border-b border-error-content"></div>
 
     <!-- Modal for changing name-->
     <dialog bind:this={editNameModal} class="modal">
