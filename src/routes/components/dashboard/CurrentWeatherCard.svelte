@@ -80,7 +80,7 @@
     <!-- Weather Statistics -->
     <div class="space-y-5 justify-center max-sm:flex-row max-sm:flex max-sm:space-x-5">
         <!-- First Stats Line -->
-        <div class="flex flex-wrap justify-center space-x-10 max-sm:space-x-0 max-sm:flex-col max-sm:ml-4">
+        <div class="flex flex-wrap justify-center space-x-10 max-sm:space-x-0 max-sm:flex-col">
             <div class="stats stats-bg shadow max-sm:mt-5 cards">
                 <div class="stat w-40 h-28 text-center max-sm:w-[80px] max-sm:h-[80px]">
                   <div class="stat-title text-error-content opacity-80 text-lg max-sm:text-[10px]">Humidity</div>
