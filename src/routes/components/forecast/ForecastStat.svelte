@@ -15,7 +15,7 @@
     <div class="row-span-1 col-span-1 h-full w-full">
         <div class="stats shadow h-full w-full stats-bg">
             <div class="stat sm:p-6 p-3">
-                <div class="stat-title sm:text-base text-xs text-error-content opacity-60">Humidity</div>
+                <div class="stat-title sm:text-base text-xs text-error-content opacity-80">Humidity</div>
                 <div class="stat-value sm:text-xl text-base">{humidity_percentage}%</div>
                 
             </div>
@@ -26,9 +26,9 @@
     <div class="row-span-1 col-span-1 h-full w-full">
         <div class="stats shadow h-full w-full stats-bg">
             <div class="stat sm:p-6 p-3">
-                <div class="stat-title sm:text-base text-xs text-error-content opacity-60">Wind</div>
+                <div class="stat-title sm:text-base text-xs text-error-content opacity-80">Wind</div>
                 <div class="stat-value sm:text-xl text-base">{wind_speed} km/h</div>
-                <div class="stat-desc sm:text-sm text-xs text-error-content opacity-60">{wind_direction}</div>
+                <div class="stat-desc sm:text-sm text-xs text-error-content opacity-80">{wind_direction}</div>
             </div>
         </div>
     </div>
@@ -37,7 +37,7 @@
     <div class="row-span-1 col-span-1 h-full w-full">
         <div class="stats shadow h-full w-full stats-bg">
             <div class="stat sm:p-6 p-3">
-                <div class="stat-title sm:text-base text-xs text-error-content opacity-60">Pressure</div>
+                <div class="stat-title sm:text-base text-xs text-error-content opacity-80">Pressure</div>
                 <div class="stat-value sm:text-xl text-base">{pressure}hPa</div>
             </div>
         </div>
@@ -47,7 +47,7 @@
     <div class="row-span-1 col-span-1 h-full w-full">
         <div class="stats shadow h-full w-full stats-bg">
             <div class="stat sm:p-6 p-3">
-                <div class="stat-title sm:text-base text-xs text-error-content opacity-60">Precipitation</div>
+                <div class="stat-title sm:text-base text-xs text-error-content opacity-80">Precipitation</div>
                 <div class="stat-value sm:text-xl text-base">{percipitation} mm</div>
             </div>
         </div>
@@ -57,9 +57,9 @@
     <div class="row-span-1 col-span-1 h-full w-full">
         <div class="stats shadow h-full w-full stats-bg">
             <div class="stat sm:p-6 p-3">
-                <div class="stat-title sm:text-base text-xs text-error-content opacity-60">UV Index</div>
+                <div class="stat-title sm:text-base text-xs text-error-content opacity-80">UV Index</div>
                 <div class="stat-value sm:text-xl text-base">{uv_index}</div>
-                <div class="stat-desc sm:text-sm text-xs text-error-content opacity-60">{uv_intensity}</div>
+                <div class="stat-desc sm:text-sm text-xs text-error-content opacity-80">{uv_intensity}</div>
             </div>
         </div>  
     </div>
@@ -68,7 +68,7 @@
     <div class="row-span-1 col-span-1 h-full w-full">
         <div class="stats shadow h-full w-full stats-bg">
             <div class="stat sm:p-6 p-3">
-                <div class="stat-title sm:text-base text-xs text-error-content opacity-60">Cloud Cover</div>
+                <div class="stat-title sm:text-base text-xs text-error-content opacity-80">Cloud Cover</div>
                 <div class="stat-value sm:text-xl text-base">{cloud_cover_percentage}%</div>
             </div>
         </div>
