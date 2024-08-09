@@ -1,6 +1,6 @@
 
 <!-- the purple container -->
-<div class="border border-white card bg-base-content bg-opacity-10 shadow-xl h-full w-full">
+<div class="card shadow-xl h-full w-full">
     <div class="flex flex-col space-y-4 items-center p-5 h-full w-full"> 
         
         <!-- the container for the temperatue graph -->

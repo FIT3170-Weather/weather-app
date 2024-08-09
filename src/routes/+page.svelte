@@ -3,7 +3,9 @@
 	import CurrentWeatherCard from './components/dashboard/CurrentWeatherCard.svelte';
 	import GraphCard from './components/GraphCard.svelte';
 	import BottomComponents from './components/BottomComponents.svelte';
-	
+    import { locations } from './locations.js';
+
+	let search_data = locations
 	// export let data;
 	// console.log(data);
 	let data = {
