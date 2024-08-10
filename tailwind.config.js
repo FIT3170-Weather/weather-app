@@ -56,7 +56,9 @@ export default {
 					"transform": "translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))",
 				},
 				".custom-btn": {
-					"background-color": "#37cdbe"
+					"background-color": "#37cdbe",
+					"border": "none",
+					"color": "#000"
 				},
 				".custom-btn:hover": {
 					"background-color" : "rgb(15 118 110 / var(--tw-bg-opacity))",
@@ -136,7 +138,9 @@ export default {
     					"transform": "translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))",
 					},
 					".custom-btn": {
-						"background-color": "#793ef9"
+						"background-color": "#793ef9",
+						"border": "none",
+						"color": "#fff",
 					},
 					".custom-btn:hover": {
 						"background-color" : "rgb(87 42 186 / var(--tw-bg-opacity))",
