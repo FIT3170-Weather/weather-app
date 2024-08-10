@@ -4,7 +4,29 @@ export default {
 	theme: {
 		extend: {}
 	},
-	plugins: [require('daisyui')],  
+	plugins: [
+		require('daisyui'),
+		function ({ addUtilities}) {
+			const newUtilities = {
+				".custom-scrollbar::-webkit-scrollbar": {
+					"height": "4px",
+				},
+				".custom-scrollbar::-webkit-scrollbar-track": {
+					"background": "#64748b",
+					"margin-left": "50px",
+					"margin-right": "50px",
+				},
+				".custom-scrollbar::-webkit-scrollbar-thumb": {
+					"background": "#cbd5e1",
+					"border-radius": "2px",
+				},
+				".custom-scrollbar::-webkit-scrollbar-thumb:hover": {
+					"background": "#252525"
+				},
+			};
+			addUtilities(newUtilities);
+		},
+	],  
 
 	// daisyUI config (optional - here are the default values)
 	daisyui: {
