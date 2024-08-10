@@ -1,11 +1,11 @@
-<script>
+<script lang="ts">
     export let currentWeatherData;
 
     let location = `Subang Jaya, ${currentWeatherData.sys.country}`; // Default
     // let temperature = "32"; // Default
     // let feelTemperature = "40"; // Default
 
-    function convertEpochToLocalTime(epochTime) {
+    function convertEpochToLocalTime(epochTime : any) {
         // Convert epoch time to milliseconds
         var date = new Date(0); // The 0 there is the key, which sets the date to the epoch
         date.setUTCSeconds(epochTime);
@@ -28,7 +28,7 @@
         return localTime;
     }
 
-    function capitalizeFirstLetter(string) {
+    function capitalizeFirstLetter(string : any) {
         if (string.length === 0) {
             return string; // Handle empty string case
         }
@@ -78,71 +78,50 @@
     </div>
     
     <!-- Weather Statistics -->
-    <div class="space-y-5 justify-center max-sm:flex-row max-sm:flex max-sm:space-x-5">
-        <!-- First Stats Line -->
-        <div class="flex flex-wrap justify-center space-x-10 max-sm:space-x-0 max-sm:flex-col max-sm:ml-0">
-            <div class="stats stats-bg shadow max-sm:mt-5 cards">
-                <div class="stat w-40 h-28 text-center max-sm:w-[80px] max-sm:h-[80px]">
-                  <div class="stat-title text-error-content opacity-80 text-lg max-sm:text-[10px]">Humidity</div>
-                  <div class="stat-value text-xl max-sm:text-[13px]">{currentWeatherData.main.humidity}%</div>
-                  <!-- <div class="stat-desc"></div> -->
+    <div class="flex flex-col justify-center gap-3 max-sm:flex-row">
+        <!-- humidity, wind, pressure -->
+        <div class="flex items-center gap-y-3 sm:space-x-5 max-sm:flex-col">
+            <div class="stats stats-bg shadow w-40 h-28 max-sm:w-20 max-sm:h-20">
+                <div class="stat flex flex-col p-0 gap-2 justify-center">
+                    <div class="stat-title text-error-content place-self-center opacity-80 text-lg max-sm:text-[10px]">Humidity</div>
+                    <div class="stat-value place-self-center text-xl max-sm:text-[13px]">{currentWeatherData.main.humidity}%</div>
                 </div>
             </div>
-    
-            <div class="stats stats-bg shadow max-sm:mt-2 cards">
-                <div class="stat w-40 h-28 text-center items-center max-sm:w-[80px] max-sm:h-[80px]">
-                  <div class="stat-title text-error-content opacity-80 text-lg max-sm:text-[10px]">Wind</div>
-                  <div class="stat-value text-xl max-sm:text-[13px]">{currentWeatherData.wind.speed}m/s</div>
-                  <!-- <div class="stat-desc">East</div> -->
+            <div class="stats stats-bg shadow w-40 h-28 max-sm:w-20 max-sm:h-20">
+                <div class="stat flex flex-col p-0 gap-2 justify-center">
+                    <div class="stat-title text-error-content place-self-center opacity-80 text-lg max-sm:text-[10px]">Wind</div>
+                    <div class="stat-value place-self-center text-xl max-sm:text-[13px]">{currentWeatherData.wind.speed}m/s</div>
                 </div>
             </div>
-
-
-            <div class="stats stats-bg shadow max-sm:mt-2 cards">
-                <div class="stat w-40 h-28 text-center items-center max-sm:w-[80px] max-sm:h-[80px]">
-                  <div class="stat-title text-error-content opacity-80 text-lg max-sm:text-[10px]">Pressure</div>
-                  <div class="stat-value text-xl max-sm:text-[13px]">{currentWeatherData.main.pressure}hPa</div>
-                  <!-- <div class="stat-desc"></div> -->
+            <div class="stats stats-bg shadow w-40 h-28 max-sm:w-20 max-sm:h-20">
+                <div class="stat flex flex-col p-0 gap-2 justify-center">
+                    <div class="stat-title text-error-content place-self-center opacity-80 text-lg max-sm:text-[10px]">Pressure</div>
+                    <div class="stat-value place-self-center text-xl max-sm:text-[13px]">{currentWeatherData.main.pressure}hPa</div>
                 </div>
             </div>
-            
         </div>
-
-        <!-- Second Stats Line -->
-        <div class="flex flex-wrap justify-center space-x-10 max-sm:space-x-0 max-sm:flex-col">
-            <div class="stats stats-bg shadow cards">
-                <div class="stat w-40 h-28 text-center items-center max-sm:w-[80px] max-sm:h-[80px]">
-                  <div class="stat-title text-error-content opacity-80 text-lg max-sm:text-[10px]">Visibility</div>
-                  <div class="stat-value text-xl max-sm:text-[13px]">{currentWeatherData.visibility}m</div>
-                  <!-- <div class="stat-desc"></div> -->
+        <!-- visibility, temperature, sun -->
+        <div class="flex items-center gap-y-3 sm:space-x-5 max-sm:flex-col">
+            <div class="stats stats-bg shadow w-40 h-28 max-sm:w-20 max-sm:h-20">
+                <div class="stat flex flex-col p-0 gap-2 justify-center">
+                    <div class="stat-title text-error-content place-self-center opacity-80 text-lg max-sm:text-[10px]">Visibility</div>
+                    <div class="stat-value place-self-center text-xl max-sm:text-[13px]">{currentWeatherData.visibility}m</div>
                 </div>
             </div>
-    
-            <!-- <div class="stats shadow">
-                <div class="stat">
-                  <div class="stat-title text-sm">Dew point</div>
-                  <div class="stat-value text-xl">{currentWeatherData.main.wind.speed}</div>
-                  <div class="stat-desc">Moderate</div>
-                </div>
-            </div> -->
-
-            <div class="stats stats-bg shadow max-sm:mt-2 cards">
-                <div class="stat w-40 h-28 text-center items-center justify-center max-sm:w-[80px] max-sm:h-[80px]">
-                  <div class="stat-title text-error-content opacity-80 text-lg max-sm:text-[10px]">Temperature</div>
-                  <div class="stat-title text-error-content max-sm:text-[8px]">Max <span class="stat-value text-xl max-sm:text-[11px]">{Math.round(currentWeatherData.main.temp_max)}°C</span></div>
-                  <div class="stat-title text-error-content max-sm:text-[8px]">Min <span class="stat-value text-xl max-sm:text-[11px]">{Math.round(currentWeatherData.main.temp_min)}°C</span></div>
+            <div class="stats stats-bg shadow w-40 h-28 max-sm:w-20 max-sm:h-20">
+                <div class="stat flex flex-col p-0 justify-center">
+                    <div class="stat-title text-error-content place-self-center opacity-80 text-lg max-sm:text-[10px] max-sm:h-5">Temperature</div>
+                    <div class="stat-title text-error-content place-self-center text-xl max-sm:text-[11px] max-sm:h-5">Max <span class="stat-value text-xl text-error-content max-sm:text-[11px]">{Math.round(currentWeatherData.main.temp_max)}°C</span></div>
+                    <div class="stat-title text-error-content place-self-center text-xl max-sm:text-[11px] max-sm:h-5">Min <span class="stat-value text-xl text-error-content max-sm:text-[11px]">{Math.round(currentWeatherData.main.temp_min)}°C</span></div>
                 </div>
             </div>
-
-            <div class="stats stats-bg shadow max-sm:mt-2 cards">
-                <div class="stat w-40 h-28 text-center items-center justify-center max-sm:w-[80px] max-sm:h-[80px]">
-                  <div class="stat-title text-error-content opacity-80 text-lg max-sm:text-[10px]">Sun</div>
-                  <div class="stat-title text-error-content max-sm:text-[8px]">Rise: <span class="stat-value text-xl max-sm:text-[11px]">{convertEpochToLocalTime(currentWeatherData.sys.sunrise)}</span></div>
-                  <div class="stat-title text-error-content max-sm:text-[8px]">Set: <span class="stat-value text-xl max-sm:text-[11px]">{convertEpochToLocalTime(currentWeatherData.sys.sunset)}</span></div>
+            <div class="stats stats-bg shadow w-40 h-28 max-sm:w-20 max-sm:h-20">
+                <div class="stat flex flex-col p-0 justify-center">
+                    <div class="stat-title text-error-content place-self-center opacity-80 text-lg max-sm:text-[10px] max-sm:h-5">Sun</div>
+                    <div class="stat-title text-error-content place-self-center text-xl max-sm:text-[8px] max-sm:h-5">Rise: <span class="stat-value text-xl text-error-content max-sm:text-[11px]">{convertEpochToLocalTime(currentWeatherData.sys.sunrise)}</span></div>
+                    <div class="stat-title text-error-content place-self-center text-xl max-sm:text-[8px] max-sm:h-5">Set: <span class="stat-value text-xl text-error-content max-sm:text-[11px]">{convertEpochToLocalTime(currentWeatherData.sys.sunset)}</span></div>
                 </div>
             </div>
-            
         </div>
     </div>
 </div>
-
