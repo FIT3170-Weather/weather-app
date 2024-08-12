@@ -3,9 +3,6 @@
 	import CurrentWeatherCard from './components/dashboard/CurrentWeatherCard.svelte';
 	import GraphCard from './components/GraphCard.svelte';
 	import BottomComponents from './components/BottomComponents.svelte';
-    import { locations } from './locations.js';
-
-	let search_data = locations
 	// export let data;
 	// console.log(data);
 	let data = {
@@ -43,7 +40,7 @@
 <div class="flex flex-wrap max-lg:flex-col m-5 max-lg:space-x-0 space-x-5 max-lg:space-y-5">
 	<!-- Current weather -->
 	<div class="grow glassmorph flex items-center justify-center max-lg:w-full border-error-content">
-		<CurrentWeatherCard currentWeatherData={data.currentWeather}  />
+		<CurrentWeatherCard currentWeatherData={data.currentWeather} />
 	</div>
 
 	<!-- Today's insights -->

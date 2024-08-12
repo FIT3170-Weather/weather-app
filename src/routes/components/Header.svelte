@@ -1,8 +1,6 @@
 <script lang="ts">
-
+    export let searchData;
     import { time } from '../clock.js';
-    import { locations } from '../locations.js';
-
     let loginModal: HTMLDialogElement;
     
     function openLoginModal() {
@@ -46,7 +44,7 @@
     }
 
     // search bar (dummy data)
-    let search_data = locations
+    let search_data = searchData;
     let searchString = ""
     let filteredItems: string[] = [];
     let findItemItems: string[] = [];
@@ -68,7 +66,7 @@
         console.log(searchString);
         if (searchString.length > 0) {
             userClosed = false;
-            findItemItems = search_data.filter(item => item.toLowerCase().startsWith(searchString.toLowerCase()));
+            findItemItems = search_data.filter((item: string) => item.toLowerCase().startsWith(searchString.toLowerCase()));
             if (findItemItems.length !== 0){
                 filteredItems = findItemItems
             }
