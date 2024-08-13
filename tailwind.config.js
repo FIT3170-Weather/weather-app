@@ -4,7 +4,29 @@ export default {
 	theme: {
 		extend: {}
 	},
-	plugins: [require('daisyui')],  
+	plugins: [
+		require('daisyui'),
+		function ({ addUtilities}) {
+			const newUtilities = {
+				".custom-scrollbar::-webkit-scrollbar": {
+					"height": "4px",
+				},
+				".custom-scrollbar::-webkit-scrollbar-track": {
+					"background": "#64748b",
+					"margin-left": "50px",
+					"margin-right": "50px",
+				},
+				".custom-scrollbar::-webkit-scrollbar-thumb": {
+					"background": "#cbd5e1",
+					"border-radius": "2px",
+				},
+				".custom-scrollbar::-webkit-scrollbar-thumb:hover": {
+					"background": "#252525"
+				},
+			};
+			addUtilities(newUtilities);
+		},
+	],  
 
 	// daisyUI config (optional - here are the default values)
 	daisyui: {
@@ -28,13 +50,15 @@ export default {
 					"--tw-brightness": "brightness(0)",
 				},
 				".icon-container:hover": {
-					"background-color" : "rgb(15 118 110 / var(--tw-bg-opacity))",
+					"background-color" : "rgb(170 245 228 / var(--tw-bg-opacity))",
 					"--tw-scale-x": "1.1",
 					"--tw-scale-y": "1.1",
 					"transform": "translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))",
 				},
 				".custom-btn": {
-					"background-color": "#37cdbe"
+					"background-color": "#37cdbe",
+					"border": "none",
+					"color": "#000"
 				},
 				".custom-btn:hover": {
 					"background-color" : "rgb(15 118 110 / var(--tw-bg-opacity))",
@@ -114,7 +138,9 @@ export default {
     					"transform": "translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))",
 					},
 					".custom-btn": {
-						"background-color": "#793ef9"
+						"background-color": "#793ef9",
+						"border": "none",
+						"color": "#fff",
 					},
 					".custom-btn:hover": {
 						"background-color" : "rgb(87 42 186 / var(--tw-bg-opacity))",

@@ -66,14 +66,14 @@
 
 <div class="p-5 md:p-10">
     <div class="h-max text-4xl font-semibold" style="padding-bottom: 30px;">Alerts</div>
-    <div class="flex-grow border-t border-primary-content"></div> 
+    <div class="flex-grow border-t-2 border-error-content"></div> 
     <div class="h-max text-2xl font-medium py-5">Observed Locations</div>
     <div class="overflow-x-auto">
         <table class="table">
             <tbody>
                 {#if locationCount > 0}
                     {#each $observedLocations as location}
-                        <tr>
+                        <tr class="border-error-content">
                             <td class="text-lg">{location}</td>
                             <th class="text-end">
                                 <button class="btn btn-ghost btn-xs" on:click={removeLocation(location)}>
@@ -83,7 +83,7 @@
                         </tr>
                     {/each}
                 {:else}
-                    <tr>
+                    <tr class="border-error-content">
                         <th class="h-max text-lg font-light">Add a new location to get notified...</th>
                     </tr>
                 {/if}
@@ -93,35 +93,35 @@
     <div class="py-5 flex justify-end">
         <button class="custom-btn btn" on:click={openModal}>+ ADD</button>
     </div>
-    <div class="flex-grow border-t border-primary-content"></div>
+    <div class="flex-grow border-t-2 border-error-content"></div>
 
     <div class="h-max text-2xl font-medium py-5">Notifications</div>
     <div class="overflow-x-auto">
         <table class="table">
             <tbody>
                 <!-- row 1 -->
-                <tr>
+                <tr class="border-error-content">
                     <td class="text-lg">Rain</td>
                     <th class="text-end">
                         <input type="checkbox" class="custom-toggle toggle" bind:checked={rain}/>
                     </th>
                 </tr>
                 <!-- row 2 -->
-                <tr>
+                <tr class="border-error-content">
                     <td class="text-lg">Wind</td>
                     <th class="text-end">
                         <input type="checkbox" class="custom-toggle toggle" bind:checked={wind}/>
                     </th>
                 </tr>
                 <!-- row 3 -->
-                <tr>
+                <tr class="border-error-content">
                     <td class="text-lg">Thunderstorm</td>
                     <th class="text-end">
                         <input type="checkbox" class="custom-toggle toggle" bind:checked={thunderstorm}/>
                     </th>
                 </tr>
                 <!-- row 4 -->
-                <tr>
+                <tr class="border-error-content">
                     <td class="text-lg">Temperature</td>
                     <th class="text-end">
                         <input type="checkbox" class="custom-toggle toggle" bind:checked={temperature}/>

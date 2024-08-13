@@ -24,7 +24,7 @@
     <meta name="description" content="Climate web app" />
 </svelte:head>
 
-<section class="flex flex-col items-center w-full">
+<section class="flex flex-col items-center">
     <header class="flex justify-start items-center w-full p-5 text-white text-2xl">
         <h1>{location}</h1>
     </header>
@@ -32,30 +32,32 @@
         <h1>{page_title}</h1>
         <h1>{page_title_description}</h1>
     </div>
-    {#each historicalData as history}
-        <div class="m-2.5 p-4 border border-white bg-base-content bg-opacity-10 shadow-xl rounded-lg md:w-4/5">
-            <div class="grid grid-cols-1 md:grid-cols-6 gap-4">
-                <div class="md:col-span-2 col-span-1">
-                    <HistoryInfo
-                    day = {history.day}
-                    date = {history.date}
-                    message = {history.message}
-                    temp = {history.temp}
-                    />
-                </div>
-                <div class="md:col-span-4 col-span-1">
-                    <HistoryStat
-                        humidity_percentage={history.humidity}
-                        wind_speed={history.wind_speed}
-                        wind_direction={history.wind_direction}
-                        pressure={history.pressure}
-                        percipitation={history.precipitation}
-                        uv_index={history.uv_index}
-                        uv_intensity={history.uv_intensity}
-                        cloud_cover_percentage={history.cloud_cover_percentage}
-                    />
+    <div class="flex flex-col w-full items-center px-5 md:px-0">
+        {#each historicalData as history}
+            <div class="m-2.5 p-4 border border-error-content bg-base-content bg-opacity-10 shadow-xl rounded-lg w-full md:w-4/5">
+                <div class="grid grid-cols-1 md:grid-cols-6 gap-4">
+                    <div class="md:col-span-2 col-span-1">
+                        <HistoryInfo
+                        day = {history.day}
+                        date = {history.date}
+                        message = {history.message}
+                        temp = {history.temp}
+                        />
+                    </div>
+                    <div class="md:col-span-4 col-span-1">
+                        <HistoryStat
+                            humidity_percentage={history.humidity}
+                            wind_speed={history.wind_speed}
+                            wind_direction={history.wind_direction}
+                            pressure={history.pressure}
+                            percipitation={history.precipitation}
+                            uv_index={history.uv_index}
+                            uv_intensity={history.uv_intensity}
+                            cloud_cover_percentage={history.cloud_cover_percentage}
+                        />
+                    </div>
                 </div>
             </div>
-        </div>
-    {/each}
+        {/each}
+    </div>
 </section>

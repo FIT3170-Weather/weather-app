@@ -3,7 +3,6 @@
 	import CurrentWeatherCard from './components/dashboard/CurrentWeatherCard.svelte';
 	import GraphCard from './components/GraphCard.svelte';
 	import BottomComponents from './components/BottomComponents.svelte';
-	
 	// export let data;
 	// console.log(data);
 	let data = {
@@ -40,18 +39,18 @@
 
 <div class="flex flex-wrap max-lg:flex-col m-5 max-lg:space-x-0 space-x-5 max-lg:space-y-5">
 	<!-- Current weather -->
-	<div class="grow glassmorph flex items-center justify-center max-lg:w-full">
-		<CurrentWeatherCard currentWeatherData={data.currentWeather}  />
+	<div class="grow glassmorph flex items-center justify-center max-lg:w-full border-error-content">
+		<CurrentWeatherCard currentWeatherData={data.currentWeather} />
 	</div>
 
 	<!-- Today's insights -->
-	<div class="grow place-content-center glassmorph">
+	<div class="grow place-content-center glassmorph border-error-content">
 		<GraphCard />
 	</div>
 </div>
 
 <!-- Other cities -->
-<div class="place-content-center glassmorph grow m-5">
+<div class="place-content-center glassmorph grow m-5 border-error-content">
 	<BottomComponents></BottomComponents>
 </div>
 

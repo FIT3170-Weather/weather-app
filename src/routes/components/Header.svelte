@@ -1,8 +1,6 @@
 <script lang="ts">
-
+    export let searchData;
     import { time } from '../clock.js';
-    import { locations } from '../locations.js';
-
     let loginModal: HTMLDialogElement;
     
     function openLoginModal() {
@@ -46,7 +44,7 @@
     }
 
     // search bar (dummy data)
-    let search_data = locations
+    let search_data = searchData;
     let searchString = ""
     let filteredItems: string[] = [];
     let findItemItems: string[] = [];
@@ -68,7 +66,7 @@
         console.log(searchString);
         if (searchString.length > 0) {
             userClosed = false;
-            findItemItems = search_data.filter(item => item.toLowerCase().startsWith(searchString.toLowerCase()));
+            findItemItems = search_data.filter((item: string) => item.toLowerCase().startsWith(searchString.toLowerCase()));
             if (findItemItems.length !== 0){
                 filteredItems = findItemItems
             }
@@ -87,14 +85,27 @@
 
 
     // function that allows the info will be updated based on the location selected.
-    function changeLocation(items : string) {
+    function changeLocationNormalView(items : string) {
         return () => {
-        // Implement the logic to change location
-        userClosed = true
-        searchString = items
+        userClosed = true;
+        searchString = "";
         showDropdown = false;
-        console.log(items);
+        updateLocation(items);
         };
+    }
+
+    function changeLocationMobileView(items : string) {
+        return () => {
+        userClosed = true;
+        searchString = items;
+        showDropdown = false;
+        updateLocation(items);
+        };
+    }
+
+    function updateLocation(items: string){
+        // Implement the logic to change location
+        console.log(items);
     }
 
     // add logic and close modal
@@ -148,17 +159,17 @@
           <!-- search bar algoriithm -->
           {#if !userClosed} 
           <!-- <button on:click={clearSearch} class="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-500 focus:outline-none">✕</button> -->
-          <button on:click={clearSearch} class="absolute pb-[60px] self-end pr-4 bottom-10 transform -translate-y-1/2 text-gray-500">✕</button>
+          <button on:click={clearSearch} class="absolute pt-12 self-end pr-4 transform -translate-y-1/2 text-gray-500">✕</button>
               {#if filteredItems.length > 0 }
                   <div class="bg-white flex flex-col rounded overflow-hidden z-50 w-full pl-3 pr-10">
                       {#each filteredItems as items}
-                          <button on:click={() => changeLocation(items)()} class="block z-20 cursor-pointer text-black my-2 text-left">{items}</button>    
+                          <button on:click={() => changeLocationNormalView(items)()} class="block z-20 cursor-pointer text-black my-2 text-left">{items}</button>    
                       {/each}
                   </div>
               {:else}
                   <div class="bg-white flex flex-col rounded overflow-hidden z-50 w-full pl-3 pr-10">
                       {#each search_data as items}
-                          <button on:click={() => changeLocation(items)()} class="block z-20 cursor-pointer text-black my-2 text-left">{items}</button>    
+                          <button on:click={() => changeLocationNormalView(items)()} class="block z-20 cursor-pointer text-black my-2 text-left">{items}</button>    
                       {/each}
                   </div>
               {/if}
@@ -282,7 +293,7 @@
                 <ul class="menu dropdown-content bg-base-200 rounded-box z-[1] w-full p-2 shadow">
                     {#each filteredItems as items}
                         <li class="w-full" >
-                            <button on:click={() => changeLocation(items)()}>
+                            <button on:click={() => changeLocationMobileView(items)()}>
                                 {items}
                             </button>
                         </li>
