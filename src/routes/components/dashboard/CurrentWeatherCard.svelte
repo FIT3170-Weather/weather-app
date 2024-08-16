@@ -1,7 +1,8 @@
 <script lang="ts">
     export let currentWeatherData;
+    // console.log(currentWeatherData)
 
-    let location = `Subang Jaya, ${currentWeatherData.sys.country}`; // Default
+    let location = `${currentWeatherData.name}, Malaysia`; // Default
     // let temperature = "32"; // Default
     // let feelTemperature = "40"; // Default
 
@@ -64,12 +65,12 @@
         <div class="flex flex-wrap justify-center space-x-1.5">
            
            <!-- api data -->
-            <!-- {#each currentWeatherData.weather as weather}
+            {#each currentWeatherData.weather as weather}
                 <div class="badge badge-primary">{capitalizeFirstLetter(weather.description)}</div>
-            {/each} -->
+            {/each}
 
-            <!-- dummy data -->
-            <div class="badge border-none custom-container text-error-content text-lg p-4">Gentle Breeze</div>
+            <!-- dummy data
+            <div class="badge border-none custom-container text-error-content text-lg p-4">Gentle Breeze</div> -->
         </div>
         
         <div class="flex justify-center">
