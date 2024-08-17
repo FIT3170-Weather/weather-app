@@ -114,8 +114,10 @@
     }
 
     function updateLocation(items: string){
-        // Implement the logic to change location
-        window.location.href = "/"
+        // change value back to lowercase and convert space to dash
+        let str = items.split(",")[0].toLowerCase().replace(/ /g, '-')
+        sessionStorage.setItem("location", str) // set user selected location to session storage 
+        window.location.reload() // reload the page the user is currently on
     }
 
     // add logic and close modal

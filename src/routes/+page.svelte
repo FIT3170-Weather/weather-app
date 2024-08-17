@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	// @ts-ignore
 	import CurrentWeatherCard from './components/dashboard/CurrentWeatherCard.svelte';
 	import GraphCard from './components/GraphCard.svelte';
@@ -9,20 +9,21 @@
 	// URL for the current data
 	const url = 'http://localhost:8000/current';
 	
-	// connect this to the search bar. (can follow location for now)
-	let selectedCity = "kuala-lumpur";
-	
-	
+	// data from layout.ts (current location to display for main dashboard)
+	// data has two keys location and locations
+	// we take only location here so we use data.location for the body
+	import type { LayoutData } from './$types';	
+	export let data: LayoutData;
 	
 	let error = null;
 	/**
 	 * @type {null}
 	 */
-	let weatherData = null;
+	let weatherData: any = null;
 
 	// Create the request body
 	const requestBody = {
-		location: selectedCity
+		location: data.location
 	};
 
 	// Use the fetch API to make the POST request
