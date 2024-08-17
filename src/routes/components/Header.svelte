@@ -1,5 +1,6 @@
 <script lang="ts">
     export let searchData;
+
     import { time } from '../clock.js';
     let loginModal: HTMLDialogElement;
     
@@ -43,8 +44,17 @@
     });
     }
 
-    // search bar (dummy data)
-    let search_data = searchData;
+    import { onMount } from 'svelte';
+
+    let search_data:string[] = []
+    // convert json to array of locaitons
+    onMount(() => {
+        for (var i in searchData.locations) {
+            search_data.push(i.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase()) + ', ' + 'Malaysia')
+        }
+    })
+
+
     let searchString = ""
     let filteredItems: string[] = [];
     let findItemItems: string[] = [];
@@ -105,7 +115,7 @@
 
     function updateLocation(items: string){
         // Implement the logic to change location
-        console.log(items);
+        window.location.href = "/"
     }
 
     // add logic and close modal
