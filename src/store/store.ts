@@ -8,6 +8,8 @@ export const authStore = writable<{ user: User | null }>({
   user: null,
 });
 
+let userId = "null"
+
 export const authHandlers = {
     // Logout call 
     logout: async () => {
@@ -23,7 +25,7 @@ export const authHandlers = {
         authStore.set({ user });
 
         // Obtain user ID log it onto console 
-        const userId = user.uid;
+        userId = user.uid;
         console.log('User ID: ', userId);
         
 
@@ -33,4 +35,13 @@ export const authHandlers = {
         console.error('Error during sign-in with Google:', error);
       }
     },
-  };
+
+    getUserId: () => {
+      return userId
+    }
+    
+};
+
+
+
+
