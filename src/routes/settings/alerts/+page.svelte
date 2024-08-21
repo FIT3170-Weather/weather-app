@@ -1,7 +1,19 @@
 <script lang="ts">
     import { writable } from 'svelte/store';
     import { onDestroy } from 'svelte';
-    import { locations } from '../../locations.js';
+    import { onMount } from 'svelte';
+
+    // get locations obtained in layout.js
+    import type { LayoutData } from './$types';	
+	export let data: LayoutData;
+
+    let locations:string[] = []
+    // convert json to array of locaitons
+    onMount(() => {
+        for (var i in data.locations) {
+            locations.push(i.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase()) + ', ' + 'Malaysia')
+        }
+    })
  
     let observedLocations = writable<string[]>([]);
 
@@ -154,7 +166,7 @@
             </div>
             <div class="modal-action">  
                 <form method="dialog" on:submit={handleSubmit}>
-                    <button class="custom-btn btn" disabled={!(locations.includes(newLocation))}>+ ADD</button>   
+                    <button class="custom-btn btn">+ ADD</button>   
                 </form>
             </div>
         </div>

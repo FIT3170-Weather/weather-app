@@ -1,28 +1,67 @@
-<script>
+<script lang="ts">
+    import { onMount } from 'svelte';
+    import ForecastStat from "../components/forecast/ForecastStat.svelte";
+    import ForcastInfoHourly from "../components/forecast/ForcastInfoHourly.svelte";
+    import ForcastInfoDaily from "../components/forecast/ForcastInfoDaily.svelte";
+    import type { LayoutData } from './$types';	
+    export let data: LayoutData;
+
+    // URL for the current data
+	const url = 'http://localhost:8000/forecast';
+
     // Hardcoded location value
-    let location = 'Kuala Lumpur, Malaysia';
+    // let location = 'Kuala Lumpur, Malaysia';
     let selected = 'daily';
 
     let button1 = 'HOURLY';
     let button2 = 'DAILY';
+    
+    // Create the request body
+    const requestBody = {
+        location: data.location,
+        forecastType: selected,
+        variables: [
+            "temperature",
+            "precipitation",
+            "humidity"
+            ]
+    };
 
-    // Hardcoded forecast data
-    const hourlyForecasts = [
-        { time: '10 am', temp: '20°C', weather:"rain" , condition: ['Clear sky', 'Gentle Breeze'], message:"RealFeel", humidity: 30, wind_speed: 5, wind_direction: "North", pressure: 996, precipitation: 5.92, uv_index: 4, uv_intensity: "Moderate", cloud_cover_percentage: 29},
-        { time: '9 pm', temp: '19°C',  weather:"rain" , condition: ['Partly cloudy', 'Drizzling'], message:"Petaling Jaya", humidity: 29, wind_speed: 10, wind_direction: "East", pressure: 996, precipitation: 5.92, uv_index: 4, uv_intensity: "Moderate", cloud_cover_percentage: 35},
-        
-    ];
+    // Create the forecast data variable
+    let forecastData: any = null;
+    let location: string | null = null;
 
-    const dailyForecasts = [
-        { day: 'Mon', date: '10/5', highTemp: "25°C", lowTemp: "21°C", temp: '22°C', message: 'Sunny', description: "hot weather for outdoor activities please drink lots of water" ,humidity: 30, wind_speed: 5, wind_direction: "North", pressure: 996, precipitation: 5.92, uv_index: 4, uv_intensity: "Moderate", cloud_cover_percentage: 29},
-        { day: 'Tue', date: '10/6', highTemp: "20°C", lowTemp: "16°C", temp: '18°C', message: 'Rainy', description: "heavy rain please prepare an umbrella", humidity: 29, wind_speed: 10, wind_direction: "East", pressure: 996, precipitation: 5.92, uv_index: 4, uv_intensity: "Moderate", cloud_cover_percentage: 35},
-        { day: 'Wed', date: '10/7', highTemp: "21°C", lowTemp: "17°C", temp: '18°C', message: 'Rainy', description: "heavy storm incomming please prepare stay at home", humidity: 31, wind_speed: 7, wind_direction: "South", pressure: 997, precipitation: 6.00, uv_index: 4, uv_intensity: "Moderate", cloud_cover_percentage: 25},
-        
-    ];
+    // Create the error variable
+    let error: string | null = null;
 
-    import ForecastStat from "../components/forecast/ForecastStat.svelte";
-    import ForcastInfoHourly from "../components/forecast/ForcastInfoHourly.svelte";
-    import ForcastInfoDaily from "../components/forecast/ForcastInfoDaily.svelte";
+    // Use the fetch API to make the POST request
+	onMount(async () => {
+        try {
+            // Make the POST request using fetch
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(requestBody)
+            });
+
+            // Check if the response is successful
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
+            // Parse the JSON response
+            forecastData = await response.json();
+            location = forecastData.location ? `${forecastData.location}, Malaysia` : `${data.location}, Malaysia`; // Set the location
+
+            console.log("Fetched Forecast Data:", forecastData); // Log the fetched data
+
+        } catch (err) {
+            error = (err as Error).message;
+            console.error('Error:', err);
+        }
+    });
 </script>
 
 
@@ -48,63 +87,64 @@
         </button>
     </div>
     <div class="flex flex-col w-full items-center px-5 md:px-0">
-        {#if selected === 'hourly'}
-            {#each hourlyForecasts as forecast}
+        {#if forecastData && selected === 'hourly'}
+            {#each forecastData.temperature as temperature, index}
                 <div class="m-2.5 p-4 border border-error-content bg-base-content bg-opacity-10 shadow-xl rounded-lg w-full md:w-4/5">
                     <div class="grid grid-cols-1 md:grid-cols-6 gap-4">
                         <div class="md:col-span-2 col-span-1 text-black">
                             <ForcastInfoHourly
-                            time = {forecast.time}
-                            temp = {forecast.temp}
-                            message = {forecast.message}
-                            condition = {forecast.condition}
+                            time={`${forecastData.time ? forecastData.time[index] : "N/A"}`} 
+                            temp={`${temperature ? temperature + "°C" : "N/A"}`}
+                            message={forecastData.message ? forecastData.message[index] : "N/A"}
+                            condition={forecastData.condition ? forecastData.condition[index] : "N/A"} 
                             />
                         </div>
                         <div class="md:col-span-4 col-span-1">
                             <ForecastStat 
-                                humidity_percentage={forecast.humidity}
-                                wind_speed={forecast.wind_speed}
-                                wind_direction={forecast.wind_direction}
-                                pressure={forecast.pressure}
-                                percipitation={forecast.precipitation}
-                                uv_index={forecast.uv_index}
-                                uv_intensity={forecast.uv_intensity}
-                                cloud_cover_percentage={forecast.cloud_cover_percentage}
+                                humidity_percentage={forecastData.humidity ? forecastData.humidity[index] : "N/A"}
+                                wind_speed={forecastData.wind_speed ? forecastData.wind_speed[index] : "N/A"} 
+                                wind_direction={forecastData.wind_direction ? forecastData.wind_direction[index] : "N/A"}
+                                pressure={forecastData.pressure ? forecastData.pressure[index] : "N/A"} 
+                                percipitation={forecastData.precipitation ? forecastData.precipitation[index] : "N/A"}
+                                visibility={forecastData.visibility ? forecastData.visibility[index] : "N/A"}
+                                cloud_cover_percentage={forecastData.cloud_cover_percentage ? forecastData.cloud_cover_percentage[index] : "N/A"}
                             />
                         </div>
                     </div>
                 </div>
             {/each}
-        {:else}
-            {#each dailyForecasts as forecast}
+        {:else if forecastData && selected === 'daily'}
+            {#each forecastData.temperature as temp, index}
                 <div class="m-2.5 p-4 border border-error-content bg-base-content bg-opacity-10 shadow-xl rounded-lg w-full md:w-4/5">
                     <div class="grid grid-cols-1 md:grid-cols-6 gap-4">
                         <div class="md:col-span-2 col-span-1">
                             <ForcastInfoDaily
-                            day = {forecast.day}
-                            date = {forecast.date}
-                            highTemp = {forecast.highTemp}
-                            lowTemp = {forecast.lowTemp}
-                            message = {forecast.message}
-                            temp = {forecast.temp}
-                            description = {forecast.description}
+                                day={forecastData.day ? forecastData.day[index] : "N/A"} 
+                                date={forecastData.date ? forecastData.date[index] : "N/A"} 
+                                highTemp={forecastData.highTemp ? forecastData.highTemp[index] : "N/A"} 
+                                lowTemp={forecastData.lowTemp ? forecastData.lowTemp[index] : "N/A"} 
+                                message={forecastData.message ? forecastData.message[index] : "N/A"}
+                                description={forecastData.description ? forecastData.description[index] : "N/A"}
                             />
                         </div>
                         <div class="md:col-span-4 col-span-1">
                             <ForecastStat 
-                                humidity_percentage={forecast.humidity}
-                                wind_speed={forecast.wind_speed}
-                                wind_direction={forecast.wind_direction}
-                                pressure={forecast.pressure}
-                                percipitation={forecast.precipitation}
-                                uv_index={forecast.uv_index}
-                                uv_intensity={forecast.uv_intensity}
-                                cloud_cover_percentage={forecast.cloud_cover_percentage}
+                                humidity_percentage={forecastData.humidity ? forecastData.humidity[index] : "N/A"}
+                                wind_speed={forecastData.wind_speed ? forecastData.wind_speed[index] : "N/A"} 
+                                wind_direction={forecastData.wind_direction ? forecastData.wind_direction[index] : "N/A"}
+                                pressure={forecastData.pressure ? forecastData.pressure[index] : "N/A"} 
+                                percipitation={forecastData.precipitation ? forecastData.precipitation[index] : "N/A"}
+                                visibility={forecastData.visibility ? forecastData.visibility[index] : "N/A"}
+                                cloud_cover_percentage={forecastData.cloud_cover_percentage ? forecastData.cloud_cover_percentage[index] : "N/A"}
                             />
                         </div>
                     </div>
                 </div>
             {/each}
+        {:else if error}
+            <div>
+                <p>Error fetching forecast data: {error}</p>
+            </div>
         {/if}
     </div>
 </section>

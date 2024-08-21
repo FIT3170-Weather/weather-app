@@ -1,5 +1,17 @@
 <script lang="ts">
-    import { locations } from '../../locations.js';
+    import { onMount } from 'svelte'
+
+    // get locations obtained in layout.js
+    import type { LayoutData } from './$types';	
+	export let data: LayoutData;
+
+    let locations:string[] = []
+    // convert json to array of locaitons
+    onMount(() => {
+        for (var i in data.locations) {
+            locations.push(i.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase()) + ', ' + 'Malaysia')
+        }
+    })
 
     let username = "John Doe";
     let homeLocation = "Petaling Jaya, Selangor";
@@ -147,7 +159,7 @@
                                 </button>
                             </li>
                         {/each}
-                    </ul>155151
+                    </ul>
                 {/if}
             </div>
             <div class="modal-action">

@@ -1,5 +1,6 @@
 <script lang="ts">
     export let searchData;
+
     import { time } from '../clock.js';
     let loginModal: HTMLDialogElement;
     
@@ -43,14 +44,24 @@
     });
     }
 
-    // search bar (dummy data)
-    let search_data = searchData;
+    import { onMount } from 'svelte';
+
+    let search_data:string[] = []
+    // convert json to array of locaitons
+    onMount(() => {
+        for (var i in searchData.locations) {
+            search_data.push(i.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase()) + ', ' + 'Malaysia')
+        }
+    })
+
+
     let searchString = ""
     let filteredItems: string[] = [];
     let findItemItems: string[] = [];
     let userClosed = true
     let showDropdown = false;
     let modal: HTMLDialogElement;
+    let mobileViewItem: string;
 
     function openModal() {
         modal.showModal();
@@ -99,13 +110,15 @@
         userClosed = true;
         searchString = items;
         showDropdown = false;
-        updateLocation(items);
+        mobileViewItem = items;
         };
     }
 
     function updateLocation(items: string){
-        // Implement the logic to change location
-        console.log(items);
+        // change value back to lowercase and convert space to dash
+        let str = items.split(",")[0].toLowerCase().replace(/ /g, '-')
+        sessionStorage.setItem("location", str) // set user selected location to session storage 
+        window.location.reload() // reload the page the user is currently on
     }
 
     // add logic and close modal
@@ -113,6 +126,7 @@
             event.preventDefault();
             modal.close();
             searchString = "";
+            updateLocation(mobileViewItem);
     };
     
 </script>
