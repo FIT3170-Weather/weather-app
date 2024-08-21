@@ -61,6 +61,7 @@
     let userClosed = true
     let showDropdown = false;
     let modal: HTMLDialogElement;
+    let mobileViewItem: string;
 
     function openModal() {
         modal.showModal();
@@ -109,7 +110,7 @@
         userClosed = true;
         searchString = items;
         showDropdown = false;
-        updateLocation(items);
+        mobileViewItem = items;
         };
     }
 
@@ -125,6 +126,7 @@
             event.preventDefault();
             modal.close();
             searchString = "";
+            updateLocation(mobileViewItem);
     };
     
 </script>
