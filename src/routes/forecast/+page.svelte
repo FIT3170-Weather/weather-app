@@ -71,9 +71,13 @@
 </svelte:head>
 
 <section class="flex flex-col items-center w-full ">
+
+    <!-- Header -->
     <header class="flex justify-start items-center w-full p-5 text-white text-2xl">
         <h1>{location}</h1>
     </header>
+
+    <!-- Buttons -->
     <div class="flex justify-center gap-5 py-5 w-full text-white">
         <button class="py-2 px-4 text-lg" 
                 on:click={() => selected = 'hourly'}
@@ -86,11 +90,14 @@
             {button2}
         </button>
     </div>
+    <!-- Forecast Data -->
     <div class="flex flex-col w-full items-center px-5 md:px-0">
+
+        <!-- hourly forecast -->
         {#if forecastData && selected === 'hourly'}
             {#each forecastData.temperature as temperature, index}
                 <div class="m-2.5 p-4 border border-error-content bg-base-content bg-opacity-10 shadow-xl rounded-lg w-full md:w-4/5">
-                    <div class="grid grid-cols-1 md:grid-cols-6 gap-4">
+                    <div class="grid grid-cols-1 md:grid-cols-5 gap-4">
                         <div class="md:col-span-2 col-span-1 text-black">
                             <ForcastInfoHourly
                             time={`${forecastData.time ? forecastData.time[index] : "N/A"}`} 
@@ -99,24 +106,23 @@
                             condition={forecastData.condition ? forecastData.condition[index] : "N/A"} 
                             />
                         </div>
-                        <div class="md:col-span-4 col-span-1">
+                        <div class="md:col-span-3 col-span-1">
                             <ForecastStat 
                                 humidity_percentage={forecastData.humidity ? forecastData.humidity[index] : "N/A"}
                                 wind_speed={forecastData.wind_speed ? forecastData.wind_speed[index] : "N/A"} 
                                 wind_direction={forecastData.wind_direction ? forecastData.wind_direction[index] : "N/A"}
                                 pressure={forecastData.pressure ? forecastData.pressure[index] : "N/A"} 
                                 percipitation={forecastData.precipitation ? forecastData.precipitation[index] : "N/A"}
-                                visibility={forecastData.visibility ? forecastData.visibility[index] : "N/A"}
-                                cloud_cover_percentage={forecastData.cloud_cover_percentage ? forecastData.cloud_cover_percentage[index] : "N/A"}
                             />
                         </div>
                     </div>
                 </div>
             {/each}
+        <!-- daily forecast -->
         {:else if forecastData && selected === 'daily'}
             {#each forecastData.temperature as temp, index}
                 <div class="m-2.5 p-4 border border-error-content bg-base-content bg-opacity-10 shadow-xl rounded-lg w-full md:w-4/5">
-                    <div class="grid grid-cols-1 md:grid-cols-6 gap-4">
+                    <div class="grid grid-cols-1 md:grid-cols-5 gap-4">
                         <div class="md:col-span-2 col-span-1">
                             <ForcastInfoDaily
                                 day={forecastData.day ? forecastData.day[index] : "N/A"} 
@@ -127,15 +133,13 @@
                                 description={forecastData.description ? forecastData.description[index] : "N/A"}
                             />
                         </div>
-                        <div class="md:col-span-4 col-span-1">
+                        <div class="md:col-span-3 col-span-1">
                             <ForecastStat 
                                 humidity_percentage={forecastData.humidity ? forecastData.humidity[index] : "N/A"}
                                 wind_speed={forecastData.wind_speed ? forecastData.wind_speed[index] : "N/A"} 
                                 wind_direction={forecastData.wind_direction ? forecastData.wind_direction[index] : "N/A"}
                                 pressure={forecastData.pressure ? forecastData.pressure[index] : "N/A"} 
                                 percipitation={forecastData.precipitation ? forecastData.precipitation[index] : "N/A"}
-                                visibility={forecastData.visibility ? forecastData.visibility[index] : "N/A"}
-                                cloud_cover_percentage={forecastData.cloud_cover_percentage ? forecastData.cloud_cover_percentage[index] : "N/A"}
                             />
                         </div>
                     </div>
