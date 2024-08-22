@@ -1,54 +1,80 @@
+<script lang="ts">
+    import { onMount } from 'svelte'
 
-<script	async script>
-    import {writable} from 'svelte/store';
+    // get locations obtained in layout.js
+    import type { LayoutData } from './$types';	
+	export let data: LayoutData;
 
+    let locations:string[] = []
+    // convert json to array of locaitons
+    onMount(() => {
+        for (var i in data.locations) {
+            locations.push(i.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase()) + ', ' + 'Malaysia')
+        }
+    })
 
-    let editMode = writable(false);
-    let userName = writable("John Doe");
-    let homeLocation = writable("Petaling Jaya, Selangor");
-    let email = writable("johndoe@gmail.com");
-    let password = writable("johndoeno1")
-    let showPassword = false;
+    let username = "John Doe";
+    let homeLocation = "Petaling Jaya, Selangor";
+    let email = "johndoe@gmail.com";
 
+    let editNameModal: HTMLDialogElement;
+    let editLocationModal: HTMLDialogElement;
 
+    let newName = '';
+    let isValidName = false;
+
+    let newLocation = "";
+    let showDropdown = false;
+
+    let filteredLocations : string[] = [];
+
+    function getStringsWithPrefix(list : string[], prefix: string) : string[] {
+        if (prefix.length > 0) {
+            // match options with entered prefix
+            return list.filter(str => str.toLowerCase().startsWith(prefix.toLowerCase()));
+        }
+        return [];
+    }   
     
-    const toggleEditMode = () => {
-        editMode.update(value => !value);
-        if (!$editMode){
-            setProfile();
+    function openEditNameModal() {
+        editNameModal.showModal();
+    }
+
+    const handleNameInputChange = (event : any) => {
+        newName = event.target.value;
+        isValidName = newName.trim().length > 0; // Valid if not empty or only spaces
+    };
+
+    const handleNameChangeSubmit = (event : any) => {
+        event.preventDefault(); 
+        if (isValidName) {
+            username = newName;
+            editNameModal.close();
         }
-    }
-    const saveChanges = () => {
-        toggleEditMode();
-    }
+    };
 
-    const togglePasswordVisibility = () => {
-        showPassword = !showPassword;
-
+    function openEditLocationModal() {
+        editLocationModal.showModal();
     }
+    
+    // show dropdown when user types in search bar
+    const handleLocationInputChange = (event : any) => {
+        filteredLocations = getStringsWithPrefix(locations, newLocation); // get locations with matching prefix
+        showDropdown = true;
+    };
 
-    const setProfile = async () => {
-        const response = await fetch('/api/profile/save', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                userName: $userName,
-                location: $homeLocation,
-                email: $email,
-                password: $password
-            })
-        });
+    // set new location and close modal
+    const handleLocationChangeSubmit = (event : any) => {
+        event.preventDefault(); 
+        homeLocation = newLocation;
+        editLocationModal.close();
+    };
 
-        if (response.ok) {
-            const result = await response.json();
-            console.log(result.message);
-        } else {
-            const error = await response.json();
-            console.error(error.error);
-        }
-    }
+    // set new location when user selects from dropdown and stop showing dropdown
+    const handleDropdownSelection = (location : string) : any => {
+        newLocation = location;
+        showDropdown = false;
+    };
 </script>
 
 <svelte:head>
@@ -56,146 +82,91 @@
 	<meta name="description" content="Climate web app" />
 </svelte:head>
 
-<section class="content">
-    <div class = "header">
-        <div class="h-max text-4xl font-semibold" style="padding-bottom: 30px;">User Profile</div>
-        <button class="edit-button" on:click={saveChanges}>
-            <strong>{$editMode ? 'Save' : 'Edit'}</strong>
-        </button>
-    </div>
-
-    <div class = "profile-container">
-        <div class="avatar grid-item w-25 rounded-full" style="height: 150px;">
-            <img src="../src/lib/images/avatar_default.png" alt="avatar"/>
-        </div>
-        <div class = "user-info">
-            <!-- <div class="ghost-button" style="padding-top: 10px;">
-                <button>Change Avatar</button>
-            </div> -->
-            <div class="user-info-item">
-                <!-- <div class="h-max text-2xl font-light">Name</div> -->
-                <input type="text" bind:value={$userName} class="input input-ghost w-full max-w-xs" disabled={!$editMode} />
-            </div>
-            <div class="user-info-item">
-                <!-- <div class="h-max text-2xl font-light">Home Location</div> -->
-                <input type="text" bind:value={$homeLocation} class="input input-ghost w-full max-w-xs" disabled={!$editMode} />
-            </div>
-            <div class="user-info-item">
-                <!-- <div class="h-max text-2xl font-light">Email</div> -->
-                <input type="text" bind:value={$email} class="input input-ghost w-full max-w-xs" disabled={!$editMode} />
-            </div>
-        </div>
-
-    </div>
-    <!-- <div class="avatar grid-item w-24 rounded-full" style="height: 100px;">
+<div class="p-10">
+    <div class="h-max text-4xl font-semibold" style="padding-bottom: 30px;">Profile</div>
+    <div class="avatar grid-item w-25 rounded-full" style="height: 150px;">
         <img src="../src/lib/images/avatar_default.png" alt="avatar"/>
-    </div> -->
-
-    <!-- <div class="ghost-button" style="padding-top: 10px;">
-        <button>Change Avatar</button>
-    </div> -->
-    
-    <div class="h-max text-3xl font-semibold" style="padding-bottom: 30px; padding-top: 30px">General Settings</div> 
-    <div class = "general-settings-container">
-        <div class = "general-settings-item">
-            <div class="h-max text-2xl font-light grid-item" style="padding-right: 10px;">Password:</div>
-        </div>
-        <div class = "general-settings-item">
-            {#if !$editMode}
-            <div class="h-max text-2xl font-light">{$editMode ? (showPassword ? $password : '********') : '********'}</div>
-            {:else}
-                <input type="text" bind:value={$password} class="input input-sm w-full max-w-xs" />
-                <button on:click={togglePasswordVisibility} class="toggle-password-button">
-                </button>
-            {/if}
-        </div>
     </div>
 
-<!-- 
-    <div class="grid-container">
-        <div class="grid-item">
-            <div class="h-max text-2xl font-light">Name</div>
+    <div class="h-max text-2xl font-semibold py-5">User Information</div>
+    <div class="grid grid-cols-2 justify-items-start items-center py-5">
+        <div class="col-span-2 lg:col-span-1">
+            <span class="text-lg font-bold">Name</span>
+            <button class="btn btn-ghost btn-xs" on:click={openEditNameModal}>
+                <img src="../../src/lib/images/edit_icon.png" alt="Edit" class="h-full w-full icon"/>
+            </button>
         </div>
-        <div class="grid-item">
-            <input type="text" bind:value={$userName} class="input input-ghost w-full max-w-xs" disabled={!$editMode}/>
+        <div class="col-span-2 lg:col-span-1 text-lg">
+            {username}
         </div>
-        <div class="grid-item">
-            <div class="h-max text-2xl font-light">Home Location</div>
+    </div>
+    <div class="border-b border-error-content"></div>
+    <div class="grid grid-cols-2 justify-items-start items-center py-5">
+        <div class="col-span-2 lg:col-span-1">
+            <span class="text-lg font-bold">Home Location</span>
+            <button class="btn btn-ghost btn-xs" on:click={openEditLocationModal}>
+                <img src="../../src/lib/images/edit_icon.png" alt="Edit" class="h-full w-full icon"/>
+            </button>
         </div>
-        <div class="grid-item">
-            <input type="text" bind:value={$homeLocation} class="input input-ghost w-full max-w-xs" disabled={!$editMode}/>
+        <div class="col-span-2 lg:col-span-1 text-lg">
+            {homeLocation}
         </div>
-        <div class="grid-item">
-            <div class="h-max text-2xl font-light">Email</div>
+    </div>
+    <div class="border-b border-error-content"></div>
+    <div class="grid grid-cols-2 justify-items-start items-center py-5">
+        <div class="col-span-2 lg:col-span-1">
+            <span class="text-lg font-bold">Email</span>
         </div>
-        <div class="grid-item">
-            <input type="text" bind:value={$email} class="input input-ghost w-full max-w-xs" disabled={!$editMode}/>
-        </div> -->
+        <div class="col-span-2 lg:col-span-1 text-lg">
+            {email}
+        </div>
+    </div>
+    <div class="border-b border-error-content"></div>
 
+    <!-- Modal for changing name-->
+    <dialog bind:this={editNameModal} class="modal">
+        <div class="modal-box">
+            <form method="dialog">
+                <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+            </form>
+            <div class="text-2xl font-semibold">Edit Name</div>
+            <div class="py-4">
+                <input type="text" value={username} class="input input-bordered w-full bg-neutral" on:input={handleNameInputChange}/>
+            </div>
+            <div class="modal-action">
+                <form method="dialog" on:submit={handleNameChangeSubmit}>
+                    <button class="custom-btn btn" disabled={!isValidName}>SAVE</button>   
+                </form>
+            </div>
+        </div>
+    </dialog>
 
-</section>
-
-<style>
-    .content {
-        margin-top: 60px;
-        margin-left: 400px;
-        margin-right: 10px;
-    }
-    .profile-container {
-        display: grid;
-        grid-template-columns: auto 1fr;
-        grid-gap: 20px;
-        align-items: start;
-    }
-    .user-info {
-        display: flex;
-        flex-direction: column;
-        gap: 20px;
-    }
-    .user-info-item {
-        display: flex;
-        flex-direction: column;
-        align-items: start;
-    }
-    .header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-    .general-settings-container {
-        display: flex;
-        flex-direction: grid-row;
-    }
-    .general-settings-item {
-        display: flex;
-        flex-direction: column;
-        align-items: start;
-    }
-    .edit-button {
-        background-color: #D9D9D9;
-        color: rgb(0, 0, 0);
-        border: none;
-        padding: 5px 20px;
-        text-align: center;
-        text-decoration: none;
-        display: inline-block;
-        font-size: 16px;
-        margin: 4px 2px;
-        cursor: pointer;
-        border-radius: 8px;
-        font-weight: bold;
-    }
-    .edit-button strong {
-        color: black;
-        font-weight: bold;
-    }
-    .input[disabled] {
-        background-color: transparent;
-        color: white;
-        border: none;
-    }
-    .input {
-        background-color: transparent;
-        border: black 1px solid;
-    }
-</style>
+    <!-- Modal for changing location-->
+    <dialog bind:this={editLocationModal} class="modal" on:close={() => (showDropdown = false)}>
+        <div class="modal-box">
+            <form method="dialog">
+                <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+            </form>
+            <div class="text-2xl font-semibold">Change Home Location</div>
+            <div class="form-control grow py-4">
+                <input type="text" placeholder="Search location" class="search-bar input input-bordered w-full bg-neutral" bind:value={newLocation} on:input={handleLocationInputChange}/>
+                {#if showDropdown && filteredLocations.length > 0}
+                    <ul class="menu dropdown-content bg-base-200 rounded-box z-[1] w-full p-2 shadow">
+                        {#each filteredLocations as location}
+                            <li class="w-full" >
+                                <button on:click={handleDropdownSelection(location)}>
+                                    {location}
+                                </button>
+                            </li>
+                        {/each}
+                    </ul>
+                {/if}
+            </div>
+            <div class="modal-action">
+            <form method="dialog" on:submit={handleLocationChangeSubmit}>
+                <button class="custom-btn btn" disabled={!(locations.includes(newLocation))}>SAVE</button>   
+            </form>
+            </div>
+        </div>
+    </dialog>
+</div>

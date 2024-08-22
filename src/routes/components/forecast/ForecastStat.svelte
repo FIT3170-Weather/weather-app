@@ -4,73 +4,75 @@
     export let wind_direction = "North";
     export let pressure = 996;
     export let percipitation = 5.92;
-    export let uv_index = 4;
-    export let uv_intensity = "Moderate";
-    export let cloud_cover_percentage = 29;
+    export let space = " ";
+    // export let uv_index = 4;
+    // export let uv_intensity = "Moderate";
+    // export let visibility = 10000;
+    // export let cloud_cover_percentage = 29;
 </script>
 
-<div class="grid grid-row-2 grid-cols-3 gap-3 p-3">
+<div class="grid grid-row-2 grid-cols-2 gap-5 p-3 w-5/6 mx-auto">
 
     <!-- humidity stat -->
     <div class="row-span-1 col-span-1 h-full w-full">
-        <div class="stats shadow h-full w-full bg-gradient-to-b from-indigo-900 to-indigo-500">
-            <div class="stat ">
-                <div class="stat-title text-sm text-white">Humidity</div>
-                <div class="stat-value text-xl text-white">{humidity_percentage}%</div>
-                
+        <div class="stats shadow h-full w-full stats-bg">
+            <div class="stat sm:p-6 p-3">
+                <div class="stat-title sm:text-base text-xs text-error-content opacity-80">Humidity</div>
+                <div class="stat-value sm:text-xl text-base">{humidity_percentage}%</div>
             </div>
         </div>
     </div>
 
     <!-- wind stat -->
     <div class="row-span-1 col-span-1 h-full w-full">
-        <div class="stats shadow h-full w-full bg-gradient-to-b from-indigo-900 to-indigo-500">
-            <div class="stat ">
-                <div class="stat-title text-sm text-white">Wind</div>
-                <div class="stat-value text-xl text-white">{wind_speed} km/h</div>
-                <div class="stat-desc text-white">{wind_direction}</div>
+        <div class="stats shadow h-full w-full stats-bg">
+            <div class="stat sm:p-6 p-3">
+                <div class="stat-title sm:text-base text-xs text-error-content opacity-80">Wind</div>
+                <div class="stat-value sm:text-xl text-base">{wind_speed} km/h</div>
+                <div class="stat-desc sm:text-sm text-xs text-error-content opacity-80">{wind_direction}</div>
             </div>
         </div>
     </div>
 
     <!-- pressure stat -->
-    <div class="row-span-1 col-span-1 h-full w-full">
-        <div class="stats shadow h-full w-full bg-gradient-to-b from-indigo-900 to-indigo-500">
-            <div class="stat ">
-                <div class="stat-title text-sm text-white">Pressure</div>
-                <div class="stat-value text-xl text-white">{pressure}hPa</div>
+    <div class="row-span-1 col-span-1 md:h-28 w-full">
+        <div class="stats shadow h-full w-full stats-bg">
+            <div class="stat sm:p-6 p-3">
+                <div class="stat-title sm:text-base text-xs text-error-content opacity-80">Pressure</div>
+                <div class="stat-value sm:text-xl text-base">{pressure} hPa</div>
+                <div class="stat-desc sm:text-sm text-xs text-error-content opacity-80"></div> <!-- Empty div for alignment -->
             </div>
         </div>
     </div>
 
     <!-- precipitation stat -->
-    <div class="row-span-1 col-span-1 h-full w-full">
-        <div class="stats shadow h-full w-full bg-gradient-to-b from-indigo-900 to-indigo-500">
-            <div class="stat ">
-                <div class="stat-title text-sm text-white">Precipitation</div>
-                <div class="stat-value text-xl text-white">{percipitation} mm</div>
+    <div class="row-span-1 col-span-1 md:h-28 w-full">
+        <div class="stats shadow h-full w-full stats-bg">
+            <div class="stat sm:p-6 p-3">
+                <div class="stat-title sm:text-base text-xs text-error-content opacity-80">Precipitation</div>
+                <div class="stat-value sm:text-xl text-base">{percipitation} mm</div>
+                <div class="stat-desc sm:text-sm text-xs text-error-content opacity-80">{space}</div> <!-- Empty div for alignment -->
             </div>
         </div>
     </div>
 
-    <!-- uv index stat -->
+    <!-- visibility stat
     <div class="row-span-1 col-span-1 h-full w-full">
-        <div class="stats shadow h-full w-full bg-gradient-to-b from-indigo-900 to-indigo-500">
-            <div class="stat ">
-                <div class="stat-title text-sm text-white">UV Index</div>
-                <div class="stat-value text-xl text-white">{uv_index}</div>
-                <div class="stat-desc text-white">{uv_intensity}</div>
+        <div class="stats shadow h-full w-full stats-bg">
+            <div class="stat sm:p-6 p-3">
+                <div class="stat-title sm:text-base text-xs text-error-content opacity-80">Visibility</div>
+                <div class="stat-value sm:text-xl text-base">{visibility} m</div>
             </div>
         </div>  
-    </div>
+    </div> -->
 
-    <!-- cloud cover stat -->
+    <!-- cloud cover stat
     <div class="row-span-1 col-span-1 h-full w-full">
-        <div class="stats shadow h-full w-full bg-gradient-to-b from-indigo-900 to-indigo-500">
-            <div class="stat ">
-                <div class="stat-title text-sm text-white">Cloud Cover</div>
-                <div class="stat-value text-xl text-white">{cloud_cover_percentage}%</div>
+        <div class="stats shadow h-full w-full stats-bg">
+            <div class="stat sm:p-6 p-3">
+                <div class="stat-title sm:text-base text-xs text-error-content opacity-80">Cloud Cover</div>
+                <div class="stat-value sm:text-xl text-base">{cloud_cover_percentage} %</div>
             </div>
         </div>
-    </div>
+    </div> -->
 </div>

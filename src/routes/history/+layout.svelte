@@ -1,6 +1,7 @@
 <script>
-	import '../../../app.css';
-	import '../../styles.css';
+	import '../../app.css';
+	import '../styles.css';
+	import SideNav from "../components/SideNav.svelte";
 </script>
 
 <div class="app">
