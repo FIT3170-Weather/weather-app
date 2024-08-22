@@ -22,6 +22,7 @@
     let wind = false;
     let thunderstorm = false;
     let temperature = false;
+    
 
     let newLocation = "";
     let showDropdown = false;
@@ -69,6 +70,80 @@
 
     onDestroy(unsubscribe);
 
+    let UID = "wdwQDKNnK5cXDDwFoIGAcRcIp1E3";
+
+    
+    // preference
+    let preferencesData: any = null;
+	let errorPreferences = null;
+	const urlPreferences = `http://localhost:8000/profiles/${UID}/preferences`;
+
+    // Use the fetch API to make the POST request
+	onMount(async () => {
+        try {
+            // Make the POST request using fetch
+            const responsePreferences = await fetch(urlPreferences, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            });
+
+
+            // Check if the response is successful
+            if (!responsePreferences.ok) {
+                throw new Error(`HTTP error! status: ${responsePreferences.status}`);
+            }
+
+            // Parse the JSON response
+            preferencesData = await responsePreferences.json();
+            console.log(preferencesData);
+            // retrieve the preferences location from here
+
+        } catch (err) {
+            // @ts-ignore
+            errorPreferences = err.message;
+            console.error('Error:', err);
+        }
+    });
+
+    // alert
+    let alertData: any = null;
+	let errorAlert = null;
+	const urlalert = `http://localhost:8000/profiles/${UID}/alerts`;
+
+    // Use the fetch API to make the POST request
+	onMount(async () => {
+        try {
+            // Make the POST request using fetch
+            const responseAlert = await fetch(urlalert, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            });
+
+
+            // Check if the response is successful
+            if (!responseAlert.ok) {
+                throw new Error(`HTTP error! status: ${responseAlert.status}`);
+            }
+
+            // Parse the JSON response
+            alertData = await responseAlert.json();
+            console.log(alertData);
+            rain = alertData.data.rain;
+            wind = alertData.data.wind;
+            thunderstorm = alertData.data.thunderstorm;
+            temperature = alertData.data.temperature;
+
+        } catch (err) {
+            // @ts-ignore
+            errorAlert = err.message;
+            console.error('Error:', err);
+        }
+    });
+
 </script>
 
 <svelte:head>
@@ -76,6 +151,7 @@
 	<meta name="description" content="Climate web app" />
 </svelte:head>
 
+{#if alertData && preferencesData}
 <div class="p-5 md:p-10">
     <div class="h-max text-4xl font-semibold" style="padding-bottom: 30px;">Alerts</div>
     <div class="flex-grow border-t-2 border-error-content"></div> 
@@ -84,16 +160,21 @@
         <table class="table">
             <tbody>
                 {#if locationCount > 0}
-                    {#each $observedLocations as location}
+                    <!-- {#each $observedLocations as location} -->
+                        {#each preferencesData.data.locations as locations}
                         <tr class="border-error-content">
-                            <td class="text-lg">{location}</td>
+                            <td class="text-lg">
+                                {locations}
+                            </td>
                             <th class="text-end">
-                                <button class="btn btn-ghost btn-xs" on:click={removeLocation(location)}>
+                                <!-- remove location from database is not completed -->
+                                <button class="btn btn-ghost btn-xs" on:click={removeLocation("")}>
                                     <img src="../../src/lib/images/delete_icon.png" alt="Delete" class="h-full w-full icon"/>
                                 </button>
                             </th>
                         </tr>
-                    {/each}
+                        {/each} 
+                    <!-- {/each} -->
                 {:else}
                     <tr class="border-error-content">
                         <th class="h-max text-lg font-light">Add a new location to get notified...</th>
@@ -172,3 +253,4 @@
         </div>
     </dialog>
 </div>
+{/if}

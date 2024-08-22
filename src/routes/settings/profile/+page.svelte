@@ -28,6 +28,41 @@
 
     let filteredLocations : string[] = [];
 
+	let profileData: any = null;
+	let error = null;
+
+
+    // URL for the current data
+    let UID = "wdwQDKNnK5cXDDwFoIGAcRcIp1E3";
+	const url = `http://localhost:8000/profiles/${UID}`;
+
+    // Use the fetch API to make the POST request
+	onMount(async () => {
+        try {
+            // Make the POST request using fetch
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            });
+
+            // Check if the response is successful
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
+            // Parse the JSON response
+            profileData = await response.json();
+            console.log(profileData);
+
+        } catch (err) {
+            // @ts-ignore
+            error = err.message;
+            console.error('Error:', err);
+        }
+	});
+
     function getStringsWithPrefix(list : string[], prefix: string) : string[] {
         if (prefix.length > 0) {
             // match options with entered prefix
@@ -82,6 +117,9 @@
 	<meta name="description" content="Climate web app" />
 </svelte:head>
 
+
+
+{#if profileData}
 <div class="p-10">
     <div class="h-max text-4xl font-semibold" style="padding-bottom: 30px;">Profile</div>
     <div class="avatar grid-item w-25 rounded-full" style="height: 150px;">
@@ -97,7 +135,9 @@
             </button>
         </div>
         <div class="col-span-2 lg:col-span-1 text-lg">
-            {username}
+            {#each profileData.data as data}
+                {data.profile_data.username}
+            {/each}
         </div>
     </div>
     <div class="border-b border-error-content"></div>
@@ -109,6 +149,7 @@
             </button>
         </div>
         <div class="col-span-2 lg:col-span-1 text-lg">
+            <!-- home location is not completed -->
             {homeLocation}
         </div>
     </div>
@@ -118,7 +159,9 @@
             <span class="text-lg font-bold">Email</span>
         </div>
         <div class="col-span-2 lg:col-span-1 text-lg">
-            {email}
+            {#each profileData.data as data}
+                {data.profile_data.email}
+            {/each}
         </div>
     </div>
     <div class="border-b border-error-content"></div>
@@ -170,3 +213,4 @@
         </div>
     </dialog>
 </div>
+{/if}
