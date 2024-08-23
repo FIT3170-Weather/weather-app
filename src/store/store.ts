@@ -23,14 +23,40 @@ export const authHandlers = {
         const result = await signInWithPopup(auth, googleProvider);
         const user = result.user;
         authStore.set({ user });
+        
+        // api to create user profile
+        const secondResult = await fetch('http://localhost:8000/create_profile/' + user.uid, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          }
+        })
+        const res1 = await secondResult.json();
+        console.log(res1.message)
+        if (res1.detail == null) {
+          // api to add user profile data
+          const thirdResult = await fetch('http://localhost:8000/update_profile_data/' + user.uid, {
+            method: 'PUT',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              "email": user.email,
+              "home_location": "kuala-lumpur",
+              "username": user.displayName,
+            })
+          })
+          const res2 = await thirdResult.json();
+          console.log(res2.message)
+        }
 
         // Obtain user ID log it onto console 
         userId = user.uid;
         console.log('User ID: ', userId);
-        
+        sessionStorage.setItem('userId', user.uid); // store user id in session storage
 
         onSuccess();
-        goto('/settings'); // Redirect to home or any other page after login
+        goto('/'); // Redirect to home page
       } catch (error) {
         console.error('Error during sign-in with Google:', error);
       }
@@ -39,7 +65,6 @@ export const authHandlers = {
     getUserId: () => {
       return userId
     }
-    
 };
 
 
