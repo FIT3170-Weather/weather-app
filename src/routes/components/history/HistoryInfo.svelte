@@ -1,7 +1,7 @@
 <script>
     export let day = "10pm";
     export let date = "5/6";
-    export let message = "ReelFeal";
+    export let message = "Real Feel";
     export let temp = "29°C";
 </script>
 <div class=" text-white space-y-2 w-full h-full flex flex-col items-center justify-center">
