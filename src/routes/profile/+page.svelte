@@ -2,7 +2,7 @@
     import { onMount } from 'svelte'
 
     // get locations obtained in layout.js
-    import type { LayoutData } from './$types';	
+    import type { LayoutData } from './$types'
 	export let data: LayoutData;
 
     let locations:string[] = []
