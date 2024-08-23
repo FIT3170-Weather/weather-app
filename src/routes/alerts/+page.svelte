@@ -17,7 +17,7 @@
         }
 
         for (var j in data.preferences.data) {
-            addLocation(data.preferences.data[j])
+            observedLocations.update(locations => [...locations, (data.preferences.data[j])]);
         }
     })
  
