@@ -14,8 +14,9 @@
     })
 
     let username = "John Doe";
-    let homeLocation = "Petaling Jaya, Selangor";
+    let profileHomeLocation = "";
     let email = "johndoe@gmail.com";
+
 
     let editNameModal: HTMLDialogElement;
     let editLocationModal: HTMLDialogElement;
@@ -25,22 +26,20 @@
 
     let newLocation = "";
     let showDropdown = false;
-
     let filteredLocations : string[] = [];
-
 	let profileData: any = null;
-	let error = null;
+	let profileDataError = null;
 
 
     // URL for the current data
-    let UID = "wdwQDKNnK5cXDDwFoIGAcRcIp1E3";
-	const url = `http://localhost:8000/profiles/${UID}`;
+    let UID = "I7ze3UyWXqPB1S6HC0fGt6In7Nx1";
+	const urlProfileData = `http://localhost:8000/profiles/${UID}`;
 
     // Use the fetch API to make the POST request
 	onMount(async () => {
         try {
             // Make the POST request using fetch
-            const response = await fetch(url, {
+            const response = await fetch(urlProfileData, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -54,14 +53,21 @@
 
             // Parse the JSON response
             profileData = await response.json();
-            console.log(profileData);
+            username = profileData.data.profile_data.username; 
+            profileHomeLocation = profileData.data.profile_data.home_location;
+            updateLocation(profileHomeLocation)
+            email = profileData.data.profile_data.email;
+            profileHomeLocation = changeLocationStringUppercase(profileHomeLocation)
+            // window.location.reload() // reload the page the user is currently on
+
 
         } catch (err) {
             // @ts-ignore
-            error = err.message;
+            profileDataError = err.message;
             console.error('Error:', err);
         }
 	});
+	
 
     function getStringsWithPrefix(list : string[], prefix: string) : string[] {
         if (prefix.length > 0) {
@@ -69,7 +75,26 @@
             return list.filter(str => str.toLowerCase().startsWith(prefix.toLowerCase()));
         }
         return [];
-    }   
+    }
+    
+    function updateLocation(items: string){
+        // change value back to lowercase and convert space to dash
+        let str = changeLocationStringLowercase(items)
+        sessionStorage.setItem("location", str) // set user selected location to session storage 
+    }
+
+    function changeLocationStringUppercase(items: string): string{
+        // change value to uppercase and convert space to dash
+        let str = items.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase()) + ', ' + 'Malaysia'
+        return str
+    }
+
+    function changeLocationStringLowercase(items: string): string{
+        // change value to uppercase and convert space to dash
+        let str = items.split(",")[0].toLowerCase().replace(/ /g, '-')
+        return str
+    }
+    
     
     function openEditNameModal() {
         editNameModal.showModal();
@@ -80,13 +105,45 @@
         isValidName = newName.trim().length > 0; // Valid if not empty or only spaces
     };
 
-    const handleNameChangeSubmit = (event : any) => {
+    const handleNameChangeSubmit = async(event : any) => {
         event.preventDefault(); 
         if (isValidName) {
             username = newName;
+            let errorUpdateUsername = null;
+            const urlUpdateUsername= `http://localhost:8000/update_profile_data/${UID}`;
+            // Create the request body
+            const updateBody = {
+                username: newName
+            };
+                try {
+                    // Make the PUT request using fetch
+                    const responseAlert = await fetch(urlUpdateUsername, {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(updateBody)
+                    });
+
+                    // Check if the response is successful
+                    if (!responseAlert.ok) {
+                        throw new Error(`HTTP error! status: ${responseAlert.status}`);
+                    }
+
+                } catch (err) {
+                    // @ts-ignore
+                    errorUpdateUsername = err.message;
+                    console.error('Error:', err);
+                }
             editNameModal.close();
+            
         }
     };
+
+    function reloadPage(): any {
+        window.location.reload()
+        return null;
+    }
 
     function openEditLocationModal() {
         editLocationModal.showModal();
@@ -99,10 +156,42 @@
     };
 
     // set new location and close modal
-    const handleLocationChangeSubmit = (event : any) => {
-        event.preventDefault(); 
-        homeLocation = newLocation;
+    const handleLocationChangeSubmit = async(event : any) => {
+        event.preventDefault();
+        newLocation = changeLocationStringLowercase(newLocation)
+        updateLocation(newLocation)
+
+        console.log(newLocation)
+
+        let errorUpdateHomeLocation = null;
+        const urlUpdateHomeLocation= `http://localhost:8000/update_profile_data/${UID}`;
+        // Create the request body
+        const updateBody = {
+            home_location: newLocation
+        };
+            try {
+                // Make the PUT request using fetch
+                const responseAlert = await fetch(urlUpdateHomeLocation, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(updateBody)
+                });
+
+
+                // Check if the response is successful
+                if (!responseAlert.ok) {
+                    throw new Error(`HTTP error! status: ${responseAlert.status}`);
+                }
+
+            } catch (err) {
+                // @ts-ignore
+                errorUpdateHomeLocation = err.message;
+                console.error('Error:', err);
+            }
         editLocationModal.close();
+        reloadPage()
     };
 
     // set new location when user selects from dropdown and stop showing dropdown
@@ -135,9 +224,7 @@
             </button>
         </div>
         <div class="col-span-2 lg:col-span-1 text-lg">
-            {#each profileData.data as data}
-                {data.profile_data.username}
-            {/each}
+            {username}
         </div>
     </div>
     <div class="border-b border-error-content"></div>
@@ -150,7 +237,7 @@
         </div>
         <div class="col-span-2 lg:col-span-1 text-lg">
             <!-- home location is not completed -->
-            {homeLocation}
+            {profileHomeLocation}
         </div>
     </div>
     <div class="border-b border-error-content"></div>
@@ -159,9 +246,7 @@
             <span class="text-lg font-bold">Email</span>
         </div>
         <div class="col-span-2 lg:col-span-1 text-lg">
-            {#each profileData.data as data}
-                {data.profile_data.email}
-            {/each}
+            {email}
         </div>
     </div>
     <div class="border-b border-error-content"></div>
