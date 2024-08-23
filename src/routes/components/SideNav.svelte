@@ -63,10 +63,8 @@
         <h3 class="text-2xl font-semibold">Sign In</h3>
         <div class="text-center">
           <button class="w-[122px] h-[40px] m-[5px]" on:click={() => authHandlers.loginWithGoogle(closeModal)}>
-            <a href="/settings/profile">
-                <!--Will turn this button to refer to google email login page. (placeholder for now)-->
-                <img src="../../src/lib/images/google.png" alt="google"/>
-            </a>
+              <!--Will turn this button to refer to google email login page. (placeholder for now)-->
+              <img src="../../src/lib/images/google.png" alt="google"/>
           </button>
         </div>
         <p class="text-xs font-extralight">By signing in you agree to CliMate's terms of service and privacy policy</p>

@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { authHandlers } from '../../store/store.js';
+
     export let searchData;
 
     import { time } from '../clock.js';
@@ -332,11 +334,9 @@
         </form>
         <div class="text-2xl font-semibold">Sign in</div>
         <div class="text-center py-2">
-            <button class="w-[122px] h-[40px] m-[5px]" on:click={closeLoginModal}>
-                <a href="/settings/profile">
-                    <!--Will turn this button to refer to google email login page. (placeholder for now)-->
-                    <img src="../../src/lib/images/google.png" alt="google"/>
-                </a>
+            <button class="w-[122px] h-[40px] m-[5px]" on:click={() => authHandlers.loginWithGoogle(closeLoginModal)}>
+                <!--Will turn this button to refer to google email login page. (placeholder for now)-->
+                <img src="../../src/lib/images/google.png" alt="google"/>
             </button>
         </div>
 
