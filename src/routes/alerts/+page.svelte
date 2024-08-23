@@ -23,10 +23,7 @@
  
 
     let modal: HTMLDialogElement;
-    let rain = false;
-    let wind = false;
-    let thunderstorm = false;
-    let temperature = false;
+    let alert = false;
 
     let newLocation = "";
     let showDropdown = false;
@@ -77,6 +74,70 @@
         }
     }
 
+    // alert
+    let alertData: any = null;
+	let errorAlert = null;
+	
+
+    // Use the fetch API to make the POST request
+	onMount(async () => {
+        const urlAlert = `http://localhost:8000/profiles/` + sessionStorage.getItem("userId");
+        try {
+            // Make the POST request using fetch
+            const responseAlert = await fetch(urlAlert, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            });
+
+        
+            // Check if the response is successful
+            if (!responseAlert.ok) {
+                throw new Error(`HTTP error! status: ${responseAlert.status}`);
+            }
+
+            // Parse the JSON response
+            alertData = await responseAlert.json();
+            alert = alertData.data.profile_data.alerts;
+
+        } catch (err) {
+            // @ts-ignore
+            errorAlert = err.message;
+            console.error('Error:', err);
+        }
+    });
+
+    const updateAlerts = async (state: any): Promise<any> => {
+        let errorUpdateAlert = null;
+	    const urlUpdateAlert = `http://localhost:8000/update_alert/` + sessionStorage.getItem("userId");
+        // Create the request body
+        const updateBody = {
+            alerts: state
+        };
+            try {
+                // Make the PUT request using fetch
+                const responseAlert = await fetch(urlUpdateAlert, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(updateBody)
+                });
+
+                // Check if the response is successful
+                if (!responseAlert.ok) {
+                    throw new Error(`HTTP error! status: ${responseAlert.status}`);
+                }
+
+            } catch (err) {
+                // @ts-ignore
+                errorUpdateAlert = err.message;
+                console.error('Error:', err);
+            }
+        return state;
+    }
+
     function removeLocation(location : string) : any {
         observedLocations.update(locations => locations.filter(l => l !== location));
         updateDatabase(get(observedLocations))
@@ -119,6 +180,8 @@
 	<meta name="description" content="Climate web app" />
 </svelte:head>
 
+
+{#if alertData}
 <div class="p-5 md:p-10">
     <div class="h-max text-4xl font-semibold" style="padding-bottom: 30px;">Alerts</div>
     <div class="flex-grow border-t-2 border-error-content"></div> 
@@ -156,30 +219,9 @@
             <tbody>
                 <!-- row 1 -->
                 <tr class="border-error-content">
-                    <td class="text-lg">Rain</td>
+                    <td class="text-lg">Alert</td>
                     <th class="text-end">
-                        <input type="checkbox" class="custom-toggle toggle" bind:checked={rain}/>
-                    </th>
-                </tr>
-                <!-- row 2 -->
-                <tr class="border-error-content">
-                    <td class="text-lg">Wind</td>
-                    <th class="text-end">
-                        <input type="checkbox" class="custom-toggle toggle" bind:checked={wind}/>
-                    </th>
-                </tr>
-                <!-- row 3 -->
-                <tr class="border-error-content">
-                    <td class="text-lg">Thunderstorm</td>
-                    <th class="text-end">
-                        <input type="checkbox" class="custom-toggle toggle" bind:checked={thunderstorm}/>
-                    </th>
-                </tr>
-                <!-- row 4 -->
-                <tr class="border-error-content">
-                    <td class="text-lg">Temperature</td>
-                    <th class="text-end">
-                        <input type="checkbox" class="custom-toggle toggle" bind:checked={temperature}/>
+                        <input type="checkbox" class="custom-toggle toggle" bind:checked={alert} on:change={updateAlerts(alert)}/>
                     </th>
                 </tr>
             </tbody>
@@ -215,3 +257,4 @@
         </div>
     </dialog>
 </div>
+{/if}

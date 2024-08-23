@@ -13,9 +13,9 @@
         }
     })
 
-    let username = "John Doe";
+    let username = "";
     let profileHomeLocation = "";
-    let email = "johndoe@gmail.com";
+    let email = "";
 
 
     let editNameModal: HTMLDialogElement;
@@ -31,13 +31,12 @@
 	let profileDataError = null;
 
 
-    // URL for the current data
-    let UID = "I7ze3UyWXqPB1S6HC0fGt6In7Nx1";
-	const urlProfileData = `http://localhost:8000/profiles/${UID}`;
+	
 
     // Use the fetch API to make the POST request
 	onMount(async () => {
         try {
+            const urlProfileData = `http://localhost:8000/profiles/` + sessionStorage.getItem("userId");
             // Make the POST request using fetch
             const response = await fetch(urlProfileData, {
                 method: 'POST',
@@ -58,7 +57,6 @@
             updateLocation(profileHomeLocation)
             email = profileData.data.profile_data.email;
             profileHomeLocation = changeLocationStringUppercase(profileHomeLocation)
-            // window.location.reload() // reload the page the user is currently on
 
 
         } catch (err) {
@@ -110,7 +108,7 @@
         if (isValidName) {
             username = newName;
             let errorUpdateUsername = null;
-            const urlUpdateUsername= `http://localhost:8000/update_profile_data/${UID}`;
+            const urlUpdateUsername= `http://localhost:8000/update_profile_data/` + sessionStorage.getItem("userId");
             // Create the request body
             const updateBody = {
                 username: newName
@@ -164,7 +162,7 @@
         console.log(newLocation)
 
         let errorUpdateHomeLocation = null;
-        const urlUpdateHomeLocation= `http://localhost:8000/update_profile_data/${UID}`;
+        const urlUpdateHomeLocation= `http://localhost:8000/update_profile_data/` + sessionStorage.getItem("userId");
         // Create the request body
         const updateBody = {
             home_location: newLocation
