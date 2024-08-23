@@ -6,140 +6,94 @@
     import type { LayoutData } from './$types';	
     export let data: LayoutData;
 
-    // URL for the current data
-	const url = 'http://localhost:8000/forecast';
-
-    // Hardcoded location value
-    // let location = 'Kuala Lumpur, Malaysia';
+    const url = `http://localhost:8000/weather-forecast?location_code=${data.location}`;
     let selected = 'daily';
-
-    let button1 = 'HOURLY';
-    let button2 = 'DAILY';
-    
-    // Create the request body
-    const requestBody = {
-        location: data.location,
-        forecastType: selected,
-        variables: [
-            "temperature",
-            "precipitation",
-            "humidity"
-            ]
-    };
-
-    // Create the forecast data variable
     let forecastData: any = null;
-    let location: string | null = null;
-
-    // Create the error variable
+    let location: string = `${data.location}, Malaysia`;
     let error: string | null = null;
 
-    // Use the fetch API to make the POST request
-	onMount(async () => {
+    onMount(async () => {
         try {
-            // Make the POST request using fetch
-            const response = await fetch(url, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(requestBody)
-            });
-
-            // Check if the response is successful
+            const response = await fetch(url);
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
-
-            // Parse the JSON response
             forecastData = await response.json();
-            location = forecastData.location ? `${forecastData.location}, Malaysia` : `${data.location}, Malaysia`; // Set the location
-
-            console.log("Fetched Forecast Data:", forecastData); // Log the fetched data
-
+            if (!forecastData.hourly || !forecastData.daily) {
+                throw new Error("Incomplete data received from the server");
+            }
         } catch (err) {
             error = (err as Error).message;
-            console.error('Error:', err);
+            console.error('Error fetching forecast data:', error);
         }
     });
 </script>
 
-
 <svelte:head>
     <title>CliMate - Forecast</title>
-    <meta name="description" content="Climate web app" />
+    <meta name="description" content="Climate web app showing weather forecasts" />
 </svelte:head>
 
-<section class="flex flex-col items-center w-full ">
-
-    <!-- Header -->
+<section class="flex flex-col items-center w-full">
     <header class="flex justify-start items-center w-full p-5 text-white text-2xl">
         <h1>{location}</h1>
     </header>
 
-    <!-- Buttons -->
     <div class="flex justify-center gap-5 py-5 w-full text-white">
-        <button class="py-2 px-4 text-lg" 
-                on:click={() => selected = 'hourly'}
-                style:border-bottom={selected === 'hourly' ? '2.5px solid' : 'none'}>
-            {button1}
+        <button class="py-2 px-4 text-lg" on:click={() => selected = 'hourly'} style="border-bottom: {selected === 'hourly' ? '2.5px solid' : 'none'}">
+            Hourly
         </button>
-        <button class="py-2 px-4 text-lg" 
-                on:click={() => selected = 'daily'}
-                style:border-bottom={selected === 'daily' ? '2.5px solid' : 'none'}>
-            {button2}
+        <button class="py-2 px-4 text-lg" on:click={() => selected = 'daily'} style="border-bottom: {selected === 'daily' ? '2.5px solid' : 'none'}">
+            Daily
         </button>
     </div>
-    <!-- Forecast Data -->
-    <div class="flex flex-col w-full items-center px-5 md:px-0">
 
-        <!-- hourly forecast -->
-        {#if forecastData && selected === 'hourly'}
-            {#each forecastData.temperature as temperature, index}
+    <div class="flex flex-col w-full items-center px-5 md:px-0">
+        {#if forecastData?.hourly && selected === 'hourly'}
+            {#each forecastData.hourly.temperature as temp, index}
                 <div class="m-2.5 p-4 border border-error-content bg-base-content bg-opacity-10 shadow-xl rounded-lg w-full md:w-4/5">
                     <div class="grid grid-cols-1 md:grid-cols-5 gap-4">
                         <div class="md:col-span-2 col-span-1 text-black">
                             <ForcastInfoHourly
-                            time={`${forecastData.time ? forecastData.time[index] : "N/A"}`} 
-                            temp={`${temperature ? temperature + "°C" : "N/A"}`}
-                            message={forecastData.message ? forecastData.message[index] : "N/A"}
-                            condition={forecastData.condition ? forecastData.condition[index] : "N/A"} 
+                                time={forecastData.hourly.time ? forecastData.hourly.time[index] : "N/A"}
+                                temp={`${forecastData.hourly.temperature ? forecastData.hourly.temperature[index] + "°C" : "N/A"}`}
+                                condition={forecastData.hourly.condition ? forecastData.hourly.condition[index] : "N/A"}
+                                real_feel_temp={`${forecastData.hourly.real_feel ? forecastData.hourly.real_feel[index] + "°C" : "N/A"}`}
                             />
                         </div>
                         <div class="md:col-span-3 col-span-1">
                             <ForecastStat 
-                                humidity_percentage={forecastData.humidity ? forecastData.humidity[index] : "N/A"}
-                                wind_speed={forecastData.wind_speed ? forecastData.wind_speed[index] : "N/A"} 
-                                wind_direction={forecastData.wind_direction ? forecastData.wind_direction[index] : "N/A"}
-                                pressure={forecastData.pressure ? forecastData.pressure[index] : "N/A"} 
-                                percipitation={forecastData.precipitation ? forecastData.precipitation[index] : "N/A"}
+                                humidity_percentage={forecastData.hourly.humidity ? forecastData.hourly.humidity[index] : "N/A"}
+                                wind_speed={forecastData.hourly.wind_speed ? forecastData.hourly.wind_speed[index] : "N/A"} 
+                                wind_direction={forecastData.hourly.wind_direction ? forecastData.hourly.wind_direction[index] : "N/A"}
+                                pressure={forecastData.hourly.pressure ? forecastData.hourly.pressure[index] : "N/A"} 
+                                percipitation={forecastData.hourly.precipitation ? forecastData.hourly.precipitation[index] : "N/A"}
                             />
                         </div>
                     </div>
                 </div>
             {/each}
-        <!-- daily forecast -->
-        {:else if forecastData && selected === 'daily'}
-            {#each forecastData.temperature as temp, index}
+        {:else if forecastData?.daily && selected === 'daily'}
+            {#each forecastData.daily.max_temperature as maxTemp, index}
                 <div class="m-2.5 p-4 border border-error-content bg-base-content bg-opacity-10 shadow-xl rounded-lg w-full md:w-4/5">
                     <div class="grid grid-cols-1 md:grid-cols-5 gap-4">
                         <div class="md:col-span-2 col-span-1">
                             <ForcastInfoDaily
-                                day={forecastData.day ? forecastData.day[index] : "N/A"} 
-                                date={forecastData.date ? forecastData.date[index] : "N/A"} 
-                                highTemp={forecastData.highTemp ? forecastData.highTemp[index] : "N/A"} 
-                                lowTemp={forecastData.lowTemp ? forecastData.lowTemp[index] : "N/A"} 
-                                message={forecastData.message ? forecastData.message[index] : "N/A"}
-                                description={forecastData.description ? forecastData.description[index] : "N/A"}
+                                day={forecastData.daily.day ? forecastData.daily.day[index] : "N/A"} 
+                                date={forecastData.daily.time ? forecastData.daily.time[index] : "N/A"}
+                                highTemp={`${forecastData.daily.max_temperature ? forecastData.daily.max_temperature[index] + "°C" : "N/A"}`} 
+                                lowTemp={`${forecastData.daily.min_temperature ? forecastData.daily.min_temperature[index] + "°C" : "N/A"}`}
+                                temp={`${forecastData.daily.real_feel ? forecastData.daily.real_feel[index] + "°C" : "N/A"}`}
+                                description={forecastData.daily.description ? forecastData.daily.description[index] : "N/A"}
                             />
                         </div>
                         <div class="md:col-span-3 col-span-1">
                             <ForecastStat 
-                                humidity_percentage={forecastData.humidity ? forecastData.humidity[index] : "N/A"}
-                                wind_speed={forecastData.wind_speed ? forecastData.wind_speed[index] : "N/A"} 
-                                wind_direction={forecastData.wind_direction ? forecastData.wind_direction[index] : "N/A"}
-                                pressure={forecastData.pressure ? forecastData.pressure[index] : "N/A"} 
-                                percipitation={forecastData.precipitation ? forecastData.precipitation[index] : "N/A"}
+                                humidity_percentage={forecastData.daily.humidity ? forecastData.daily.humidity[index] : "N/A"}
+                                wind_speed={forecastData.daily.wind_speed ? forecastData.daily.wind_speed[index] : "N/A"} 
+                                wind_direction={forecastData.daily.wind_direction ? forecastData.daily.wind_direction[index] : "N/A"}
+                                pressure={forecastData.daily.pressure ? forecastData.daily.pressure[index] : "N/A"} 
+                                percipitation={forecastData.daily.precipitation ? forecastData.daily.precipitation[index] : "N/A"}
                             />
                         </div>
                     </div>
@@ -152,7 +106,3 @@
         {/if}
     </div>
 </section>
-
-
-<style>
-</style>

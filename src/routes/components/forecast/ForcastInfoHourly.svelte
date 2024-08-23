@@ -2,6 +2,7 @@
     export let time = "10pm";
     export let temp = "20°C";
     export let message = "RealFeel";
+    export let real_feel_temp = "20°C";
     export let condition = ["hi", "No"]
      
 </script>
@@ -20,7 +21,7 @@
         </div>
         {/each}
     </div>
-    <div class="text-center text-xl font-extralight">{message} {temp}</div>
+    <div class="text-center text-xl font-extralight">{message} {real_feel_temp}</div>
 </div>
 
 
