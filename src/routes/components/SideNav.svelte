@@ -41,12 +41,12 @@
     
     <!-- Bottom button -->
     <div class="w-full flex justify-center">
-      <a href="/settings/profile" class="icon-container w-12 h-12  rounded-2xl flex justify-center items-center">
+      <a href="/profile" class="icon-container w-12 h-12  rounded-2xl flex justify-center items-center">
         <img src="../../src/lib/images/profile_icon.png" alt="Profile" class="icon" width="30"/>
       </a>
     </div>
     <div class="w-full flex justify-center">
-      <a href="/settings/alerts" class="icon-container w-12 h-12  rounded-2xl flex justify-center items-center">
+      <a href="/alerts" class="icon-container w-12 h-12  rounded-2xl flex justify-center items-center">
         <img src="../../src/lib/images/alerts_icon.png" alt="Alerts" class="icon" width="30"/>
       </a>
     </div>
