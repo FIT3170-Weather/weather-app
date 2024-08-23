@@ -41,12 +41,12 @@
     
     <!-- Bottom button -->
     <div class="w-full flex justify-center">
-      <a href="/settings/profile" class="icon-container w-12 h-12  rounded-2xl flex justify-center items-center">
+      <a href="/profile" class="icon-container w-12 h-12  rounded-2xl flex justify-center items-center">
         <img src="../../src/lib/images/profile_icon.png" alt="Profile" class="icon" width="30"/>
       </a>
     </div>
     <div class="w-full flex justify-center">
-      <a href="/settings/alerts" class="icon-container w-12 h-12  rounded-2xl flex justify-center items-center">
+      <a href="/alerts" class="icon-container w-12 h-12  rounded-2xl flex justify-center items-center">
         <img src="../../src/lib/images/alerts_icon.png" alt="Alerts" class="icon" width="30"/>
       </a>
     </div>
@@ -63,10 +63,8 @@
         <h3 class="text-2xl font-semibold">Sign In</h3>
         <div class="text-center">
           <button class="w-[122px] h-[40px] m-[5px]" on:click={() => authHandlers.loginWithGoogle(closeModal)}>
-            <a href="/settings/profile">
-                <!--Will turn this button to refer to google email login page. (placeholder for now)-->
-                <img src="../../src/lib/images/google.png" alt="google"/>
-            </a>
+              <!--Will turn this button to refer to google email login page. (placeholder for now)-->
+              <img src="../../src/lib/images/google.png" alt="google"/>
           </button>
         </div>
         <p class="text-xs font-extralight">By signing in you agree to CliMate's terms of service and privacy policy</p>

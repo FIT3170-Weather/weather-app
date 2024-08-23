@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { authHandlers } from '../../store/store.js';
+
     export let searchData;
 
     import { time } from '../clock.js';
@@ -264,7 +266,7 @@
             </li>
             <div class="flex flex-grow"></div>
             <li>
-                <a href="/settings/profile" class="w-full h-12 rounded-2xl items-center">
+                <a href="/profile" class="w-full h-12 rounded-2xl items-center">
                     <div class="flex flex-row items-center space-x-5">
                         <img src="../../src/lib/images/profile_icon.png" alt="Profile" class="icon" width="30"/>
                         <div class="font-medium">Profile</div>
@@ -272,7 +274,7 @@
                 </a>
             </li>
             <li>
-                <a href="/settings/alerts" class="w-full h-12 rounded-2xl items-center">
+                <a href="/alerts" class="w-full h-12 rounded-2xl items-center">
                     <div class="flex flex-row items-center space-x-5">
                         <img src="../../src/lib/images/alerts_icon.png" alt="Alerts" class="icon" width="30"/>
                         <div class="font-medium">Alerts</div>
@@ -332,11 +334,9 @@
         </form>
         <div class="text-2xl font-semibold">Sign in</div>
         <div class="text-center py-2">
-            <button class="w-[122px] h-[40px] m-[5px]" on:click={closeLoginModal}>
-                <a href="/settings/profile">
-                    <!--Will turn this button to refer to google email login page. (placeholder for now)-->
-                    <img src="../../src/lib/images/google.png" alt="google"/>
-                </a>
+            <button class="w-[122px] h-[40px] m-[5px]" on:click={() => authHandlers.loginWithGoogle(closeLoginModal)}>
+                <!--Will turn this button to refer to google email login page. (placeholder for now)-->
+                <img src="../../src/lib/images/google.png" alt="google"/>
             </button>
         </div>
 
