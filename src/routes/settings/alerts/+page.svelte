@@ -1,21 +1,26 @@
 <script lang="ts">
-    import { writable } from 'svelte/store';
+    import { writable, get } from 'svelte/store';
     import { onDestroy } from 'svelte';
     import { onMount } from 'svelte';
 
     // get locations obtained in layout.js
-    import type { LayoutData } from './$types';	
-	export let data: LayoutData;
+    import type { PageData } from './$types';	
+	export let data: PageData;
 
     let locations:string[] = []
+    let observedLocations = writable<string[]>([]);
+
     // convert json to array of locaitons
     onMount(() => {
         for (var i in data.locations) {
             locations.push(i.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase()) + ', ' + 'Malaysia')
         }
+
+        for (var j in data.preferences.data) {
+            addLocation(data.preferences.data[j])
+        }
     })
  
-    let observedLocations = writable<string[]>([]);
 
     let modal: HTMLDialogElement;
     let rain = false;
@@ -28,6 +33,14 @@
 
     let filteredLocations : string[] = [];
 
+    function convertTextToUserView(text : string) : string {
+        return text.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())  + ', ' + 'Malaysia';
+    }
+
+    function convertToDatabaseFormat(text : string) : string {
+        return text.split(",")[0].toLowerCase().replace(/ /g, '-')
+    }
+
     function getStringsWithPrefix(list : string[], prefix: string) : string[] {
         if (prefix.length > 0) {
             // match options with entered prefix
@@ -37,11 +50,41 @@
     }   
 
     function openModal() {
+        newLocation = "";
         modal.showModal();
+    }
+
+    async function updateDatabase(newLocationsList: string[]) {
+        try {
+            const response = await fetch('http://localhost:8000/update_location/' + sessionStorage.getItem("userId"), {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({"locations": newLocationsList})
+            });
+
+            if (!response.ok) {
+                // Handle non-2xx status codes
+                console.error('Failed to update locations');
+            } else {
+                // Optionally handle the success response
+                console.log('Successfully updated locations');
+            }
+        } catch (error) {
+            // Handle any errors that occur during the fetch
+            console.error('Error updating locations:', error);
+        }
     }
 
     function removeLocation(location : string) : any {
         observedLocations.update(locations => locations.filter(l => l !== location));
+        updateDatabase(get(observedLocations))
+    }
+
+    function addLocation(location : string) : any {
+        observedLocations.update(locations => [...locations, convertToDatabaseFormat(location)]);
+        updateDatabase(get(observedLocations))
     }
 
     const handleInputChange = (event : any) => {
@@ -51,7 +94,7 @@
 
     const handleSubmit = (event : any) => {
         event.preventDefault(); 
-        observedLocations.update(locations => [...locations, newLocation]);
+        addLocation(newLocation);
         modal.close();
     };
 
@@ -86,7 +129,7 @@
                 {#if locationCount > 0}
                     {#each $observedLocations as location}
                         <tr class="border-error-content">
-                            <td class="text-lg">{location}</td>
+                            <td class="text-lg">{convertTextToUserView(location)}</td>
                             <th class="text-end">
                                 <button class="btn btn-ghost btn-xs" on:click={removeLocation(location)}>
                                     <img src="../../src/lib/images/delete_icon.png" alt="Delete" class="h-full w-full icon"/>
@@ -103,7 +146,7 @@
         </table>
     </div>
     <div class="py-5 flex justify-end">
-        <button class="custom-btn btn" on:click={openModal}>+ ADD</button>
+        <button class="custom-btn btn" on:click={openModal} disabled={locationCount >= 3}>+ ADD</button>
     </div>
     <div class="flex-grow border-t-2 border-error-content"></div>
 
@@ -166,7 +209,7 @@
             </div>
             <div class="modal-action">  
                 <form method="dialog" on:submit={handleSubmit}>
-                    <button class="custom-btn btn">+ ADD</button>   
+                    <button class="custom-btn btn" disabled={get(observedLocations).includes(convertToDatabaseFormat(newLocation))}>+ ADD</button>   
                 </form>
             </div>
         </div>
