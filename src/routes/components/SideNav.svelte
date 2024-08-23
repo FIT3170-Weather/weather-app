@@ -1,4 +1,7 @@
 <script lang="ts">
+
+  import { authHandlers } from "../../store/store";
+
     let modal: HTMLDialogElement;
   
     function openModal() {
@@ -59,7 +62,7 @@
         </form>
         <h3 class="text-2xl font-semibold">Sign In</h3>
         <div class="text-center">
-          <button class="w-[122px] h-[40px] m-[5px]" on:click={closeModal}>
+          <button class="w-[122px] h-[40px] m-[5px]" on:click={() => authHandlers.loginWithGoogle(closeModal)}>
             <a href="/settings/profile">
                 <!--Will turn this button to refer to google email login page. (placeholder for now)-->
                 <img src="../../src/lib/images/google.png" alt="google"/>
