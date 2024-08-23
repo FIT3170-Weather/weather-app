@@ -264,7 +264,7 @@
             </li>
             <div class="flex flex-grow"></div>
             <li>
-                <a href="/settings/profile" class="w-full h-12 rounded-2xl items-center">
+                <a href="/profile" class="w-full h-12 rounded-2xl items-center">
                     <div class="flex flex-row items-center space-x-5">
                         <img src="../../src/lib/images/profile_icon.png" alt="Profile" class="icon" width="30"/>
                         <div class="font-medium">Profile</div>
@@ -272,7 +272,7 @@
                 </a>
             </li>
             <li>
-                <a href="/settings/alerts" class="w-full h-12 rounded-2xl items-center">
+                <a href="/alerts" class="w-full h-12 rounded-2xl items-center">
                     <div class="flex flex-row items-center space-x-5">
                         <img src="../../src/lib/images/alerts_icon.png" alt="Alerts" class="icon" width="30"/>
                         <div class="font-medium">Alerts</div>
