@@ -3,7 +3,7 @@
     export let date = "5/6";
     export let highTemp = "30°C";
     export let lowTemp = "29°C";
-    export let message = "ReelFeal";
+    export let message = "Real Feel";
     export let temp = "29°C";
     export let description = "nice weatherjaspdjapsjdp adjpasjdadad  dakdnlasndknsa";
 </script>

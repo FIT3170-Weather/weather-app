@@ -27,6 +27,22 @@
             console.error('Error fetching forecast data:', error);
         }
     });
+
+    // Function to format the time from the ISO string
+    function formatTime(isoString: string): string {
+        const date = new Date(isoString);
+        return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true });
+    }
+
+    function formatDate(isoString: string): string {
+        const date = new Date(isoString);
+        return date.toLocaleDateString(undefined, { month: '2-digit', day: '2-digit' });
+    }
+
+    function formatDay(isoString: string): string {
+        const date = new Date(isoString);
+        return date.toLocaleDateString(undefined, { weekday: 'short' });
+    }
 </script>
 
 <svelte:head>
@@ -55,7 +71,7 @@
                     <div class="grid grid-cols-1 md:grid-cols-5 gap-4">
                         <div class="md:col-span-2 col-span-1 text-black">
                             <ForcastInfoHourly
-                                time={forecastData.hourly.time ? forecastData.hourly.time[index] : "N/A"}
+                                time={forecastData.hourly.time ? formatTime(forecastData.hourly.time[index]) : "N/A"}
                                 temp={`${forecastData.hourly.temperature ? forecastData.hourly.temperature[index] + "°C" : "N/A"}`}
                                 condition={forecastData.hourly.condition ? forecastData.hourly.condition[index] : "N/A"}
                                 real_feel_temp={`${forecastData.hourly.real_feel ? forecastData.hourly.real_feel[index] + "°C" : "N/A"}`}
@@ -79,8 +95,8 @@
                     <div class="grid grid-cols-1 md:grid-cols-5 gap-4">
                         <div class="md:col-span-2 col-span-1">
                             <ForcastInfoDaily
-                                day={forecastData.daily.day ? forecastData.daily.day[index] : "N/A"} 
-                                date={forecastData.daily.time ? forecastData.daily.time[index] : "N/A"}
+                                day={forecastData.daily.time ? formatDay(forecastData.daily.time[index]) : "N/A"} 
+                                date={forecastData.daily.time ? formatDate(forecastData.daily.time[index]) : "N/A"}
                                 highTemp={`${forecastData.daily.max_temperature ? forecastData.daily.max_temperature[index] + "°C" : "N/A"}`} 
                                 lowTemp={`${forecastData.daily.min_temperature ? forecastData.daily.min_temperature[index] + "°C" : "N/A"}`}
                                 temp={`${forecastData.daily.real_feel ? forecastData.daily.real_feel[index] + "°C" : "N/A"}`}

@@ -1,7 +1,7 @@
 <script>
     export let time = "10pm";
     export let temp = "20°C";
-    export let message = "RealFeel";
+    export let message = "Real Feel";
     export let real_feel_temp = "20°C";
     export let condition = ["hi", "No"]
      
