@@ -73,20 +73,20 @@
     }
 </script>
 
-
-
-
-<div class= "flex flex-nowrap  justify-items-start w-full overflow-x-auto overflow-y-hidden px-3 custom-scrollbar">
-    {#each locations as location} 
-        <!-- <div class="rectangle"> -->
-        <div class="space-y-4 text-center w-[126px] h-[160px] m-[10px] p-[10px] flex flex-col items-center justify-center flex-shrink-0 relative select-none rounded-xl shadow-sm rectangle">
-            <div>
-                <h3>{location.title}</h3>
+<div class= "w-full p-1">
+    <div class= "flex flex-nowrap justify-items-start w-full overflow-x-auto overflow-y-hidden px-2 py-1 space-x-2 custom-scrollbar">
+        {#each locations as location} 
+            <div class="w-[126px] h-[160px] shadow-sm rectangle rounded-xl flex flex-col shrink-0 items-center text-center p-[5px]">
+                <div class="w-full">
+                    <h3>{location.title}</h3>
+                </div>
+                <div>
+                    <img class="h-[80px]" src={location.image} alt={location.title} />
+                </div>
+                <div class="w-full">
+                    <p>{location.number}</p>
+                </div>
             </div>
-            <img class="h-[85px]" src={location.image} alt={location.title} />
-            <p>{location.number}</p>
-        </div>
-    {/each}
+        {/each} 
+    </div>
 </div>
-
-
