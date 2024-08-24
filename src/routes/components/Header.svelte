@@ -296,23 +296,23 @@
             </li>
             <div class="flex flex-grow"></div>
            
-            {#if user} 
-            <li>
-                <a href="/profile" class="w-full h-12 rounded-2xl items-center">
-                    <div class="flex flex-row items-center space-x-5">
-                        <img src="../../src/lib/images/profile_icon.png" alt="Profile" class="icon" width="30"/>
-                        <div class="font-medium">Profile</div>
-                    </div>
-                </a>
-            </li>
-            <li>
-                <a href="/alerts" class="w-full h-12 rounded-2xl items-center">
-                    <div class="flex flex-row items-center space-x-5">
-                        <img src="../../src/lib/images/alerts_icon.png" alt="Alerts" class="icon" width="30"/>
-                        <div class="font-medium">Alerts</div>
-                    </div>
-                </a>
-            </li>
+            {#if $user} 
+                <li>
+                    <a href="/profile" class="w-full h-12 rounded-2xl items-center">
+                        <div class="flex flex-row items-center space-x-5">
+                            <img src="../../src/lib/images/profile_icon.png" alt="Profile" class="icon" width="30"/>
+                            <div class="font-medium">Profile</div>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="/alerts" class="w-full h-12 rounded-2xl items-center">
+                        <div class="flex flex-row items-center space-x-5">
+                            <img src="../../src/lib/images/alerts_icon.png" alt="Alerts" class="icon" width="30"/>
+                            <div class="font-medium">Alerts</div>
+                        </div>
+                    </a>
+                </li>
             {/if} 
             <li>
                 <button class="w-full h-12 rounded-2xl items-center" on:click={openLoginModal}>
