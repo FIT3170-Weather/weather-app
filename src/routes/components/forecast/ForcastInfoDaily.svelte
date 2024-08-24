@@ -1,4 +1,7 @@
 <script>
+	import { getWeatherConditionImage } from "../../weatherConditions";
+	import { WeatherConditions } from "../../weatherConditions";
+
     export let day = "10pm";
     export let date = "5/6";
     export let highTemp = "30°C";
@@ -6,6 +9,7 @@
     export let message = "Real Feel";
     export let temp = "29°C";
     export let description = "nice weatherjaspdjapsjdp adjpasjdadad  dakdnlasndknsa";
+    export let weather_condition = WeatherConditions.CLEAR
 </script>
 <div class=" text-white space-y-2 w-full h-full flex flex-col items-center">
     <div class= "flex flex-row justify-center">
@@ -14,7 +18,7 @@
             <div class="text-xl font-extralight  text-center">{date} </div>
         </div>
         <div class="flex flex-col items-center space-x-2">
-            <img src= ../../src/lib/images/rain.png alt = "logo" class =" h-32"/>
+            <img src= {getWeatherConditionImage(weather_condition)} alt = "logo" class =" h-32"/>
             <div class= "flex flex-row">
                 <div class="text-3xl font-bold">{highTemp}</div>
                 <div class="text-xl">/{lowTemp}</div>
