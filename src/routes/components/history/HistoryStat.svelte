@@ -68,7 +68,7 @@
         <div class="stats shadow h-full w-full stats-bg">
             <div class="stat sm:p-6 p-3">
                 <div class="stat-title sm:text-base text-xs text-error-content opacity-60">Visibility</div>
-                <div class="stat-value sm:text-xl text-base ">{visibility} mm</div>
+                <div class="stat-value sm:text-xl text-base ">{Math.round(visibility)} m</div>
             </div>
         </div>
     </div>
