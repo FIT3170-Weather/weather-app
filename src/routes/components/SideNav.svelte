@@ -37,6 +37,7 @@
     authHandlers.logout(); 
     user.set(null);
     sessionStorage.removeItem('userId');
+    sessionStorage.removeItem('location');
     closeModal();
     window.location.href = "/" // Redirect to home page
   }
