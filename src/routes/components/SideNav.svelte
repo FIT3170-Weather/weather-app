@@ -1,25 +1,44 @@
 <script lang="ts">
-	import { onMount } from "svelte";
-
-
+  import { onMount, onDestroy } from "svelte";
+  import { writable } from 'svelte/store';
   import { authHandlers } from "../../store/store";
 
-    let modal: HTMLDialogElement;
-    let user: string | null = null;
+  let modal: HTMLDialogElement;
+  export let user = writable<string | null>(null); 
 
-    onMount(async () => {
-      user = sessionStorage.getItem("userId"); 
-      console.log(user)  
-    });
-  
-    function openModal() {
-      modal.showModal();
-    }
+  onMount(async () => {
+    const userId = sessionStorage.getItem('userId');
+    user.set(userId);
+    console.log(userId);
+  });
 
-    function closeModal(){
-        modal.close();
-        window.location.reload()
+  const unsubscribe = user.subscribe(value => {
+    if (value) {
+      console.log('User is signed in:', value);
+    } else {
+      console.log('User is signed out');
     }
+  });
+
+  onDestroy(() => {
+    unsubscribe();
+  });
+
+  function openModal() {
+    modal.showModal();
+  }
+
+  function closeModal(){
+    modal.close();
+    window.location.reload();
+  }
+
+  function signOut() {
+    authHandlers.logout(); 
+    user.set(null);
+    sessionStorage.removeItem('userId');
+    closeModal();
+  }
 </script>
 
 <!-- SideNav -->
@@ -48,9 +67,8 @@
     <!-- Spacer to push the last button to the bottom -->
     <div class="flex flex-grow"></div>
     
-    
-    {#if user} 
-    <!-- Bottom button -->
+    {#if $user}
+    <!-- Show profile and alerts icons if user is signed in -->
     <div class="w-full flex justify-center">
       <a href="/profile" class="icon-container w-12 h-12  rounded-2xl flex justify-center items-center">
         <img src="../../src/lib/images/profile_icon.png" alt="Profile" class="icon" width="30"/>
@@ -63,25 +81,39 @@
     </div>
     {/if}
     
-    
+    <!-- Login/Logout Button -->
     <div class="pb-5 w-full flex justify-center">
-      <button class="icon-container w-12 h-12  rounded-2xl flex justify-center items-center" on:click={openModal}>
-        <img src="../../src/lib/images/log-out.png" alt="Logout" class="icon" width="30">
+      <button class="icon-container w-12 h-12 rounded-2xl flex justify-center items-center" on:click={openModal}>
+        <img src={$user ? "../../src/lib/images/log-out.png" : "../../src/lib/images/log-in.png"} 
+          alt={$user ? "Logout" : "Login"} class="icon" width="30">
       </button>
     </div>
+
+    <!-- Single Modal for both Login and Logout -->
     <dialog bind:this={modal} class="modal">
-      <div class="modal-box bg-base-100" >
+      <div class="modal-box bg-base-100">
         <form method="dialog">
           <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
         </form>
-        <h3 class="text-2xl font-semibold">Sign In</h3>
-        <div class="text-center">
-          <button class="w-[122px] h-[40px] m-[5px]" on:click={() => authHandlers.loginWithGoogle(closeModal)}>
-              <!--Will turn this button to refer to google email login page. (placeholder for now)-->
+        {#if $user}
+          <!-- Sign Out Modal Content -->
+          <h3 class="text-2xl font-semibold ">Sign Out</h3>
+          <p class=" text-lg mt-4 text-center">Are you sure you want to sign out?</p>
+          <div class="text-center mt-4">
+            <button class="w-[122px] h-[40px] m-[5px] rounded btn" on:click={signOut}>
+              Sign Out
+            </button>
+          </div>
+        {:else}
+          <!-- Sign In Modal Content -->
+          <h3 class="text-2xl font-semibold">Sign In</h3>
+          <div class="text-center">
+            <button class="w-[122px] h-[40px] m-[5px]" on:click={() => authHandlers.loginWithGoogle(closeModal)}>
               <img src="../../src/lib/images/google.png" alt="google"/>
-          </button>
-        </div>
-        <p class="text-xs font-extralight">By signing in you agree to CliMate's terms of service and privacy policy</p>
+            </button>
+          </div>
+          <p class="text-xs font-extralight">By signing in you agree to CliMate's terms of service and privacy policy</p>
+        {/if}
       </div>
     </dialog>
   </div>
