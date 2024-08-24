@@ -1,15 +1,29 @@
 <script lang="ts">
+	import { writable } from 'svelte/store';
 	import { authHandlers } from '../../store/store.js';
 
     export let searchData;
 
     import { time } from '../clock.js';
     let loginModal: HTMLDialogElement;
-    let user: string | null = null;
+    export let user = writable<string | null>(null); 
 
     onMount(async () => {
-      user = sessionStorage.getItem("userId"); 
-      console.log(user)  
+        const userId = sessionStorage.getItem('userId');
+        user.set(userId);
+        console.log(userId);
+    });
+
+    const unsubscribe = user.subscribe(value => {
+        if (value) {
+        console.log('User is signed in:', value);
+        } else {
+        console.log('User is signed out');
+        }
+    });
+
+    onDestroy(() => {
+        unsubscribe();
     });
     
     function openLoginModal() {
@@ -53,7 +67,7 @@
     });
     }
 
-    import { onMount } from 'svelte';
+    import { onDestroy, onMount } from 'svelte';
 
     let search_data:string[] = []
     // convert json to array of locaitons
@@ -137,6 +151,14 @@
             searchString = "";
             updateLocation(mobileViewItem);
     };
+
+    function signOut() {
+        authHandlers.logout(); 
+        user.set(null);
+        sessionStorage.removeItem('userId');
+        closeLoginModal();
+        window.location.href = "/" // Redirect to home page
+    }
     
 </script>
 
@@ -295,7 +317,11 @@
                 <button class="w-full h-12 rounded-2xl items-center" on:click={openLoginModal}>
                     <div class="flex flex-row items-center space-x-5">
                         <img src="../../src/lib/images/log-out.png" alt="Logout" class="icon" width="30">
-                        <div class="font-medium">Login</div>
+                        {#if $user}
+                            <div class="font-medium">Logout</div>
+                        {:else}
+                            <div class="font-medium">Login</div>
+                        {/if}
                     </div>
                 </button>
             </li>
@@ -336,20 +362,30 @@
     </div>
 </dialog>
 
-<!-- modal for login / logout -->
+<!-- Single Modal for both Login and Logout -->
 <dialog bind:this={loginModal} class="modal">
-    <div class="modal-box bg-base-100" >
+    <div class="modal-box bg-base-100">
         <form method="dialog">
             <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
         </form>
-        <div class="text-2xl font-semibold">Sign in</div>
-        <div class="text-center py-2">
-            <button class="w-[122px] h-[40px] m-[5px]" on:click={() => authHandlers.loginWithGoogle(closeLoginModal)}>
-                <!--Will turn this button to refer to google email login page. (placeholder for now)-->
+        {#if $user}
+            <!-- Sign Out Modal Content -->
+            <h3 class="text-2xl font-semibold ">Sign Out</h3>
+            <p class=" text-lg mt-4 text-center">Are you sure you want to sign out?</p>
+            <div class="text-center mt-4">
+                <button class="w-[122px] h-[40px] m-[5px] rounded btn" on:click={signOut}>
+                Sign Out
+                </button>
+            </div>
+        {:else}
+        <!-- Sign In Modal Content -->
+                <h3 class="text-2xl font-semibold">Sign In</h3>
+            <div class="text-center">
+                <button class="w-[122px] h-[40px] m-[5px]" on:click={() => authHandlers.loginWithGoogle(closeLoginModal)}>
                 <img src="../../src/lib/images/google.png" alt="google"/>
-            </button>
-        </div>
-
-        <p class="text-xs font-extralight">By signing in you agree to CliMate's terms of service and privacy policy</p>
+                </button>
+            </div>
+            <p class="text-xs font-extralight">By signing in you agree to CliMate's terms of service and privacy policy</p>
+        {/if}
     </div>
-</dialog>
+    </dialog>
