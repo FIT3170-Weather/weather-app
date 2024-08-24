@@ -6,10 +6,10 @@
     import Chart from 'chart.js/auto';
     // @ts-ignore
     import ChartDataLabels from 'chartjs-plugin-datalabels';
-    
-    
     import { themeStore } from '../stroreTheme';
-    $: updateChartColors(), $themeStore; // React to theme changes
+    $: updateChartColors(), $themeStore; // React to theme changes   
+	export let datas;
+
     
     // @ts-ignore
     function updateChartColors() {
@@ -85,21 +85,63 @@
     
     
     // creating temperature graph
-    let chartAvgTemperature = [24,25,28,30,30,29,28,31,27,29,30,28];
-    let chartDays = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+    let chartAvgTemperature;
+    let chartMonths = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
     let ctx;
     let myTempChart;
     // @ts-ignore
     let temperatureChart;
-    
+    // percipitation graph
+    let chartAvgPercipitation;
+    let ctxPercipitation;
+    let myPerciChart;
+    // @ts-ignore
+    let percipitationChart;
+
+    let graphData: any = null;
+	let graphDataError = null;
+    let location: any;
+
     onMount(async () => {
+
+        location = datas.location;
+        try {
+            const urlGraphData = `http://localhost:8000/monthly?location_code=` + location;
+            // Make the POST request using fetch
+            const response = await fetch(urlGraphData, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            });
+
+            // Check if the response is successful
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
+            // Parse the JSON response
+            graphData = await response.json();
+            console.log(graphData);
+
+            chartAvgTemperature = graphData.temperature;
+            chartAvgPercipitation = graphData.total_precipitation;
+
+
+        } catch (err) {
             // @ts-ignore
+            graphDataError = err.message;
+            console.error('Error:', err);
+        }
+ 
+        // temperaure graph
+        // @ts-ignore
             ctx = temperatureChart.getContext('2d');
             // @ts-ignore
             myTempChart = new Chart(ctx, {
                     type: 'bar',
                     data: {
-                            labels: chartDays,                  // x-axis data
+                            labels: chartMonths,                  // x-axis data
                             datasets: [{
                                 backgroundColor: redGradient,   // bar colour
                                 data: chartAvgTemperature,      // y-axis data
@@ -179,23 +221,15 @@
                     }
             });
             updateChartColors();
-        });
-    
-    // percipitation graph
-    let chartAvgPercipitation = [10, 50, 30, 20, 20, 30,25,30,40,50,40,30];
-    let ctxPercipitation;
-    let myPerciChart;
-    // @ts-ignore
-    let percipitationChart;
-    
-    onMount(async () => {
+
+            // percipitation graph
             // @ts-ignore
             ctxPercipitation = percipitationChart.getContext('2d');
             // @ts-ignore
                 myPerciChart = new Chart(ctxPercipitation, {
                     type: 'bar',
                     data: {
-                            labels: chartDays,
+                            labels: chartMonths,
                             datasets: [{
                                 backgroundColor: blueGradient,
                                 data: chartAvgPercipitation,
@@ -245,7 +279,7 @@
                         },
                         scales: {
                             y: {
-                                max: 80,
+                                max: 1000,
                                 border: {
                                     display: false,
                                 },
@@ -288,10 +322,7 @@
                 myTempChart.update();
             }
             updateChartColors()
-        });
-    
-    
-        
+        });        
         
     </script>
     

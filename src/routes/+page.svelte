@@ -65,7 +65,7 @@
 
 	<!-- Today's insights -->
 	<div class="grow place-content-center glassmorph border-error-content">
-		<GraphCard />
+		<GraphCard datas={data}/>
 	</div>
 </div>
 
