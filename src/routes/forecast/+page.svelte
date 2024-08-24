@@ -4,6 +4,7 @@
     import ForcastInfoHourly from "../components/forecast/ForcastInfoHourly.svelte";
     import ForcastInfoDaily from "../components/forecast/ForcastInfoDaily.svelte";
     import type { LayoutData } from './$types';	
+	import { WeatherConditions } from '../weatherConditions';
     export let data: LayoutData;
 
     const url = `http://localhost:8000/weather-forecast?location_code=${data.location}`;
@@ -43,6 +44,97 @@
         const date = new Date(isoString);
         return date.toLocaleDateString(undefined, { weekday: 'short' });
     }
+
+    function createHourlyDescription(wind_speed: any, humidity: any): string[] {
+        if (!wind_speed || !humidity) {
+            return ["N/A"]
+        }
+        var ret = []
+        if (humidity <= 80) {
+            ret.push("Slightly humid")
+        }
+        else if (humidity <= 90) {
+            ret.push("Quite humid")
+        }
+        else {
+            ret.push("Very humid")
+        }
+        if (wind_speed <= 5) {
+            ret.push("Light Breeze")
+        }
+        else if (wind_speed <= 20) {
+            ret.push("Gentle Breeze")
+        }
+        else {
+            ret.push("Strong Breeze")
+        }
+        return ret
+    }
+
+    function createDailyDescription(precipitation: any, wind_speed: any): string {
+        if (!precipitation || !wind_speed) {
+            return "N/A"
+        }
+        let rain_condition: string;
+        if (precipitation <= 0.1) {
+            rain_condition = "Clear skies"
+        }
+        else if (precipitation <= 17) {
+            rain_condition = "Chances of light rain"
+        }
+        else if (precipitation <= 20) {
+            rain_condition = "Chances of moderate rain"
+        }
+        else {
+            rain_condition = "Chances of heavy rain"
+        }
+
+        let wind_condition: string;
+        if (wind_speed <= 5) {
+            wind_condition = "light breeze"
+        }
+        else if (wind_speed <= 20) {
+            wind_condition = "gentle breeze"
+        }
+        else {
+            wind_condition = "strong breeze"
+        }
+        return rain_condition + " with " + wind_condition + "."
+    }
+
+    function determineHourlyWeatherCondition(precipitation: number): string {
+        let weather_condition;
+        if (precipitation <= 0.3) {
+            weather_condition = WeatherConditions.CLEAR
+        }
+        else if (precipitation <= 2) {
+            weather_condition = WeatherConditions.LIGHT_RAIN
+        }
+        else if (precipitation <= 7) {
+            weather_condition = WeatherConditions.MODERATE_RAIN
+        }
+        else {
+            weather_condition = WeatherConditions.HEAVY_RAIN
+        }
+        return weather_condition
+    }
+
+    function determineDailyWeatherCondition(precipitation: number): string {
+        let weather_condition;
+        if (precipitation <= 0.1) {
+            weather_condition = WeatherConditions.CLEAR
+        }
+        else if (precipitation <= 17) {
+            weather_condition = WeatherConditions.LIGHT_RAIN
+        }
+        else if (precipitation <= 20) {
+            weather_condition = WeatherConditions.MODERATE_RAIN
+        }
+        else {
+            weather_condition = WeatherConditions.HEAVY_RAIN
+        }
+        return weather_condition
+    }
 </script>
 
 <svelte:head>
@@ -73,8 +165,9 @@
                             <ForcastInfoHourly
                                 time={forecastData.hourly.time ? formatTime(forecastData.hourly.time[index]) : "N/A"}
                                 temp={`${forecastData.hourly.temperature ? forecastData.hourly.temperature[index] + "°C" : "N/A"}`}
-                                condition={forecastData.hourly.condition ? forecastData.hourly.condition[index] : "N/A"}
+                                condition={createHourlyDescription(forecastData.hourly.wind_speed[index], forecastData.hourly.humidity[index])}
                                 real_feel_temp={`${forecastData.hourly.real_feel ? forecastData.hourly.real_feel[index] + "°C" : "N/A"}`}
+                                weather_condition={determineHourlyWeatherCondition(forecastData.hourly.precipitation[index])}
                             />
                         </div>
                         <div class="md:col-span-3 col-span-1">
@@ -100,7 +193,8 @@
                                 highTemp={`${forecastData.daily.max_temperature ? forecastData.daily.max_temperature[index] + "°C" : "N/A"}`} 
                                 lowTemp={`${forecastData.daily.min_temperature ? forecastData.daily.min_temperature[index] + "°C" : "N/A"}`}
                                 temp={`${forecastData.daily.real_feel ? forecastData.daily.real_feel[index] + "°C" : "N/A"}`}
-                                description={forecastData.daily.description ? forecastData.daily.description[index] : "N/A"}
+                                description={createDailyDescription(forecastData.daily.precipitation[index], forecastData.daily.wind_speed[index])}
+                                weather_condition={determineDailyWeatherCondition(forecastData.daily.precipitation[index])}
                             />
                         </div>
                         <div class="md:col-span-3 col-span-1">
