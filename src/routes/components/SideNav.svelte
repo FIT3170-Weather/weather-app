@@ -38,6 +38,7 @@
     user.set(null);
     sessionStorage.removeItem('userId');
     closeModal();
+    window.location.href = "/" // Redirect to home page
   }
 </script>
 
