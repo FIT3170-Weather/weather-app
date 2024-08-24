@@ -1,63 +1,64 @@
-<script>
+<script lang="ts">
     import rain from '$lib/images/rain.png';
     import thunder from '$lib/images/thunder.png';
     import storm from '$lib/images/storm.png';
 
     import { onMount } from 'svelte';
-    let locations = [
-        { title: 'Selangor', image: rain, number: "34°", dropdownVisible: false, position: 1},
-        { title: 'Petaling Jaya', image:  thunder, number: "28°", dropdownVisible: false, position: 2},
-        { title: 'Melaka', image: storm, number: "31°", dropdownVisible: false, position: 3},
-        { title: 'Selangor', image: rain, number: "34°", dropdownVisible: false, position: 1},
-        { title: 'Petaling Jaya', image:  thunder, number: "28°", dropdownVisible: false, position: 2},
-        { title: 'Melaka', image: storm, number: "31°", dropdownVisible: false, position: 3},
-    ];
-    var index = locations.length
-    const locationNames = ['Subang Jaya', 'Putrajaya', 'Port Klang', 'Seremban', 'Kuantan'];
-    const images = [rain, storm, thunder];
 
-    /**
-	 * @param {any[]} arr
-	 */
-    function getRandomItem(arr){
-        return arr[Math.floor(Math.random() * arr.length)];
+    interface Location {
+        title: string;
+        image: string;
+        number: string;
+        dropdownVisible: boolean;
+        position: number;
     }
 
-    function addRectangle() {
-        index += 1
-        const newRectangle = {
-            title: locationNames.splice(0, 1)[0],
-            image: getRandomItem(images),
-            number: (Math.floor(Math.random() * (38-25) + 25)) +"°",
-            dropdownVisible: false,
-            position: locations.length +1
-        };
-        locations = [...locations, newRectangle];
-    }
+    let locations: Location[] = [];
 
-    let dropdownVisible = false;
+    onMount(async () => {
+        // Retrieve the userId from session storage
+        const userId = sessionStorage.getItem('userId');
+        if (!userId) {
+            console.error('User ID is not available');
+            return;
+        }
 
-    /**
-	 * @param {number} position
-	 */
-    function toggleDropdown(position) {
-        locations = locations.map((location, i) => {
-            if (i === position) {
-                return { ...location, dropdownVisible: !location.dropdownVisible };
-            } else {
-                return { ...location, dropdownVisible: false }; // Close other dropdowns
-            }
+        const response = await fetch(`http://localhost:8000/profiles/${userId}/preferences/forecast`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
         });
+
+        if (response.ok) {
+            const data = await response.json();
+            console.log(data); // Log the data to the console for debugging
+            locations = transformData(data.data);
+        } else {
+            console.error('Failed to fetch locations:', response.status);
+        }
+    });
+
+    function transformData(apiData: { [key: string]: any }): Location[] {
+        return Object.entries(apiData).map(([key, value], index) => ({
+            title: value.name,
+            image: selectImage(value.weather[0].main),
+            number: `${value.main.temp.toFixed(1)}°`,
+            dropdownVisible: false,
+            position: index + 1
+        }));
     }
 
-    /**
-	 * @param {number} option
-	 * @param {{ title: any; image?: string; number?: string; dropdownVisible?: boolean; position?: number }} location
-	 */
-    function handleOptionClick(option, location) {
-        alert(`Option ${option} clicked for ${location.title}`);
+    function selectImage(weatherType: string): string {
+        switch (weatherType) {
+            case 'Thunderstorm': return thunder;
+            case 'Rain': return rain;
+            case 'Clouds': return storm;
+            default: return rain;
+        }
     }
 </script>
+
 
 
 
