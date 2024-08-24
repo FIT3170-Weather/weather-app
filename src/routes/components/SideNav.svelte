@@ -1,8 +1,16 @@
 <script lang="ts">
+	import { onMount } from "svelte";
+
 
   import { authHandlers } from "../../store/store";
 
     let modal: HTMLDialogElement;
+    let user: string | null = null;
+
+    onMount(async () => {
+      user = sessionStorage.getItem("userId"); 
+      console.log(user)  
+    });
   
     function openModal() {
       modal.showModal();
@@ -10,6 +18,7 @@
 
     function closeModal(){
         modal.close();
+        window.location.reload()
     }
 </script>
 
@@ -39,6 +48,8 @@
     <!-- Spacer to push the last button to the bottom -->
     <div class="flex flex-grow"></div>
     
+    
+    {#if user} 
     <!-- Bottom button -->
     <div class="w-full flex justify-center">
       <a href="/profile" class="icon-container w-12 h-12  rounded-2xl flex justify-center items-center">
@@ -50,6 +61,9 @@
         <img src="../../src/lib/images/alerts_icon.png" alt="Alerts" class="icon" width="30"/>
       </a>
     </div>
+    {/if}
+    
+    
     <div class="pb-5 w-full flex justify-center">
       <button class="icon-container w-12 h-12  rounded-2xl flex justify-center items-center" on:click={openModal}>
         <img src="../../src/lib/images/log-out.png" alt="Logout" class="icon" width="30">

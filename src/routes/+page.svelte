@@ -16,9 +16,6 @@
 	export let data: LayoutData;
 	
 	let error = null;
-	/**
-	 * @type {null}
-	 */
 	let weatherData: any = null;
 
 	// Create the request body
