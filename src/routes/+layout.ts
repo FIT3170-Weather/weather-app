@@ -1,5 +1,4 @@
 import type { LayoutLoad } from './$types';
-
 // get all the valid locations and the current user selected locations
 // these values can be used in any component/ child component of this layout
 // example of how to use can be found in +page.svelte (make sure to use "data" as variable name for "export let data" or it wont work)
