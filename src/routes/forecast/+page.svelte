@@ -114,7 +114,7 @@
             weather_condition = WeatherConditions.MODERATE_RAIN
         }
         else {
-            weather_condition = WeatherConditions.HEAVY_RAIN
+            weather_condition = WeatherConditions.THUNDER_STORM
         }
         return weather_condition
     }
@@ -131,7 +131,7 @@
             weather_condition = WeatherConditions.MODERATE_RAIN
         }
         else {
-            weather_condition = WeatherConditions.HEAVY_RAIN
+            weather_condition = WeatherConditions.THUNDER_STORM
         }
         return weather_condition
     }

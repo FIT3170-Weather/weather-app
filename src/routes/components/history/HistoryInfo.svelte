@@ -12,7 +12,7 @@
         </div>
         <div class="col-span-2"></div>
         <div class="col-span-4 items-center justify-center">
-            <img src= ../../src/lib/images/rain.png alt = "logo" class =" h-35"/>
+                <img src= ../../src/lib/images/rain.png alt = "logo" class =" h-35"/>
             <div class=" text-2xl font-extralight text-center">{message} {temp}</div>
         </div>
     </div>
