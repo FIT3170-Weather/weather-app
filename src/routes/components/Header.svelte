@@ -5,6 +5,12 @@
 
     import { time } from '../clock.js';
     let loginModal: HTMLDialogElement;
+    let user: string | null = null;
+
+    onMount(async () => {
+      user = sessionStorage.getItem("userId"); 
+      console.log(user)  
+    });
     
     function openLoginModal() {
         loginModal.showModal();
@@ -12,6 +18,7 @@
 
     function closeLoginModal(){
         loginModal.close();
+        window.location.reload()
     }
     // formatter to format day
     const dayFormatter = new Intl.DateTimeFormat('en', {
@@ -265,6 +272,8 @@
                 </a>
             </li>
             <div class="flex flex-grow"></div>
+           
+            {#if user} 
             <li>
                 <a href="/profile" class="w-full h-12 rounded-2xl items-center">
                     <div class="flex flex-row items-center space-x-5">
@@ -281,6 +290,7 @@
                     </div>
                 </a>
             </li>
+            {/if} 
             <li>
                 <button class="w-full h-12 rounded-2xl items-center" on:click={openLoginModal}>
                     <div class="flex flex-row items-center space-x-5">
