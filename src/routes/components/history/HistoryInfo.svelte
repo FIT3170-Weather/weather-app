@@ -46,17 +46,18 @@
         }      
     }
 </script>
+
 <div class=" text-white space-y-2 w-full h-full flex flex-col justify-center items-center">
-    <div class= "grid grid-cols-8 items-center justify-center">
-        <div class= "col-span-2 ">
+    <div class= "grid grid-cols-2 items-center justify-center">
+        <div class= "col-span-1 ">
             <div class="text-4xl font-bold text-center">{day} </div>
             <div class="text-4xl font-extralight text-center">{date} </div>
         </div>
-        <div class="col-span-2"></div>
-        <div class="col-span-3 ">
-            <img src={getWeatherConditionImages(message)} alt ="logo" class="  h-40 mx-4"/>
+        <div class="col-span-1 ">
+            <img src={getWeatherConditionImages(message)} alt ="logo" class="object-contain h-40"/>
+        </div>
+        <div class="col-span-2">
             <div class="text-2xl font-extralight text-center">{message} {temp}</div>
-
         </div>
     </div>
-  </div>
+</div>
