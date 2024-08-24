@@ -15,39 +15,49 @@
     let locations: Location[] = [];
 
     onMount(async () => {
-        // Retrieve the userId from session storage
-        const userId = sessionStorage.getItem('userId');
-        if (!userId) {
-            console.error('User ID is not available');
-            return;
-        }
-
-        const response = await fetch(`http://localhost:8000/profiles/${userId}/preferences/forecast`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        });
-
-        if (response.ok) {
-            const data = await response.json();
-            console.log(data); // Log the data to the console for debugging
-            locations = transformData(data.data);
-        } else {
-            console.error('Failed to fetch locations:', response.status);
-        }
+    const response = await fetch(`http://localhost:8000/all-locations-current`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+        },
     });
 
-    function transformData(apiData: { [key: string]: any }): Location[] {
-        return Object.entries(apiData).map(([key, value], index) => ({
-            title: value.name,
-            image: selectImage(value.weather[0].description),
-            number: `${value.main.temp.toFixed(1)}°`,
-            dropdownVisible: false,
-            position: index + 1
-        }));
+    if (response.ok) {
+        const data = await response.json();
+        console.log(data); // Log the data to the console 
+        if (data.success && data.location_code) { 
+            locations = transformData(data);
+        } else {
+            console.error('Data format is incorrect or missing key properties:', data);
+        }
+    } else {
+        console.error('Failed to fetch locations:', response.status);
+    }
+});
+
+    // Function to transform the data from the API into the required format
+    function transformData(apiData: any): Location[] {
+        let locationsArray: Location[] = [];
+        for (let i = 0; i < apiData.location_code.length; i++) {
+            locationsArray.push({
+                title: formatLocationName(apiData.location_code[i]), // format the location name
+                image: selectImage(apiData.weather_desc[i]),
+                number: `${apiData.temperature[i]}°`,
+                dropdownVisible: false,
+                position: i + 1
+            });
+        }
+        return locationsArray;
     }
 
+    // Function to format the location name
+    function formatLocationName(locationName: string): string {
+        return locationName.split('-')
+        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(' ');
+    }
+
+    // Function to select the correct image based on the weather type
     function selectImage(weatherType: string):any {
         console.log(weatherType)
         switch (weatherType) {
