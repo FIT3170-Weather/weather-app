@@ -141,7 +141,11 @@
         // change value back to lowercase and convert space to dash
         let str = items.split(",")[0].toLowerCase().replace(/ /g, '-')
         sessionStorage.setItem("location", str) // set user selected location to session storage 
-        window.location.reload() // reload the page the user is currently on
+        
+        if (window.location.pathname === "/" || window.location.pathname === "/forecast" || window.location.pathname === "/history") {
+            window.location.reload() // reload the page the user is currently on
+        }
+        else  window.location.href = "/" // Redirect to home page
     }
 
     // add logic and close modal
