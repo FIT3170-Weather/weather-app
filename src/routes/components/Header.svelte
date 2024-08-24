@@ -143,7 +143,7 @@
 <div class="drawer">
     <input id="my-drawer" type="checkbox" class="drawer-toggle" />
 
-    <!-- Header -->
+    <!-- Headers -->
     <div class="drawer-content fixed navbar bg-base-200 flex-row max-h-[48px] z-50 justify-between">
         <div class="pr-10 justify-self-start">
             <label for="my-drawer" class="btn btn-ghost px-1 md:hidden">

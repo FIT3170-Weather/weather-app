@@ -6,6 +6,7 @@ export const WeatherConditions = {
     LIGHT_RAIN : "light-rain",
     MODERATE_RAIN : "moderate-rain",
     THUNDER_STORM : "thunder-storm",
+    FOG: "fog"
 }
 
 export function getWeatherConditionImage(condition: string) : string {
@@ -24,6 +25,8 @@ export function getWeatherConditionImage(condition: string) : string {
             return "../../src/lib/images/dark.png";
         case WeatherConditions.SCATTERED_CLOULD:
             return "../../src/lib/images/cloud.png";
+        case WeatherConditions.FOG:
+            return "../../src/lib/images/foggy-day.png";
         default:
             return "../../src/lib/images/weather-3d-icon.png";
     }

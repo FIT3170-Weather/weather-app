@@ -10,11 +10,17 @@
     const url = `http://localhost:8000/historical`;
 
     let historicalData: any[] = []; // Initialize as an empty array
-    let location: string = `${data.location}, Malaysia`;
+    let location: string | null = data.location;
     let error: string | null = null;
     
     // Fetch historical data on mount
     onMount(async () => {
+        if (location) {
+            location = location.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase()) + ', ' + 'Malaysia'
+        }
+        else {
+            location = ""
+        }
         try {
             const response = await fetch(url, {
                 method: 'POST',

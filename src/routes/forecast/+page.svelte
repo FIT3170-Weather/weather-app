@@ -10,10 +10,17 @@
     const url = `http://localhost:8000/weather-forecast?location_code=${data.location}`;
     let selected = 'daily';
     let forecastData: any = null;
-    let location: string = `${data.location}, Malaysia`;
+    let location: string | null = data.location;
     let error: string | null = null;
 
     onMount(async () => {
+        if (location) {
+            location = location.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase()) + ', ' + 'Malaysia'
+        }
+        else {
+            location = ""
+        }
+        
         try {
             const response = await fetch(url);
             if (!response.ok) {

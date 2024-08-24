@@ -4,7 +4,6 @@
 	import { WeatherConditions } from "../../weatherConditions";
 
     let location = `${currentWeatherData.name}, Malaysia`; // Default
-    export let weather_condition = WeatherConditions.BROKEN_CLOUD;
 
     function getWeatherConditionImages (weather_description: string): any {
         switch (weather_description) {
