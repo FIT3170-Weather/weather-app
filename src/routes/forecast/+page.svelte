@@ -13,28 +13,54 @@
     let location: string | null = data.location;
     let error: string | null = null;
 
-    onMount(async () => {
-        if (location) {
-            location = location.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase()) + ', ' + 'Malaysia'
-        }
-        else {
-            location = ""
-        }
-        
+    let lastUpdate: Date | null = null; // Track last update time
+
+    let cacheKey = `weather-forecast-${data.location}`;
+    let cacheTimeKey = `${cacheKey}-timestamp`;
+    const cacheDuration = 15 * 60 * 1000; // 15 minutes
+
+    async function fetchData() {
         try {
             const response = await fetch(url);
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
             forecastData = await response.json();
-            if (!forecastData.hourly || !forecastData.daily) {
-                throw new Error("Incomplete data received from the server");
-            }
+            lastUpdate = new Date(); // Update the last update time
+            localStorage.setItem(cacheKey, JSON.stringify(forecastData));
+            localStorage.setItem(cacheTimeKey, lastUpdate.getTime().toString());
         } catch (err) {
             error = (err as Error).message;
             console.error('Error fetching forecast data:', error);
         }
+    }
+
+    onMount(async () => {
+        if (location) {
+            location = location.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase()) + ', ' + 'Malaysia';
+        } else {
+            location = "";
+        }
+
+        const cachedData = localStorage.getItem(cacheKey);
+        const cachedTime = localStorage.getItem(cacheTimeKey);
+        const now = Date.now();
+
+        if (cachedData && cachedTime && now - parseInt(cachedTime) < cacheDuration) {
+            forecastData = JSON.parse(cachedData);
+            lastUpdate = new Date(parseInt(cachedTime)); // Retrieve the last update time from cache
+        } else {
+            await fetchData();
+        }
     });
+
+    function formatDateTime(date: Date | null): string {
+        return date ? date.toLocaleString() : "N/A";
+    }
+
+    function manualUpdate() {
+        fetchData();
+    }
 
     // Function to format the time from the ISO string
     function formatTime(isoString: string): string {
@@ -153,6 +179,11 @@
     <header class="flex justify-start items-center w-full p-5 text-white text-2xl">
         <h1>{location}</h1>
     </header>
+
+    <div class="flex justify-between items-center w-full px-5 text-white">
+        <p>Last update: {formatDateTime(lastUpdate)}</p> <!-- Display last update time -->
+        <button class="py-2 px-4 text-lg btn" on:click={manualUpdate}>Update Now</button> <!-- Manual update button -->
+    </div>
 
     <div class="flex justify-center gap-5 py-5 w-full text-white">
         <button class="py-2 px-4 text-lg" on:click={() => selected = 'hourly'} style="border-bottom: {selected === 'hourly' ? '2.5px solid' : 'none'}">
