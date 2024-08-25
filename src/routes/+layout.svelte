@@ -9,9 +9,6 @@
 	export let data: LayoutData;
 </script>
 
-
-
-
 <div class="app min-h-dvh">
 	<SideNav></SideNav>
 	<Header searchData={data}></Header>

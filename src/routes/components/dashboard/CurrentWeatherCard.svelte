@@ -1,10 +1,22 @@
 <script lang="ts">
     export let currentWeatherData;
-    // console.log(currentWeatherData)
+    import { getWeatherConditionImage } from "../../weatherConditions";
+	import { WeatherConditions } from "../../weatherConditions";
 
     let location = `${currentWeatherData.name}, Malaysia`; // Default
-    // let temperature = "32"; // Default
-    // let feelTemperature = "40"; // Default
+
+    function getWeatherConditionImages (weather_description: string): any {
+        switch (weather_description) {
+            case "clear sky": return getWeatherConditionImage(WeatherConditions.CLEAR);
+            case "few clouds":return getWeatherConditionImage(WeatherConditions.FEW_CLOUD);
+            case "scattered clouds": return getWeatherConditionImage(WeatherConditions.SCATTERED_CLOULD);
+            case "broken clouds":return getWeatherConditionImage(WeatherConditions.BROKEN_CLOUD);
+            case "shower rain": return getWeatherConditionImage(WeatherConditions.LIGHT_RAIN);
+            case "rain": return getWeatherConditionImage(WeatherConditions.MODERATE_RAIN);
+            case "thunderstorm": return getWeatherConditionImage(WeatherConditions.THUNDER_STORM);
+            default: return getWeatherConditionImage(WeatherConditions.CLEAR);
+        }
+    }
 
     function convertEpochToLocalTime(epochTime : any) {
         // Convert epoch time to milliseconds
@@ -51,7 +63,9 @@
         </div>
         <!-- Weather image -->
         <div class="flex justify-center">
-            <img class="object-cover w-40 max-sm:w-32" src="../../src/lib/images/weather-3d-icon.png" alt="logo">
+            {#each currentWeatherData.weather as weather}
+                <img class="object-cover w-40 max-sm:w-32" src={getWeatherConditionImages(weather.description)} alt="logo">
+            {/each}
         </div>
         <!-- Temperature -->
         <div class="flex justify-center">

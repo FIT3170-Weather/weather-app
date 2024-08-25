@@ -1,18 +1,71 @@
 <script lang="ts">
-    let location = 'Kuala Lumpur, Malaysia';
+    // let location = 'Kuala Lumpur, Malaysia';
+    import { onMount } from 'svelte';
 
     import HistoryStat from "../components/history/HistoryStat.svelte";
     import HistoryInfo from "../components/history/HistoryInfo.svelte";
+    import type { LayoutData } from './$types';
+    export let data: LayoutData;
 
-    const historicalData = [
-        { day: 'Mon', date: '10/5', temp: '22°C', message: 'Sunny', humidity: 30, wind_speed: 5, wind_direction: "North", pressure: 996, precipitation: 5.92, uv_index: 4, uv_intensity: "Moderate", cloud_cover_percentage: 29},
-        { day: 'Tue', date: '10/6', temp: '18°C', message: 'Rainy', humidity: 29, wind_speed: 10, wind_direction: "East", pressure: 996, precipitation: 5.92, uv_index: 4, uv_intensity: "Moderate", cloud_cover_percentage: 35},
-        { day: 'Wed', date: '10/7', temp: '18°C', message: 'Rainy', humidity: 31, wind_speed: 7, wind_direction: "South", pressure: 997, precipitation: 6.00, uv_index: 4, uv_intensity: "Moderate", cloud_cover_percentage: 25},
-        { day: 'Thu', date: '10/8', temp: '20°C', message: 'Sunny', humidity: 30, wind_speed: 5, wind_direction: "North", pressure: 996, precipitation: 5.92, uv_index: 4, uv_intensity: "Moderate", cloud_cover_percentage: 29},
-        { day: 'Fri', date: '10/9', temp: '22°C', message: 'Sunny', humidity: 30, wind_speed: 5, wind_direction: "North", pressure: 996, precipitation: 5.92, uv_index: 4, uv_intensity: "Moderate", cloud_cover_percentage: 29},
-        { day: 'Sat', date: '10/10', temp: '22°C', message: 'Sunny', humidity: 30, wind_speed: 5, wind_direction: "North", pressure: 996, precipitation: 5.92, uv_index: 4, uv_intensity: "Moderate", cloud_cover_percentage: 29},
-        { day: 'Sun', date: '10/11', temp: '22°C', message: 'Sunny', humidity: 30, wind_speed: 5, wind_direction: "North", pressure: 996, precipitation: 5.92, uv_index: 4, uv_intensity: "Moderate", cloud_cover_percentage: 29},
-    ];
+    const url = `http://localhost:8000/historical`;
+
+    let historicalData: any[] = []; // Initialize as an empty array
+    let location: string | null = data.location;
+    let error: string | null = null;
+    
+    // Fetch historical data on mount
+    onMount(async () => {
+        if (location) {
+            location = location.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase()) + ', ' + 'Malaysia'
+        }
+        else {
+            location = ""
+        }
+        try {
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ location: data.location })
+            });
+            if (!response.ok) {
+                console.error("Response not OK:", response.status, await response.text());
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            const resData = await response.json();
+            if (resData.success) {
+                historicalData = resData.historical;
+            } else {
+                throw new Error("Data fetch was successful but no data was returned");
+            }
+        } catch (err) {
+            error = (err as Error).message;
+            console.error('Error fetching historical data:', error);
+        }
+        console.log(historicalData);
+    });
+
+
+    function formatDate(isoString: string): string {
+        const date = new Date(isoString);
+        return date.toLocaleDateString(undefined, { month: '2-digit', day: '2-digit' });
+    }
+
+    function formatDay(isoString: string): string {
+        const date = new Date(isoString);
+        return date.toLocaleDateString(undefined, { weekday: 'short' });
+    }
+
+    // "date": "2024-08-16",
+    //         "temperature_2m": 28.81,
+    //         "relative_humidity_2m": 78.92,
+    //         "precipitation": 0.14,
+    //         "pressure_msl": 1008.0,
+    //         "weather_code": "Thunderstorm",
+    //         "cloud_cover": 88.46,
+    //         "visibility": 18788.33,
+    //         "wind_speed_10m": 6.5
 
     let page_title = "Historical Data:";
     let page_title_description = "7-Day Review";
@@ -33,31 +86,33 @@
         <h1>{page_title_description}</h1>
     </div>
     <div class="flex flex-col w-full items-center px-5 md:px-0">
-        {#each historicalData as history}
-            <div class="m-2.5 p-4 border border-error-content bg-base-content bg-opacity-10 shadow-xl rounded-lg w-full md:w-4/5">
-                <div class="grid grid-cols-1 md:grid-cols-6 gap-4">
-                    <div class="md:col-span-2 col-span-1">
-                        <HistoryInfo
-                        day = {history.day}
-                        date = {history.date}
-                        message = {history.message}
-                        temp = {history.temp}
-                        />
-                    </div>
-                    <div class="md:col-span-4 col-span-1">
-                        <HistoryStat
-                            humidity_percentage={history.humidity}
-                            wind_speed={history.wind_speed}
-                            wind_direction={history.wind_direction}
-                            pressure={history.pressure}
-                            percipitation={history.precipitation}
-                            uv_index={history.uv_index}
-                            uv_intensity={history.uv_intensity}
-                            cloud_cover_percentage={history.cloud_cover_percentage}
-                        />
+        {#if historicalData && Array.isArray(historicalData)}
+            {#each historicalData as history}
+                <div class="m-2.5 p-4 border border-error-content bg-base-content bg-opacity-10 shadow-xl rounded-lg w-full md:w-4/5">
+                    <div class="grid grid-cols-1 md:grid-cols-6 gap-4">
+                        <div class="md:col-span-2 col-span-1">
+                            <HistoryInfo
+                            day = {history.date ? formatDay(history.date) : "N/A"}
+                            date = {history.date ? formatDate(history.date) : "N/A"}
+                            message = {history.weather_code ? history.weather_code : "N/A"}
+                            temp = {`${history.temperature_2m ? history.temperature_2m + "°C" : "N/A"}`}
+                            />
+                        </div>
+                        <div class="md:col-span-4 col-span-1">
+                            <HistoryStat
+                                humidity_percentage={history.relative_humidity_2m ? history.relative_humidity_2m : "N/A"}
+                                wind_speed={history.wind_speed_10m ? history.wind_speed_10m : "N/A"}
+                                pressure={history.pressure_msl ? history.pressure_msl : "N/A"}
+                                percipitation={history.precipitation ? history.precipitation : "N/A"}
+                                visibility={history.visibility ? history.visibility : "N/A"}
+                                cloud_cover_percentage={history.cloud_cover ? history.cloud_cover : "N/A"}
+                            />
+                        </div>
                     </div>
                 </div>
-            </div>
-        {/each}
+            {/each}
+        {:else}
+            <div>Loading or no historical data available.</div>
+        {/if}
     </div>
 </section>
