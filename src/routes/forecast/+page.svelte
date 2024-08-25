@@ -180,9 +180,13 @@
         <h1>{location}</h1>
     </header>
 
-    <div class="flex justify-between items-center w-full px-5 text-white">
-        <p>Last update: {formatDateTime(lastUpdate)}</p> <!-- Display last update time -->
-        <button class="py-2 px-4 text-lg btn" on:click={manualUpdate}>Update Now</button> <!-- Manual update button -->
+    <div class="grid md:grid-cols-12 grid-cols-1 justify-between items-center w-full px-5">
+        <p class="col-span-2">Last update: {formatDateTime(lastUpdate)}</p> <!-- Display last update time -->
+        <!-- spacer -->
+        <div class="col-span-8"></div>
+        <div class="col-span-2 md:text-right text-left"> <!-- Align the button to the right -->
+            <button class="py-2 md:text-base text-sm btn text-error-content max-w-40 max-h-2" on:click={manualUpdate}>Update Now</button> <!-- Manual update button -->
+        </div>
     </div>
 
     <div class="flex justify-center gap-5 py-5 w-full text-white">
