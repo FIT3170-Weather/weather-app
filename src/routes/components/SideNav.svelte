@@ -99,11 +99,11 @@
         </form>
         {#if $user}
           <!-- Sign Out Modal Content -->
-          <h3 class="text-2xl font-semibold ">Sign Out</h3>
+          <h3 class="text-2xl font-semibold">Sign Out</h3>
           <p class=" text-lg mt-4 text-center">Are you sure you want to sign out?</p>
           <div class="text-center mt-4">
             <button class="w-[122px] h-[40px] m-[5px] rounded btn" on:click={signOut}>
-              Sign Out
+              <p3>Sign Out</p3>
             </button>
           </div>
         {:else}
