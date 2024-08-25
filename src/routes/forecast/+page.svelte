@@ -46,6 +46,8 @@
         const cachedTime = localStorage.getItem(cacheTimeKey);
         const now = Date.now();
 
+        // implement cache to store the data
+        // so the data will not be fetched every time the page is loaded that will take time
         if (cachedData && cachedTime && now - parseInt(cachedTime) < cacheDuration) {
             forecastData = JSON.parse(cachedData);
             lastUpdate = new Date(parseInt(cachedTime)); // Retrieve the last update time from cache
@@ -184,7 +186,7 @@
         <p class="col-span-2">Last update: {formatDateTime(lastUpdate)}</p> <!-- Display last update time -->
         <!-- spacer -->
         <div class="col-span-8"></div>
-        <div class="col-span-2 md:text-right text-left"> <!-- Align the button to the right -->
+        <div class="col-span-2 md:text-right text-left">
             <button class="py-2 md:text-base text-sm btn text-error-content max-w-40 max-h-2" on:click={manualUpdate}>Update Now</button> <!-- Manual update button -->
         </div>
     </div>
