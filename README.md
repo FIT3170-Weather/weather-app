@@ -18,22 +18,17 @@ The application is a web app that is built using NodeJS, SvelteKit, TailwindCSS,
 There is a machine learning component to this web app, which predicts the weather for the next 7 days. This component is hosted in another repository.
 
 ## Software Requirements
-List all software, dependencies, and versions required to run the project. This may include:
-- Programming languages (e.g., Python 3.x)
-- Libraries and frameworks (e.g., MetPy, Flask, etc.)
-- Any other software (e.g., IDEs, build tools)
-
-### Example:
-- Python 3.9+
-- Flask 2.1.0
-- MetPy 1.3.1
-- Jupyter Notebook
+- Node.js
+- Svelte
+- SvelteKit
+- Tailwind-CSS
+- DaisyUI
+- Chart.js
+- Firebase
+- tested on Windows 11 and MacOS
 
 ## Hardware Requirements
-If applicable, mention any specific hardware requirements or considerations:
-- Sensors
-- Development boards
-- Specific configurations needed for testing
+- Requires a device which is able to connect to the internet and is able to run two separate repos simultaneously.
 
 ## Setup and Installation Instructions
 Provide step-by-step instructions on how to set up the development environment and install the necessary dependencies.
