@@ -38,21 +38,15 @@ Front-end
 - Open the develop branch in the weather-app respository in your prefered IDE.
 - Run "npm install" in the new terminal to download any other dependency.
 
-### Example:
-
 ## How to Run the Project
 Explain how to run the application or scripts, including any commands or parameters.
 Front-end
 - Open the develop branch in the weather-app respository in your prefered IDE.
 - Run "npm run dev" in a new terminal and click the "http://localhost:5173/" link to open the application.
-
-### Example:
-
+- 
 ## Common Issues and Troubleshooting
 
 List common errors or issues developers might encounter, along with their solutions. This section is especially helpful for future developers.
-
-### Example:
 
 ## Putting Everything Together
 
