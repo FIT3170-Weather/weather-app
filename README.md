@@ -46,9 +46,16 @@ Front-end
 - 
 ## Common Issues and Troubleshooting
 
-List common errors or issues developers might encounter, along with their solutions. This section is especially helpful for future developers.
+### Issue 1: Firebase Error (auth/invalid-api-key).
+1. Ensure that there is a `.env` file in the root directory of the project.
+2. Ensure that the content of the `.env` file is correct.
 
 ## Putting Everything Together
+
+### To run everything together...
+1. Ensure `weather-forecasting` and `forecast-api` repositories are place in the same directory.
+2. run the `weather-app` repository using "npm run dev" in the terminal, refer to [How to Run the Project](#how-to-run-the-project) for more info.
+3. run the `forecast-api` repository by running the `main.py` at the root directory of that repository, refer to [`forecast-api`](https://github.com/FIT3170-Weather/forecast-api) for more info.
 
 ## Additional Notes
 Provide any extra information that doesn’t fit in the other sections
