@@ -33,17 +33,17 @@ There is a machine learning component to this web app, which predicts the weathe
 ## Setup and Installation Instructions
 Provide step-by-step instructions on how to set up the development environment and install the necessary dependencies.
 Front-end
-- Install the all the relavant dependency that is located in the software requirement.
-- Clone the weather-app respository on to your device.
-- Open the develop branch in the weather-app respository in your prefered IDE.
-- Run "npm install" in the new terminal to download any other dependency.
+1. Install the all the relavant dependency that is located in the software requirement.
+2. Clone the weather-app respository on to your device.
+3. Open the develop branch in the weather-app respository in your prefered IDE.
+4. Run "npm install" in the new terminal to download any other dependency.
 
 ## How to Run the Project
 Explain how to run the application or scripts, including any commands or parameters.
 Front-end
-- Open the develop branch in the weather-app respository in your prefered IDE.
-- Run "npm run dev" in a new terminal and click the "http://localhost:5173/" link to open the application.
-- 
+1. Open the develop branch in the weather-app respository in your prefered IDE.
+2. Run "npm run dev" in a new terminal and click the "http://localhost:5173/" link to open the application.
+
 ## Common Issues and Troubleshooting
 
 ### Issue 1: Firebase Error (auth/invalid-api-key).
