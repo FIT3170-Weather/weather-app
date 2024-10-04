@@ -12,22 +12,22 @@ export const WeatherConditions = {
 export function getWeatherConditionImage(condition: string) : string {
     switch (condition) {
         case WeatherConditions.CLEAR:
-            return "../../src/lib/images/sun.png";
+            return "/images/sun.png";
         case WeatherConditions.FEW_CLOUD:
-            return "../../src/lib/images/weather-3d-icon.png";
+            return "/images/weather-3d-icon.png";
         case WeatherConditions.LIGHT_RAIN:
-            return "../../src/lib/images/rain.png";
+            return "/images/rain.png";
         case WeatherConditions.MODERATE_RAIN:
-            return "../../src/lib/images/storm.png";
+            return "/images/storm.png";
         case WeatherConditions.THUNDER_STORM:
-            return "../../src/lib/images/thunder.png";
+            return "/images/thunder.png";
         case WeatherConditions.BROKEN_CLOUD:
-            return "../../src/lib/images/dark.png";
+            return "/images/dark.png";
         case WeatherConditions.SCATTERED_CLOULD:
-            return "../../src/lib/images/cloud.png";
+            return "/images/cloud.png";
         case WeatherConditions.FOG:
-            return "../../src/lib/images/foggy-day.png";
+            return "/images/foggy-day.png";
         default:
-            return "../../src/lib/images/weather-3d-icon.png";
+            return "/images/weather-3d-icon.png";
     }
 }

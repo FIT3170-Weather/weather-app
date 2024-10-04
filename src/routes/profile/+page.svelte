@@ -200,7 +200,7 @@
 	<div class="p-10">
 		<div class="h-max text-4xl font-semibold" style="padding-bottom: 30px;">Profile</div>
 		<div class="avatar grid-item w-25 rounded-full" style="height: 150px;">
-			<img src="../src/lib/images/avatar_default.png" alt="avatar" />
+			<img src="/images/avatar_default.png" alt="avatar" />
 		</div>
 
 		<div class="h-max text-2xl font-semibold py-5">User Information</div>
@@ -208,7 +208,7 @@
 			<div class="col-span-2 lg:col-span-1">
 				<span class="text-lg font-bold">Name</span>
 				<button class="btn btn-ghost btn-xs" on:click={openEditNameModal}>
-					<img src="../../src/lib/images/edit_icon.png" alt="Edit" class="h-full w-full icon" />
+					<img src="/images/edit_icon.png" alt="Edit" class="h-full w-full icon" />
 				</button>
 			</div>
 			<div class="col-span-2 lg:col-span-1 text-lg">
@@ -220,7 +220,7 @@
 			<div class="col-span-2 lg:col-span-1">
 				<span class="text-lg font-bold">Home Location</span>
 				<button class="btn btn-ghost btn-xs" on:click={openEditLocationModal}>
-					<img src="../../src/lib/images/edit_icon.png" alt="Edit" class="h-full w-full icon" />
+					<img src="/images/edit_icon.png" alt="Edit" class="h-full w-full icon" />
 				</button>
 			</div>
 			<div class="col-span-2 lg:col-span-1 text-lg">

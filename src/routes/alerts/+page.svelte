@@ -194,7 +194,7 @@
 								<th class="text-end">
 									<button class="btn btn-ghost btn-xs" on:click={removeLocation(location)}>
 										<img
-											src="../../src/lib/images/delete_icon.png"
+											src="/images/delete_icon.png"
 											alt="Delete"
 											class="h-full w-full icon"
 										/>
