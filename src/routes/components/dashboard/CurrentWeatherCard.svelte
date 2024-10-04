@@ -63,9 +63,9 @@
         </div>
         <!-- Weather image -->
         <div class="flex justify-center">
-            {#each currentWeatherData.weather as weather}
-                <img class="object-cover w-40 max-sm:w-32" src={getWeatherConditionImages(weather.description)} alt="logo">
-            {/each}
+            {#if currentWeatherData.weather.length > 0}
+                <img class="object-cover w-40 max-sm:w-32" src={getWeatherConditionImages(currentWeatherData.weather[0].description)} alt="logo">
+            {/if}
         </div>
         <!-- Temperature -->
         <div class="flex justify-center">
