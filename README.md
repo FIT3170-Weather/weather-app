@@ -46,7 +46,7 @@ Front-end
 
 Back-end 
 1. Run "npm install firebase". 
-2. Ensure ".env" file is created seperately with appropriate contents.
+2. Ensure `.env` file is created seperately with appropriate contents.
 
 ## How to Run the Project
 
