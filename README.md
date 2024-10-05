@@ -44,6 +44,10 @@ Front-end
 3. Open the develop branch in the weather-app respository in your prefered IDE.
 4. Run "npm install" in the new terminal to download any other dependency.
 
+Back-end 
+1. Run "npm install firebase". 
+2. Ensure ".env" file is created seperately with appropriate contents.
+
 ## How to Run the Project
 
 Explain how to run the application or scripts, including any commands or parameters.
