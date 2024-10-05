@@ -34,7 +34,7 @@
 	// Use the fetch API to make the POST request
 	onMount(async () => {
 		try {
-			const urlProfileData = `/api/profiles/` + sessionStorage.getItem('userId');
+			const urlProfileData = `/forecast-api/profiles/` + sessionStorage.getItem('userId');
 			// Make the POST request using fetch
 			const response = await fetch(urlProfileData, {
 				method: 'POST',
@@ -102,7 +102,8 @@
 		if (isValidName) {
 			username = newName;
 			let errorUpdateUsername = null;
-			const urlUpdateUsername = `/api/update_profile_data/` + sessionStorage.getItem('userId');
+			const urlUpdateUsername =
+				`/forecast-api/update_profile_data/` + sessionStorage.getItem('userId');
 			// Create the request body
 			const updateBody = {
 				username: newName
@@ -154,7 +155,8 @@
 		console.log(newLocation);
 
 		let errorUpdateHomeLocation = null;
-		const urlUpdateHomeLocation = `/api/update_profile_data/` + sessionStorage.getItem('userId');
+		const urlUpdateHomeLocation =
+			`/forecast-api/update_profile_data/` + sessionStorage.getItem('userId');
 		// Create the request body
 		const updateBody = {
 			home_location: newLocation

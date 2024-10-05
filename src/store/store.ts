@@ -25,7 +25,7 @@ export const authHandlers = {
 			authStore.set({ user });
 
 			// api to create user profile
-			const secondResult = await fetch('/api/create_profile/' + user.uid, {
+			const secondResult = await fetch('/forecast-api/create_profile/' + user.uid, {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json'
@@ -35,7 +35,7 @@ export const authHandlers = {
 			console.log(res1.message);
 			if (res1.detail == null) {
 				// api to add user profile data
-				const thirdResult = await fetch('/api/update_profile_data/' + user.uid, {
+				const thirdResult = await fetch('/forecast-api/update_profile_data/' + user.uid, {
 					method: 'PUT',
 					headers: {
 						'Content-Type': 'application/json'

@@ -7,7 +7,7 @@
 	import type { LayoutData } from './$types';
 	export let data: LayoutData;
 
-	const url = `/api/historical`;
+	const url = `/forecast-api/historical`;
 
 	let historicalData: any[] = []; // Initialize as an empty array
 	let location: string | null = data.location;

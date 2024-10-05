@@ -54,13 +54,16 @@
 
 	async function updateDatabase(newLocationsList: string[]) {
 		try {
-			const response = await fetch('/api/update_location/' + sessionStorage.getItem('userId'), {
-				method: 'PUT',
-				headers: {
-					'Content-Type': 'application/json'
-				},
-				body: JSON.stringify({ locations: newLocationsList })
-			});
+			const response = await fetch(
+				'/forecast-api/update_location/' + sessionStorage.getItem('userId'),
+				{
+					method: 'PUT',
+					headers: {
+						'Content-Type': 'application/json'
+					},
+					body: JSON.stringify({ locations: newLocationsList })
+				}
+			);
 
 			if (!response.ok) {
 				// Handle non-2xx status codes
@@ -81,7 +84,7 @@
 
 	// Use the fetch API to make the POST request
 	onMount(async () => {
-		const urlAlert = `/api/profiles/` + sessionStorage.getItem('userId');
+		const urlAlert = `/forecast-api/profiles/` + sessionStorage.getItem('userId');
 		try {
 			// Make the POST request using fetch
 			const responseAlert = await fetch(urlAlert, {
@@ -108,7 +111,7 @@
 
 	const updateAlerts = async (state: any): Promise<any> => {
 		let errorUpdateAlert = null;
-		const urlUpdateAlert = `/api/update_alert/` + sessionStorage.getItem('userId');
+		const urlUpdateAlert = `/forecast-api/update_alert/` + sessionStorage.getItem('userId');
 		// Create the request body
 		const updateBody = {
 			alerts: state

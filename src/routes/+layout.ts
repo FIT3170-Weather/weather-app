@@ -3,7 +3,7 @@ import type { LayoutLoad } from './$types';
 // these values can be used in any component/ child component of this layout
 // example of how to use can be found in +page.svelte (make sure to use "data" as variable name for "export let data" or it wont work)
 export const load: LayoutLoad = async ({ fetch }) => {
-	const res = await fetch('/api/locations');
+	const res = await fetch('/forecast-api/locations');
 	const locations = await res.json();
 
 	if (typeof window !== 'undefined' && sessionStorage.getItem('location') != null) {

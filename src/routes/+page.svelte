@@ -6,7 +6,7 @@
 	import { onMount } from 'svelte';
 
 	// URL for the current data
-	const url = '/api/current';
+	const url = '/forecast-api/current';
 
 	// data from layout.ts (current location to display for main dashboard)
 	// data has two keys location and locations

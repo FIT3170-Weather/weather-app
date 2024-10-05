@@ -15,7 +15,7 @@
 	let locations: Location[] = [];
 
 	onMount(async () => {
-		const response = await fetch(`/api/all-locations-current`, {
+		const response = await fetch(`/forecast-api/all-locations-current`, {
 			method: 'GET',
 			headers: {
 				'Content-Type': 'application/json'

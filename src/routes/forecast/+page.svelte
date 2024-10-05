@@ -7,7 +7,7 @@
 	import { WeatherConditions } from '../weatherConditions';
 	export let data: LayoutData;
 
-	const url = `/api/weather-forecast?location_code=${data.location}`;
+	const url = `/forecast-api/weather-forecast?location_code=${data.location}`;
 	let selected = 'daily';
 	let forecastData: any = null;
 	let location: string | null = data.location;
