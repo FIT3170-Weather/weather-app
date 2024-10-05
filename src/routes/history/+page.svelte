@@ -7,7 +7,7 @@
 	import type { LayoutData } from './$types';
 	export let data: LayoutData;
 
-	const url = `http://127.0.0.1:8000/historical`;
+	const url = `/api/historical`;
 
 	let historicalData: any[] = []; // Initialize as an empty array
 	let location: string | null = data.location;

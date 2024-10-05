@@ -113,7 +113,7 @@
 	onMount(async () => {
 		location = datas.location;
 		try {
-			const urlGraphData = `http://127.0.0.1:8000/monthly?location_code=` + location;
+			const urlGraphData = `/api/monthly?location_code=` + location;
 			// Make the POST request using fetch
 			const response = await fetch(urlGraphData, {
 				method: 'GET',

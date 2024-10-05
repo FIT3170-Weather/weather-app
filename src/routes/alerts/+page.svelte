@@ -54,16 +54,13 @@
 
 	async function updateDatabase(newLocationsList: string[]) {
 		try {
-			const response = await fetch(
-				'http://127.0.0.1:8000/update_location/' + sessionStorage.getItem('userId'),
-				{
-					method: 'PUT',
-					headers: {
-						'Content-Type': 'application/json'
-					},
-					body: JSON.stringify({ locations: newLocationsList })
-				}
-			);
+			const response = await fetch('/api/update_location/' + sessionStorage.getItem('userId'), {
+				method: 'PUT',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify({ locations: newLocationsList })
+			});
 
 			if (!response.ok) {
 				// Handle non-2xx status codes
@@ -84,7 +81,7 @@
 
 	// Use the fetch API to make the POST request
 	onMount(async () => {
-		const urlAlert = `http://127.0.0.1:8000/profiles/` + sessionStorage.getItem('userId');
+		const urlAlert = `/api/profiles/` + sessionStorage.getItem('userId');
 		try {
 			// Make the POST request using fetch
 			const responseAlert = await fetch(urlAlert, {
@@ -111,7 +108,7 @@
 
 	const updateAlerts = async (state: any): Promise<any> => {
 		let errorUpdateAlert = null;
-		const urlUpdateAlert = `http://127.0.0.1:8000/update_alert/` + sessionStorage.getItem('userId');
+		const urlUpdateAlert = `/api/update_alert/` + sessionStorage.getItem('userId');
 		// Create the request body
 		const updateBody = {
 			alerts: state
@@ -193,11 +190,7 @@
 								<td class="text-lg">{convertTextToUserView(location)}</td>
 								<th class="text-end">
 									<button class="btn btn-ghost btn-xs" on:click={removeLocation(location)}>
-										<img
-											src="/images/delete_icon.png"
-											alt="Delete"
-											class="h-full w-full icon"
-										/>
+										<img src="/images/delete_icon.png" alt="Delete" class="h-full w-full icon" />
 									</button>
 								</th>
 							</tr>

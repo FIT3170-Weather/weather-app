@@ -15,7 +15,7 @@
 	let locations: Location[] = [];
 
 	onMount(async () => {
-		const response = await fetch(`http://127.0.0.1:8000/all-locations-current`, {
+		const response = await fetch(`/api/all-locations-current`, {
 			method: 'GET',
 			headers: {
 				'Content-Type': 'application/json'

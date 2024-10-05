@@ -34,7 +34,7 @@
 	// Use the fetch API to make the POST request
 	onMount(async () => {
 		try {
-			const urlProfileData = `http://127.0.0.1:8000/profiles/` + sessionStorage.getItem('userId');
+			const urlProfileData = `/api/profiles/` + sessionStorage.getItem('userId');
 			// Make the POST request using fetch
 			const response = await fetch(urlProfileData, {
 				method: 'POST',
@@ -102,8 +102,7 @@
 		if (isValidName) {
 			username = newName;
 			let errorUpdateUsername = null;
-			const urlUpdateUsername =
-				`http://127.0.0.1:8000/update_profile_data/` + sessionStorage.getItem('userId');
+			const urlUpdateUsername = `/api/update_profile_data/` + sessionStorage.getItem('userId');
 			// Create the request body
 			const updateBody = {
 				username: newName
@@ -155,8 +154,7 @@
 		console.log(newLocation);
 
 		let errorUpdateHomeLocation = null;
-		const urlUpdateHomeLocation =
-			`http://127.0.0.1:8000/update_profile_data/` + sessionStorage.getItem('userId');
+		const urlUpdateHomeLocation = `/api/update_profile_data/` + sessionStorage.getItem('userId');
 		// Create the request body
 		const updateBody = {
 			home_location: newLocation
