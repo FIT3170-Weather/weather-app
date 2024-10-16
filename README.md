@@ -78,7 +78,7 @@ Provide any extra information that doesn’t fit in the other sections
 ## Version Strategy for future release
 
 We will ultilize Semantic Versioning to keep track and outline the future releases of our application in a table below which includes the Semantic version and its decription 
-in every repository README file.
+in every repository README file. 
 
 | Version             | Descripion                                               |
 | --------------------| -------------------------------------------------------- | 
@@ -88,6 +88,36 @@ in every repository README file.
 |  2.0.0              |  Switch to a new weather data provider                   | 
 |  2.1.0              |  Added support for air quality index and pollution data. | 
 
+## Contributing / Pull Request Strategy
+We welcome contributions from the community! To get started, follow these steps:
+
+### Fork the Repository
+-Fork this repository to your own GitHub account to safely make changes.
+### Setup
+- Clone your forked repository.
+- Install necessary dependencies and set up environment variables as instructed.
+### Create a Feature Branch
+- Create a new branch from your fork’s main branch for each feature or bug fix (e.g., feature/add-wind-speed).
+- Ensure your fork is synced with the upstream repository before starting to avoid conflicts.
+### Follow Contribution Guidelines
+- Adhere to the project’s code style and structure.
+- Write tests for new features or fixes, if applicable.
+### Open a Pull Request
+- Push changes to your fork and open a pull request (PR) to the main branch of the original repository.
+- In your PR, include:
+    1. A clear summary of the changes.
+    2. Any related issues.
+    3. Instructions on how to test the changes.
+### Code Review
+- The maintainers will review your PR for code quality, correctness, and performance.
+- Be prepared to address feedback and make changes as needed.
+### Rebase and Merge
+- After approval, rebase your branch with the latest changes from the main branch.
+- The maintainers will handle the final Rebase and Merge.
+### Documentation
+- Update any relevant documentation if your changes affect usage or features.
+### Follow-up
+- Stay engaged after your PR is merged to help with any issues or feedback related to your contribution.
 
 
 ## Contact Information
