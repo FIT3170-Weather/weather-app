@@ -75,6 +75,21 @@ Front-end
 
 Provide any extra information that doesn’t fit in the other sections
 
+## Version Strategy for future release
+
+We will ultilize Semantic Versioning to keep track and outline the future releases of our application in a table below which includes the Semantic version and its decription 
+in every repository README file.
+
+| Version             | Descripion                                               |
+| --------------------| -------------------------------------------------------- | 
+|  1.0.0              | Initial release of our weather application               | 
+|  1.1.0              | Added radar map feature and weather alerts.              | 
+|  1.1.1              | Bug fix: fixed crash in radar map for older devices      | 
+|  2.0.0              |  Switch to a new weather data provider                   | 
+|  2.1.0              |  Added support for air quality index and pollution data. | 
+
+
+
 ## Contact Information
 
 | Name                       | Email                       | Student ID |
